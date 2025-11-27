@@ -9,7 +9,8 @@ import {
     Package,
     Building2,
     UserCheck,
-    LogOut
+    LogOut,
+    Search
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signOut } from "next-auth/react";
@@ -20,6 +21,12 @@ const routes = [
         icon: LayoutDashboard,
         href: "/dashboard",
         color: "text-sky-500",
+    },
+    {
+        label: "Consultas Avançadas",
+        icon: Search,
+        href: "/consultas",
+        color: "text-blue-500",
     },
     {
         label: "Beneficiários",

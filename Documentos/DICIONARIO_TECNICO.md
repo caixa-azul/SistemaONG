@@ -54,6 +54,10 @@ Bem-vindo ao glossário do projeto! Este documento foi criado para desmistificar
 **O que é:** Componentes que rodam no navegador do usuário. Eles podem ter interatividade (cliques, `useState`, `useEffect`).
 **Regra:** Se precisa de `onClick` ou `onChange`, é Client Component.
 
+### Debounce
+**O que é:** Uma técnica para evitar que uma função rode muitas vezes seguidas.
+**Exemplo:** Quando você digita na busca, esperamos você parar de digitar por 300ms antes de enviar a requisição ao servidor. Isso evita travar o banco de dados com buscas inúteis ("M", "Ma", "Mar", "Mari", "Maria").
+
 ### Server Component (Padrão)
 **O que é:** Componentes que rodam **apenas** no servidor. Eles buscam dados, renderizam o HTML e enviam pronto para o navegador. São mais rápidos e seguros, mas não têm interatividade direta.
 
@@ -103,6 +107,10 @@ Bem-vindo ao glossário do projeto! Este documento foi criado para desmistificar
 ### ORM (Object-Relational Mapping)
 **O que é:** Um "tradutor" que permite mexer no banco de dados usando código JavaScript em vez de SQL puro.
 **No nosso projeto:** Usamos o **Prisma**.
+
+### Server-Side Pagination
+**O que é:** Dividir os resultados em páginas (Página 1, 2, 3...) direto no servidor.
+**Por que:** Se tivermos 1 milhão de registros, não podemos enviar tudo para o navegador de uma vez (ia travar tudo). O servidor manda só os 10 primeiros, depois os próximos 10, e assim por diante.
 
 ### Race Condition (Condição de Corrida)
 **O que é:** Um bug que acontece quando dois processos tentam mudar o mesmo dado ao mesmo tempo e o resultado depende da sorte de quem chega primeiro.
@@ -159,6 +167,10 @@ Bem-vindo ao glossário do projeto! Este documento foi criado para desmistificar
 
 ### RevalidatePath
 **O que é:** Um comando para "limpar o cache". Diz ao Next.js: "Os dados mudaram, por favor, reconstrua essa página com as informações novas na próxima vez que alguém acessar".
+
+### Search Params (URL Query Parameters)
+**O que é:** Aquela parte da URL depois do `?` (ex: `?search=maria&page=1`).
+**Uso:** Usamos para guardar o estado dos filtros. Assim, se você recarregar a página, a busca continua lá. Também permite compartilhar o link com o filtro aplicado.
 
 ---
 

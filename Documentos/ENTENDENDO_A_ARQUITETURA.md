@@ -110,6 +110,32 @@ Imagine que esses componentes são enviados para o **computador do usuário** e 
 
 ---
 
+## 🧠 Gerenciamento de Estado: URL vs React State
+
+Uma das decisões mais importantes na arquitetura do "Data Explorer" (Consultas) foi onde guardar o estado dos filtros.
+
+### ❌ O Jeito "Amador" (React State)
+Guardar filtros em `useState`:
+```tsx
+const [search, setSearch] = useState('');
+```
+- **Problema:** Se você der F5, perde tudo.
+- **Problema:** Você não pode mandar o link da busca para seu chefe ("Olha as distribuições da Maria").
+
+### ✅ O Jeito "Senior" (URL Search Params)
+Guardar filtros na URL: `?search=Maria&page=2`
+- **Vantagem:** O estado é global e persistente.
+- **Vantagem:** Compartilhável (Deep Linking).
+- **Como funciona:**
+    1. O usuário digita.
+    2. Atualizamos a URL (`router.replace`).
+    3. O Server Component lê a URL (`searchParams`).
+    4. O Server Action busca no banco com base nesses parâmetros.
+
+Isso também permite **Server-Side Filtering**, tirando o peso do navegador do usuário e processando tudo no servidor, que é muito mais rápido.
+
+---
+
 ## 🛡️ Camadas de Segurança
 
 Não confiamos em ninguém. Por isso temos segurança em várias camadas:
