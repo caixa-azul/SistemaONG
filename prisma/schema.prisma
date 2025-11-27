@@ -1,0 +1,494 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// AUTHENTICATION & USERS
+// ============================================
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String? // Hashed
+  role      UserRole @default(VOLUNTEER)
+  image     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  donationsRegistered        Donation[]                  @relation("RegisteredBy")
+  familyDistributions        FamilyDistribution[]
+  institutionalDistributions InstitutionalDistribution[]
+}
+
+// ============================================
+// MODULE A: BENEFICIARY MANAGEMENT
+// ============================================
+model Beneficiary {
+  id String @id @default(cuid())
+
+  // Personal Information
+  fullName      String
+  dateOfBirth   DateTime
+  gender        String?
+  race          Race?
+  cpf           String   @unique
+  rg            String?
+  maritalStatus MaritalStatus?
+  phoneNumber   String?
+  email         String?
+
+  // Address (normalized)
+  addressId String?
+  address   Address? @relation(fields: [addressId], references: [id])
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  socialAssessment      SocialAssessment?
+  imageAuthorization    ImageAuthorization?
+  nutritionistReferrals NutritionistReferral[]
+  familyDistributions   FamilyDistribution[]
+
+  @@index([cpf])
+  @@index([fullName])
+}
+
+model SocialAssessment {
+  id            String      @id @default(cuid())
+  beneficiaryId String      @unique
+  beneficiary   Beneficiary @relation(fields: [beneficiaryId], references: [id], onDelete: Cascade)
+
+  // Household info
+  householdSize    Int
+  housingType      HousingType
+  housingCondition HousingCondition
+  familyIncome     String // Flexible: "R$ 1.200,00" or "2 salários mínimos"
+
+  // Services Access
+  healthAccess         HealthAccess[]
+  hasSanitation        Boolean        @default(false)
+  hasWater             Boolean        @default(false)
+  hasSewage            Boolean        @default(false)
+  hasGarbageCollection Boolean        @default(false)
+
+  // Education
+  hasSchoolNearby    Boolean @default(false)
+  schoolName         String?
+  hasPublicTransport Boolean @default(false)
+
+  // Social Programs
+  socialPrograms SocialProgram[]
+
+  // Consent
+  consentGiven Boolean   @default(false)
+  consentDate  DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Family members
+  familyMembers FamilyMember[]
+}
+
+model FamilyMember {
+  id                 String           @id @default(cuid())
+  socialAssessmentId String
+  socialAssessment   SocialAssessment @relation(fields: [socialAssessmentId], references: [id], onDelete: Cascade)
+
+  name           String
+  age            Int
+  relationship   FamilyRelationship // e.g., "filho", "cônjuge"
+  educationLevel String?
+  isStudying     Boolean @default(false)
+  occupation     String?
+  isPCD          Boolean @default(false) // Pessoa com Deficiência
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ImageAuthorization {
+  id            String      @id @default(cuid())
+  beneficiaryId String      @unique
+  beneficiary   Beneficiary @relation(fields: [beneficiaryId], references: [id], onDelete: Cascade)
+
+  // Authorization details
+  startDate     DateTime
+  endDate       DateTime
+  commercialUse Boolean  @default(false)
+
+  // Signatures
+  signaturePath        String? // Path to signature image
+  witnessName          String?
+  witnessSignaturePath String?
+  signedAt             DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NutritionistReferral {
+  id            String      @id @default(cuid())
+  beneficiaryId String
+  beneficiary   Beneficiary @relation(fields: [beneficiaryId], references: [id], onDelete: Cascade)
+
+  // Referral info
+  specialty  Specialty
+  indication String? // "Criança c/ comorbidade", "Gestante alto risco", etc.
+
+  // Health metrics
+  weight Decimal?
+  height Decimal?
+
+  // Notes
+  observations String?
+
+  // Metadata
+  referredBy   String // Name of the person making referral
+  referrerRole String
+  referralDate DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([beneficiaryId])
+  @@index([referralDate])
+}
+
+// ============================================
+// MODULE B: FAMILY ASSISTANCE (Direct Distribution)
+// ============================================
+model FamilyDistribution {
+  id String @id @default(cuid())
+
+  // Recipient
+  beneficiaryId String
+  beneficiary   Beneficiary @relation(fields: [beneficiaryId], references: [id], onDelete: Cascade)
+
+  // Distribution details
+  distributionType FamilyDistributionType
+  program          DistributionProgram? // CONAB, Acolhimento, etc.
+
+  quantity     Int
+  deliveryDate DateTime
+
+  // Signature
+  signaturePath String?
+
+  // Notes
+  observations String?
+
+  // Metadata
+  createdById String
+  createdBy   User     @relation(fields: [createdById], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([beneficiaryId])
+  @@index([deliveryDate])
+  @@index([program])
+}
+
+// ============================================
+// MODULE C: INSTITUTIONAL PARTNERSHIP (B2B Distribution)
+// ============================================
+model Institution {
+  id String @id @default(cuid())
+
+  // Institution details
+  name  String
+  cnpj  String  @unique
+  email String?
+  phone String?
+
+  // Address
+  addressId String?
+  address   Address? @relation(fields: [addressId], references: [id])
+
+  // Contact person
+  contactPersonName String
+  contactPersonCPF  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  distributions InstitutionalDistribution[]
+
+  @@index([cnpj])
+  @@index([name])
+}
+
+model InstitutionalDistribution {
+  id String @id @default(cuid())
+
+  // Recipient institution
+  institutionId String
+  institution   Institution @relation(fields: [institutionId], references: [id])
+
+  // Distribution details
+  distributionType InstitutionalDistributionType
+  program          DistributionProgram?
+
+  deliveryDate DateTime
+
+  // Items distributed
+  items DistributionItem[]
+
+  // Signature
+  recipientSignaturePath String?
+
+  // Metadata
+  observations String?
+  createdById  String
+  createdBy    User     @relation(fields: [createdById], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([institutionId])
+  @@index([deliveryDate])
+  @@index([program])
+}
+
+model DistributionItem {
+  id String @id @default(cuid())
+
+  distributionId String
+  distribution   InstitutionalDistribution @relation(fields: [distributionId], references: [id], onDelete: Cascade)
+
+  itemName     String // "Arroz", "Feijão", "Alimentos NÃO perecíveis"
+  quantity     String // Flexible: "5kg", "10 unidades", etc.
+  observations String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([distributionId])
+}
+
+// ============================================
+// MODULE D: VOLUNTEER MANAGEMENT
+// ============================================
+model Volunteer {
+  id String @id @default(cuid())
+
+  // Personal info
+  fullName    String
+  dateOfBirth DateTime
+  cpf         String   @unique
+  rg          String
+
+  // Contact
+  email       String?
+  phoneNumber String
+
+  // Address
+  addressId String?
+  address   Address? @relation(fields: [addressId], references: [id])
+
+  // Status
+  status VolunteerStatus @default(ACTIVE)
+
+  // Dates
+  joinDate          DateTime
+  terminationDate   DateTime?
+  terminationReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([cpf])
+  @@index([status])
+}
+
+// ============================================
+// SHARED ENTITIES
+// ============================================
+model Address {
+  id String @id @default(cuid())
+
+  street       String
+  number       String
+  neighborhood String
+  city         String
+  state        String // UF
+  zipCode      String? // CEP
+  complement   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  beneficiaries Beneficiary[]
+  institutions  Institution[]
+  volunteers    Volunteer[]
+
+  @@index([city, state])
+}
+
+// ============================================
+// LEGACY MODELS (Donation & Inventory)
+// ============================================
+model Donation {
+  id         String  @id @default(cuid())
+  type       String
+  donorName  String?
+  donorEmail String?
+  donorPhone String?
+  anonymous  Boolean @default(false)
+
+  // Financial Specifics
+  amount Decimal?
+  method String?
+
+  // Material Specifics
+  itemName String?
+  quantity Float?
+  unit     String?
+
+  registeredById String
+  registeredBy   User   @relation("RegisteredBy", fields: [registeredById], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  ledgerEntry   FinancialLedger?
+  inventoryItem Inventory?
+}
+
+model Inventory {
+  id           String @id @default(cuid())
+  itemName     String @unique
+  quantity     Float  @default(0)
+  unit         String
+  minThreshold Float  @default(5)
+
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  donationId String?   @unique
+  donation   Donation? @relation(fields: [donationId], references: [id])
+}
+
+model FinancialLedger {
+  id           String   @id @default(cuid())
+  description  String
+  amount       Decimal
+  balanceAfter Decimal
+  date         DateTime @default(now())
+
+  // Relations
+  donationId String?   @unique
+  donation   Donation? @relation(fields: [donationId], references: [id])
+}
+
+// ============================================
+// ENUMS
+// ============================================
+enum Race {
+  PRETO
+  BRANCO
+  AMARELO
+  PARDO
+  INDIGENA
+}
+
+enum HousingType {
+  ALUGADA
+  PROPRIA
+  CEDIDA
+  OUTRA
+}
+
+enum HousingCondition {
+  BOA
+  REGULAR
+  FRAGIL
+}
+
+enum HealthAccess {
+  UBS_SUS
+  PLANO_SAUDE
+  OUTRO
+}
+
+enum SocialProgram {
+  BPC
+  CAD_UNICO
+  INSS
+  PAIF
+  PAEFI
+  CESTA_BASICA
+  OUTRO
+}
+
+enum Specialty {
+  PSICOLOGO
+  ASSISTENTE_SOCIAL
+  NUTRICIONISTA
+}
+
+enum FamilyDistributionType {
+  KIT_ALIMENTO_GENERICO
+  KIT_ALIMENTO_FAMILIA
+  KIT_ALIMENTO_ACOLHIMENTO
+  LEITE_CONAB
+}
+
+enum InstitutionalDistributionType {
+  ALIMENTOS_EVENTOS
+  ALIMENTOS_REGULARES
+  ALIMENTOS_CONAB
+  FRUTAS_VERDURAS_CONAB
+}
+
+enum DistributionProgram {
+  CONAB
+  ACOLHIMENTO
+  REGULAR
+  EVENTO
+}
+
+enum VolunteerStatus {
+  ACTIVE
+  TERMINATED
+}
+
+enum UserRole {
+  ADMIN
+  VOLUNTEER
+  COORDINATOR
+  VIEWER
+}
+
+enum MaritalStatus {
+  SOLTEIRO
+  CASADO
+  DIVORCIADO
+  VIUVO
+  UNIAO_ESTAVEL
+}
+
+enum FamilyRelationship {
+  FILHO
+  FILHA
+  CONJUGE
+  PAI
+  MAE
+  IRMAO
+  IRMA
+  AVO
+  AVA
+  NETO
+  NETA
+  OUTRO
+}
