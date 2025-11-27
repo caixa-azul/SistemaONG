@@ -54,6 +54,9 @@ export async function createDonation(prevState: State, formData: FormData) {
     const { type, donorName, donorEmail, donorPhone, anonymous, amount, method, itemName, quantity, unit } = validatedFields.data;
 
     try {
+        // 🧠 TRANSACTION: Executa múltiplas operações no banco como se fossem uma só.
+        // Se falhar em criar a doação OU atualizar o estoque, TUDO é cancelado (Rollback).
+        // Isso garante que nunca teremos dados inconsistentes (ex: doação sem estoque).
         await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
             // 1. Create Donation Record
             const donation = await tx.donation.create({
@@ -73,6 +76,7 @@ export async function createDonation(prevState: State, formData: FormData) {
             });
 
             // 2. Update Ledger or Inventory
+            // 🧠 LOGIC: Dependendo do tipo de doação, atualizamos tabelas diferentes.
             if (type === "FINANCIAL" && amount) {
                 await tx.financialLedger.create({
                     data: {
@@ -92,6 +96,8 @@ export async function createDonation(prevState: State, formData: FormData) {
                 });
 
                 if (existingItem) {
+                    // ⚡ INCREMENT: O Prisma tem operações atômicas.
+                    // `increment: quantity` é mais seguro que ler, somar e salvar (evita Race Conditions).
                     await tx.inventory.update({
                         where: { id: existingItem.id },
                         data: { quantity: { increment: quantity } },

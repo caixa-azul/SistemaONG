@@ -1,3 +1,5 @@
+// ⚡ USE CLIENT: Indica que este componente roda no navegador do usuário.
+// Necessário porque usamos hooks como `useState`, `useForm` e interações de UI.
 "use client";
 
 import { useState } from "react";
@@ -29,6 +31,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { z } from "zod";
 
+// 🧠 ZOD SCHEMA: Definimos a validação aqui também (no cliente).
+// Isso permite feedback instantâneo (ex: "E-mail inválido") antes mesmo de enviar ao servidor.
 const formSchema = z.object({
     // Beneficiary fields
     fullName: z.string().min(3, "Nome completo é obrigatório"),
@@ -58,6 +62,8 @@ export function BeneficiaryForm() {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    // 🧠 REACT HOOK FORM: Gerencia o estado do formulário de forma performática.
+    // O `zodResolver` conecta nossa validação Zod ao formulário.
     const form = useForm<FormData>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -106,6 +112,8 @@ export function BeneficiaryForm() {
                 complement: values.complement,
             };
 
+            // 🧠 SERVER ACTION CALL: Aqui chamamos a função que roda no servidor.
+            // Para o navegador, isso parece uma chamada de API normal.
             const result = await createBeneficiaryWithAddress(beneficiaryData, addressData);
 
             if (result.success) {
@@ -113,6 +121,7 @@ export function BeneficiaryForm() {
                     title: "Sucesso!",
                     description: "Beneficiário cadastrado com sucesso.",
                 });
+                // ⚡ ROUTER: Redireciona o usuário e atualiza a página para mostrar os novos dados.
                 router.push("/beneficiaries");
                 router.refresh();
             } else {

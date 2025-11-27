@@ -1,7 +1,12 @@
+// 🧠 GENERATOR: Gera o cliente TypeScript automaticamente
+// Isso permite que usemos `prisma.user.findMany()` com autocompletar no código.
 generator client {
   provider = "prisma-client-js"
 }
 
+// 🧠 DATASOURCE: Conexão com o Banco de Dados
+// Usamos PostgreSQL porque é robusto e suporta Enums nativos (diferente do SQLite).
+// 🛡️ A URL vem de variáveis de ambiente (.env) para não expor senhas no código.
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -10,22 +15,33 @@ datasource db {
 // ============================================
 // AUTHENTICATION & USERS
 // ============================================
+// 🧠 MODEL: Representa uma tabela no banco de dados.
 model User {
+  // ⚡ CUID: Identificador único resistente a colisão, melhor que números sequenciais (1, 2, 3)
+  // para segurança (não dá para adivinhar o próximo ID).
   id        String   @id @default(cuid())
   name      String?
   email     String   @unique
-  password  String? // Hashed
+  password  String? // 🛡️ Hashed: Nunca salvamos a senha real, apenas o hash criptografado.
   role      UserRole @default(VOLUNTEER)
   image     String?
+  
+  // 🧠 TIMESTAMPS: Auditoria automática.
+  // @default(now()) = Grava a data de criação.
+  // @updatedAt = O Prisma atualiza esse campo sozinho sempre que o registro muda.
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relations
+  // 🧠 RELATIONS: Definem como as tabelas se conectam.
+  // Um usuário pode registrar várias doações (1:N).
   donationsRegistered        Donation[]                  @relation("RegisteredBy")
   familyDistributions        FamilyDistribution[]
   institutionalDistributions InstitutionalDistribution[]
 }
 
+// ============================================
+// MODULE A: BENEFICIARY MANAGEMENT
+// ============================================
 // ============================================
 // MODULE A: BENEFICIARY MANAGEMENT
 // ============================================
@@ -35,15 +51,17 @@ model Beneficiary {
   // Personal Information
   fullName      String
   dateOfBirth   DateTime
-  gender        String?
-  race          Race?
-  cpf           String   @unique
+  gender        String? // 🧠 O ponto de interrogação (?) significa que o campo é OPCIONAL (pode ser null).
+  race          Race?   // 🧠 ENUM: Garante que só aceitamos valores pré-definidos (Preto, Branco, etc).
+  cpf           String   @unique // 🛡️ UNIQUE: O banco impede que dois beneficiários tenham o mesmo CPF.
   rg            String?
   maritalStatus MaritalStatus?
   phoneNumber   String?
   email         String?
 
   // Address (normalized)
+  // 🧠 NORMALIZAÇÃO: Em vez de repetir rua/cidade aqui, criamos uma tabela Address separada.
+  // Isso evita duplicidade e erros se o endereço mudar.
   addressId String?
   address   Address? @relation(fields: [addressId], references: [id])
 
@@ -57,6 +75,8 @@ model Beneficiary {
   nutritionistReferrals NutritionistReferral[]
   familyDistributions   FamilyDistribution[]
 
+  // ⚡ INDEX: Cria um índice para busca rápida.
+  // Sem isso, buscar por CPF exigiria ler a tabela inteira (Full Table Scan).
   @@index([cpf])
   @@index([fullName])
 }
@@ -64,6 +84,8 @@ model Beneficiary {
 model SocialAssessment {
   id            String      @id @default(cuid())
   beneficiaryId String      @unique
+  // 🛡️ CASCADE DELETE: Se o Beneficiário for deletado, essa avaliação também será.
+  // Isso evita "registros órfãos" no banco de dados.
   beneficiary   Beneficiary @relation(fields: [beneficiaryId], references: [id], onDelete: Cascade)
 
   // Household info
@@ -74,7 +96,7 @@ model SocialAssessment {
 
   // Services Access
   healthAccess         HealthAccess[]
-  hasSanitation        Boolean        @default(false)
+  hasSanitation        Boolean        @default(false) // 🧠 DEFAULT: Se não informado, assume falso.
   hasWater             Boolean        @default(false)
   hasSewage            Boolean        @default(false)
   hasGarbageCollection Boolean        @default(false)
@@ -394,6 +416,9 @@ model FinancialLedger {
 // ============================================
 // ENUMS
 // ============================================
+// 🧠 ENUM (Enumeration): Uma lista fixa de valores permitidos.
+// Isso impede que alguém salve "Branca", "branca", "White" ou "Caucasiana".
+// Padroniza os dados para relatórios precisos.
 enum Race {
   PRETO
   BRANCO

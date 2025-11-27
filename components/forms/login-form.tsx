@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export function LoginForm() {
+    // ⚡ USE FORM STATE: Hook do React para conectar com Server Actions.
+    // `errorMessage`: O retorno da função `authenticate` (se houver erro).
+    // `dispatch`: A função que chamamos no `action` do formulário.
     const [errorMessage, dispatch] = useFormState(authenticate, undefined);
 
     return (
@@ -52,11 +55,13 @@ export function LoginForm() {
 }
 
 function LoginButton() {
+    // ⚡ USE FORM STATUS: Hook que sabe se o formulário pai está enviando dados.
+    // Usamos isso para desabilitar o botão e evitar duplo clique.
     const { pending } = useFormStatus();
 
     return (
-        <Button className="w-full" aria-disabled={pending}>
-            Entrar
+        <Button className="w-full" aria-disabled={pending} disabled={pending}>
+            {pending ? "Entrando..." : "Entrar"}
         </Button>
     );
 }

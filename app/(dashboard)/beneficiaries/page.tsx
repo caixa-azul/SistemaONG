@@ -37,8 +37,13 @@ export default function BeneficiariesPage() {
         withReferrals: 0,
     });
 
+    // ⚡ USE EFFECT: Hook para executar código após a renderização ("efeitos colaterais").
+    // Aqui usamos para buscar os dados assim que a página carrega no navegador.
+    // Diferente do Server Component, aqui o usuário vê um "Loading..." antes dos dados.
     useEffect(() => {
         async function loadBeneficiaries() {
+            // 🧠 SERVER ACTION CALL: Chamamos uma função do servidor diretamente do cliente.
+            // O Next.js cuida da comunicação (RPC) por baixo dos panos.
             const result = await getBeneficiaries();
             if (result.success && result.data) {
                 setBeneficiaries(result.data as any);

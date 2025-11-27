@@ -2,24 +2,30 @@ import type { NextAuthConfig } from "next-auth";
 
 export const authConfig = {
     pages: {
-        signIn: "/login",
+        signIn: "/login", // ⚡ Redireciona para nossa página de login customizada se precisar autenticar.
     },
     callbacks: {
+        // 🛡️ AUTHORIZED: O "Porteiro" (Middleware).
+        // Roda em TODA requisição para decidir se o usuário pode ver a página.
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
             const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
 
             if (isOnDashboard) {
-                if (isLoggedIn) return true;
-                return false; // Redirect unauthenticated users to login page
+                // Se está tentando acessar o Dashboard...
+                if (isLoggedIn) return true; // Deixa passar se estiver logado.
+                return false; // 🚫 Bloqueia e manda pro login se não estiver.
             } else if (isLoggedIn) {
-                // Redirect logged-in users away from login page
+                // Se já está logado e tenta acessar o Login...
                 if (nextUrl.pathname === "/login") {
-                    return Response.redirect(new URL("/dashboard", nextUrl));
+                    return Response.redirect(new URL("/dashboard", nextUrl)); // Manda pro Dashboard.
                 }
             }
-            return true;
+            return true; // Outras páginas (públicas) são liberadas.
         },
+
+        // 🧠 JWT: Ocorre quando o Token é criado ou atualizado.
+        // Aqui copiamos dados importantes do Usuário para o Token.
         jwt({ token, user }) {
             if (user) {
                 token.role = user.role;
@@ -27,6 +33,9 @@ export const authConfig = {
             }
             return token;
         },
+
+        // 🧠 SESSION: Ocorre quando o frontend pede a sessão (useSession).
+        // Aqui copiamos dados do Token para a Sessão que o React vai usar.
         session({ session, token }) {
             if (token.sub && session.user) {
                 session.user.id = token.sub;
@@ -37,5 +46,5 @@ export const authConfig = {
             return session;
         },
     },
-    providers: [], // Configured in auth.ts
+    providers: [], // Configurado no auth.ts para evitar problemas de importação circular.
 } satisfies NextAuthConfig;

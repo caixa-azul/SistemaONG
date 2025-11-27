@@ -1,9 +1,20 @@
 import { prisma } from "@/lib/prisma";
+// ⚡ FORCE DYNAMIC: Por padrão, o Next.js tenta criar páginas estáticas (SSG).
+// Como nosso dashboard muda o tempo todo (novos dados), forçamos ele a ser dinâmico (SSR).
+// Isso garante que o usuário sempre veja os dados mais recentes.
 export const dynamic = 'force-dynamic';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, HeartHandshake, Package, DollarSign } from "lucide-react";
 
+// ⚡ SERVER COMPONENT: Esta página roda inteiramente no servidor.
+// Podemos fazer chamadas diretas ao banco de dados (Prisma) aqui.
 export default async function DashboardPage() {
+    // 🧠 PARALLEL FETCHING: Em uma aplicação real, poderíamos usar Promise.all
+    // para buscar esses dados em paralelo e deixar a página mais rápida.
+    // Por enquanto, buscamos sequencialmente para facilitar a leitura.
+
+    // 🧠 COUNT: O Prisma é muito eficiente em contar registros.
+    // `count()` é muito mais rápido que buscar tudo (`findMany`) e contar o array.
     const totalBeneficiaries = await prisma.beneficiary.count();
     const beneficiariesWithAssessment = await prisma.beneficiary.count({
         where: { socialAssessment: { isNot: null } }

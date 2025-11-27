@@ -17,11 +17,13 @@ const InventorySchema = z.object({
 });
 
 export async function createInventoryItem(prevState: State, formData: FormData) {
+    // 🛡️ AUTH CHECK: Apenas usuários logados podem criar itens.
     const session = await auth();
     if (!session?.user) {
         return { message: "Unauthorized", errors: {} };
     }
 
+    // 🛡️ ZOD PARSE: Valida os dados do formulário.
     const validatedFields = InventorySchema.safeParse({
         itemName: formData.get("itemName"),
         quantity: formData.get("quantity"),
@@ -48,11 +50,13 @@ export async function createInventoryItem(prevState: State, formData: FormData) 
             },
         });
     } catch (_error) {
+        // 🧠 ERROR HANDLING: Se o item já existe (Unique Constraint), o Prisma lança erro.
         return {
             message: "Database Error: Failed to Create Item. Item name might already exist.",
         };
     }
 
+    // ⚡ REVALIDATE: Limpa o cache da página de inventário para mostrar o novo item.
     revalidatePath("/inventory");
     redirect("/inventory");
 }

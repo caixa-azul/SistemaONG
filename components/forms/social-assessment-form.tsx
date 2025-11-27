@@ -108,6 +108,8 @@ export function SocialAssessmentForm({ beneficiaryId }: SocialAssessmentFormProp
         },
     });
 
+    // ⚡ USE FIELD ARRAY: Hook poderoso do React Hook Form para listas dinâmicas.
+    // Permite adicionar/remover membros da família dinamicamente sem dor de cabeça.
     const { fields, append, remove } = useFieldArray({
         control: form.control,
         name: "familyMembers",
@@ -117,6 +119,9 @@ export function SocialAssessmentForm({ beneficiaryId }: SocialAssessmentFormProp
         setIsSubmitting(true);
 
         try {
+            // 🧠 DATA TRANSFORMATION:
+            // O formulário trabalha com Strings (inputs HTML), mas o banco quer Datas e Números.
+            // Aqui fazemos a conversão final antes de enviar.
             const data = {
                 ...values,
                 consentDate: values.consentDate ? new Date(values.consentDate) : undefined,

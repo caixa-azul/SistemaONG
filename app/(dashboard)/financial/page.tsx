@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
 
 export default async function FinancialPage() {
+    // 🧠 LEDGER LOGIC: O livro-razão (ledger) armazena cada transação.
+    // O saldo atual é simplesmente o `balanceAfter` da transação mais recente.
     const ledger = await prisma.financialLedger.findMany({
         orderBy: { date: "desc" },
     });

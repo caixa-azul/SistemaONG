@@ -6,6 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
 
 export default async function DonationsPage() {
+    // 🧠 SERVER FETCH: Buscamos as doações diretamente do banco.
+    // Como é um Server Component, isso roda no servidor antes de enviar o HTML para o navegador.
+    // SEO Friendly e rápido!
     const donations = await prisma.donation.findMany({
         orderBy: { createdAt: "desc" },
     });

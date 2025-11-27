@@ -31,10 +31,14 @@ export async function recordTransaction(prevState: State, formData: FormData) {
     try {
         await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
             // Get last balance
+            // 🧠 LOGIC: Para calcular o saldo atual, precisamos do saldo anterior.
+            // Buscamos o último registro ordenado por data.
             const lastEntry = await tx.financialLedger.findFirst({
                 orderBy: { date: 'desc' },
             });
 
+            // 🧠 COERCION: O banco retorna Decimal, mas JavaScript trata como objeto ou string.
+            // Convertemos para Number para fazer contas simples (cuidado com precisão em apps reais de banco!).
             const currentBalance = lastEntry ? Number(lastEntry.balanceAfter) : 0;
             const newBalance = currentBalance + amount;
 

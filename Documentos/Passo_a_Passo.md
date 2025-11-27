@@ -5,16 +5,18 @@ Criei um boilerplate completo e pronto para produção para um Sistema de Gestã
 ## Funcionalidades Implementadas
 
 ### 1. Arquitetura Principal
-- **Banco de Dados**: PostgreSQL com Prisma ORM (Configurado com SQLite para demo local).
+- **Banco de Dados**: PostgreSQL com Prisma ORM (Produção-ready).
 - **Autenticação**: NextAuth.js com provedor de Credenciais (pronto para OAuth).
 - **Estilização**: Tailwind CSS com um design moderno e limpo.
 - **Segurança de Tipos**: Suporte completo a TypeScript com tipos compartilhados.
 
 ### 2. Módulos do Dashboard
 - **Beneficiários**: Gerenciar perfis de beneficiários (Criar, Listar).
+- **Avaliação Social**: Formulários complexos com histórico familiar e condições de moradia.
 - **Doações**: Registrar doações financeiras e materiais.
 - **Estoque**: Acompanhar níveis de estoque com alertas de "Estoque Baixo".
 - **Financeiro**: Visualizar livro caixa e saldo financeiro.
+- **Documentos**: Geração automática de PDFs (Avaliação Social, Termos).
 
 ### 3. Server Actions (Ações do Servidor)
 Implementadas Server Actions robustas para operações CRUD, garantindo manuseio de dados seguro e eficiente:
@@ -33,10 +35,17 @@ Implementadas Server Actions robustas para operações CRUD, garantindo manuseio
 ### 1. Configuração do Ambiente
 Certifique-se de que seu arquivo `.env` está configurado. Para a demonstração local, já configuramos para usar SQLite.
 
-### 2. Configuração do Banco de Dados (SQLite)
-O projeto está configurado atualmente para usar **SQLite** para facilitar o desenvolvimento local.
+### 2. Configuração do Banco de Dados (PostgreSQL)
+O projeto usa **PostgreSQL**. Você precisará de uma URL de conexão (ex: Neon, Supabase, ou local).
 
-1.  **Gerar Cliente e Enviar Schema**:
+1.  **Configurar .env**:
+    Crie um arquivo `.env` na raiz e adicione:
+    ```env
+    DATABASE_URL="postgresql://user:password@host:port/database"
+    AUTH_SECRET="seu-segredo-aqui"
+    ```
+
+2.  **Gerar Cliente e Enviar Schema**:
     ```bash
     npx prisma generate
     npx prisma db push

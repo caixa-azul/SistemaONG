@@ -1,6 +1,12 @@
 import React from 'react';
+// ⚡ REACT PDF: Biblioteca para gerar PDFs usando componentes React.
+// Diferente do HTML normal, aqui usamos componentes primitivos específicos:
+// <Document>, <Page>, <View> (div), <Text> (p/span), <Image>, etc.
 import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
 
+// 🧠 STYLES: O CSS aqui é limitado e diferente do CSS da web.
+// Não existe Flexbox completo, Grid, ou herança de estilos complexa.
+// Tudo deve ser definido explicitamente usando StyleSheet.create.
 const styles = StyleSheet.create({
     page: {
         padding: 40,

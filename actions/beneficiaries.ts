@@ -1,3 +1,5 @@
+// ⚡ USE SERVER: Indica que este código roda EXCLUSIVAMENTE no servidor.
+// O código aqui nunca é enviado para o navegador do usuário, protegendo segredos de banco de dados.
 "use server";
 
 import { revalidatePath } from "next/cache";
@@ -18,15 +20,21 @@ import { auth } from "@/auth";
 // AÇÕES DE BENEFICIÁRIOS
 // ============================================
 
+// 🧠 SERVER ACTION: Uma função assíncrona que pode ser chamada diretamente do frontend (form action).
 export async function createBeneficiary(data: unknown) {
     try {
+        // 🛡️ AUTHENTICATION: Primeira linha de defesa.
+        // Verificamos se quem está chamando essa função está logado.
         const session = await auth();
         if (!session) return { success: false, error: "Unauthorized" };
 
-        // Validar dados
+        // 🛡️ VALIDATION: Nunca confie no que vem do frontend.
+        // O Zod garante que os dados têm o formato exato que esperamos (CPF válido, email correto, etc).
+        // Se falhar, ele lança um erro antes de tocar no banco de dados.
         const validatedData = beneficiarySchema.parse(data);
 
-        // Criar beneficiário
+        // 🧠 ORM (Prisma): Abstrai o SQL.
+        // Em vez de escrever "INSERT INTO...", usamos um objeto JavaScript.
         const beneficiary = await prisma.beneficiary.create({
             data: {
                 fullName: validatedData.fullName,
@@ -41,9 +49,13 @@ export async function createBeneficiary(data: unknown) {
             },
         });
 
+        // ⚡ REVALIDATION: O Next.js faz cache agressivo das páginas.
+        // Avisamos aqui que a lista de beneficiários mudou, para ele limpar o cache
+        // e mostrar os dados novos na próxima visita.
         revalidatePath("/beneficiaries");
         return { success: true, data: beneficiary };
     } catch (error) {
+        // 🧠 ERROR HANDLING: Tratamento diferenciado de erros.
         if (error instanceof z.ZodError) {
             return { success: false, error: error.issues };
         }

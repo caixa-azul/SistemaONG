@@ -25,7 +25,12 @@ export function PDFDownloadButton({
     const handleDownload = async () => {
         setIsGenerating(true);
         try {
+            // 🧠 BLOB GENERATION: O React PDF gera o arquivo binário (Blob) no navegador.
+            // Isso evita sobrecarregar o servidor gerando PDFs pesados.
             const blob = await pdf(pdfDocument as any).toBlob();
+
+            // ⚡ DOWNLOAD TRICK: Criamos um link invisível <a>, clicamos nele e removemos.
+            // É a forma padrão de forçar download de arquivos gerados no frontend.
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;

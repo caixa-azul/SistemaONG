@@ -13,7 +13,12 @@ const initialState = {
 };
 
 export function DonationForm() {
+    // ⚡ USE FORM STATE: Gerencia o resultado da Server Action (sucesso/erro).
     const [state, dispatch] = useFormState(createDonation, initialState);
+
+    // 🧠 CONDITIONAL RENDERING STATE:
+    // Usamos useState local para controlar qual parte do formulário aparece (Financeiro ou Material).
+    // Isso é lógica de UI, então fica no cliente ("use client").
     const [type, setType] = useState<DonationType>("FINANCIAL");
 
     return (
@@ -51,6 +56,7 @@ export function DonationForm() {
                 </label>
             </div>
 
+            {/* 🧠 CONDITIONAL RENDERING: Mostra campos diferentes baseados no Tipo selecionado */}
             {type === "FINANCIAL" && (
                 <>
                     <div>

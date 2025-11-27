@@ -17,6 +17,8 @@ export default async function InventoryPage() {
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {inventory.map((item: any) => (
+                    // 🧠 CONDITIONAL STYLING: Se o estoque estiver baixo, mudamos a cor da borda.
+                    // Isso ajuda o usuário a identificar problemas rapidamente.
                     <Card key={item.id} className={item.quantity <= item.minThreshold ? "border-red-500" : ""}>
                         <CardHeader>
                             <CardTitle>{item.itemName}</CardTitle>

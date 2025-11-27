@@ -67,7 +67,9 @@ export function ImageAuthorizationForm({
         setIsSubmitting(true);
 
         try {
-            // Create FormData to send to server action
+            // 🧠 FORM DATA:
+            // Para upload de arquivos (assinatura) ou dados complexos, usamos FormData.
+            // É o formato nativo que o navegador usa para enviar formulários multipart/form-data.
             const formData = new FormData();
             formData.append("beneficiaryId", values.beneficiaryId);
             formData.append("authorized", values.commercialUse ? "on" : "off");

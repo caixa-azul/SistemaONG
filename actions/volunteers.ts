@@ -16,6 +16,8 @@ export async function createVolunteerWithAddress(
         const session = await auth();
         if (!session) return { success: false, error: "Unauthorized" };
 
+        // 🧠 TRANSACTION: Criar voluntário E endereço juntos.
+        // Se falhar ao criar o voluntário, o endereço não deve ficar "órfão" no banco.
         const volunteer = await prisma.$transaction(async (tx) => {
             const address = await tx.address.create({
                 data: addressData,
@@ -25,7 +27,7 @@ export async function createVolunteerWithAddress(
                 data: {
                     ...volunteerData,
                     addressId: address.id,
-                    status: "ACTIVE",
+                    status: "ACTIVE", // 🧠 DEFAULT VALUE: Todo voluntário começa como ATIVO.
                 },
                 include: {
                     address: true,

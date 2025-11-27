@@ -24,7 +24,7 @@ export async function createFamilyDistribution(data: unknown) {
                 deliveryDate: validatedData.deliveryDate,
                 signaturePath: validatedData.signaturePath,
                 observations: validatedData.observations,
-                createdById: session.user.id,
+                createdById: session.user.id, // 🛡️ AUDIT: Registramos QUEM fez a entrega.
             },
             include: {
                 beneficiary: {
@@ -36,6 +36,9 @@ export async function createFamilyDistribution(data: unknown) {
             },
         });
 
+        // ⚡ REVALIDATE PATH: Atualiza DUAS páginas diferentes.
+        // 1. A lista geral de distribuições.
+        // 2. O perfil do beneficiário (que mostra o histórico dele).
         revalidatePath("/distributions/family");
         revalidatePath(`/beneficiaries/${validatedData.beneficiaryId}`);
 

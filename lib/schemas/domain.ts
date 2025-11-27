@@ -3,6 +3,8 @@ import { z } from "zod";
 // ============================================
 // ENUMS (matching Prisma)
 // ============================================
+// 🧠 ENUMS NO ZOD: Precisamos replicar os Enums do Prisma aqui.
+// O Zod valida se a string que veio do formulário é um desses valores permitidos.
 export const RaceEnum = z.enum(["PRETO", "BRANCO", "AMARELO", "PARDO", "INDIGENA"]);
 export const HousingTypeEnum = z.enum(["ALUGADA", "PROPRIA", "CEDIDA", "OUTRA"]);
 export const HousingConditionEnum = z.enum(["BOA", "REGULAR", "FRAGIL"]);
@@ -32,19 +34,23 @@ export const addressSchema = z.object({
     complement: z.string().optional(),
 });
 
+// 🧠 SCHEMA DE BENEFICIÁRIO
+// Define as regras de validação para o formulário.
 export const beneficiarySchema = z.object({
-    fullName: z.string().min(3, "Nome completo é obrigatório"),
+    fullName: z.string().min(3, "Nome completo é obrigatório"), // Mínimo 3 caracteres
     dateOfBirth: z.date({
         message: "Data de nascimento é obrigatória",
     }),
-    gender: z.string().optional(),
+    gender: z.string().optional(), // Opcional
     race: RaceEnum.optional(),
+    // 🛡️ REGEX: Expressão regular para validar formato de CPF (com ou sem pontos).
     cpf: z
         .string()
         .regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$/, "CPF inválido"),
     rg: z.string().optional(),
     maritalStatus: MaritalStatusEnum.optional(),
     phoneNumber: z.string().optional(),
+    // 🧠 OR: Aceita email válido OU string vazia (para campos opcionais que o usuário limpou).
     email: z.string().email("E-mail inválido").optional().or(z.literal("")),
     addressId: z.string().optional(),
 });
@@ -205,6 +211,9 @@ export const volunteerTerminationSchema = z.object({
 // ============================================
 // TYPE EXPORTS
 // ============================================
+// 🧠 TYPE INFERENCE: O Zod gera os tipos TypeScript automaticamente.
+// Não precisamos escrever `interface Beneficiary { ... }` manualmente.
+// Se mudarmos o schema acima, o tipo atualiza sozinho!
 export type Address = z.infer<typeof addressSchema>;
 export type Beneficiary = z.infer<typeof beneficiarySchema>;
 export type FamilyMember = z.infer<typeof familyMemberSchema>;

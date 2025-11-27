@@ -142,3 +142,15 @@ Não entregue sem testar. Use **Playwright** para testes ponta-a-ponta (E2E).
   npx @sentry/wizard@latest -i nextjs
   ```
 - **Backups**: Se usar Supabase ou Neon, ative os backups automáticos diários (Point-in-time recovery).
+
+## 8. Refatoração Educacional (CONCLUÍDO ✅)
+
+O projeto foi transformado em um recurso educacional com:
+- **Comentários Didáticos**: Explicações detalhadas em `pt_BR` com emojis (🧠, 🛡️, ⚡).
+- **Documentação Expandida**: `DICIONARIO_TECNICO.md` e `ENTENDENDO_A_ARQUITETURA.md` detalhados.
+- **Walkthrough**: Guia de estudo em `WALKTHROUGH.md`.
+
+## 9. Módulos Adicionais (CONCLUÍDO ✅)
+
+- **Formulários Digitais**: Avaliação Social e Autorização de Imagem implementados.
+- **Geração de PDF**: Documentos gerados dinamicamente no frontend.
