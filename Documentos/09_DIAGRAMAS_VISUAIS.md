@@ -81,27 +81,27 @@ Mapa da infraestrutura de deploy na Vercel e serviços conectados.
 
 ```mermaid
 graph TD
-    subgraph Client_Device [📱 Dispositivo do Cliente]
-        Browser[Navegador Web]
+    subgraph clientDevice ["📱 Dispositivo do Cliente"]
+        browser["Navegador Web"]
     end
 
-    subgraph Vercel_Cloud [☁️ Vercel Cloud]
-        Edge[⚡ Edge Network / CDN]
-        Serverless[⚙️ Serverless Functions (Next.js)]
+    subgraph subGraph1 ["☁️ Vercel Cloud"]
+        edge["⚡ Edge Network (CDN)"]
+        serverless["⚙️ Serverless Functions (Next.js)"]
     end
 
-    subgraph Data_Layer [💾 Camada de Dados]
-        Neon[(Neon PostgreSQL)]
+    subgraph dataLayer ["💾 Camada de Dados"]
+        neon["Neon Database (PostgreSQL)"]
     end
 
-    subgraph CI_CD [🔄 CI/CD]
-        GitHub[GitHub Repository]
+    subgraph ciCd ["🔄 CI/CD"]
+        github["GitHub Repository"]
     end
 
-    Browser -- HTTPS --> Edge
-    Edge -- Roteamento --> Serverless
-    Serverless -- Prisma Connection Pool --> Neon
-    GitHub -- Git Push (Trigger Deploy) --> Vercel_Cloud
+    browser -- "HTTPS" --> edge
+    edge -- "Roteamento" --> serverless
+    serverless -- "Prisma Connection Pool" --> neon
+    github -- "Git Push (Trigger Deploy)" --> subGraph1
 ```
 
 ---
@@ -112,32 +112,32 @@ Visualização da estrutura de diretórios e rotas dentro de `app/`.
 
 ```mermaid
 graph TD
-    Root["/ (app)"]
+    root["/ (app)"]
     
-    subgraph Public [Rotas Públicas]
-        Login["/login"]
+    subgraph public ["Rotas Públicas"]
+        login["/login"]
     end
     
-    subgraph Protected [Rotas Protegidas (Dashboard)]
-        Layout["layout.tsx (Sidebar + Header)"]
-        Home["/ (Dashboard Home)"]
+    subgraph protected ["Rotas Protegidas (Dashboard)"]
+        layout["layout.tsx (Sidebar + Header)"]
+        home["/ (Dashboard Home)"]
         
-        subgraph Modules [Módulos]
-            Beneficiaries["/beneficiaries"]
-            Donations["/donations"]
-            Consultas["/consultas (Data Explorer)"]
-            Inventory["/inventory"]
-            Financial["/financial"]
-            Volunteers["/volunteers"]
-            Distributions["/distributions"]
+        subgraph modules ["Módulos"]
+            beneficiaries["/beneficiaries"]
+            donations["/donations"]
+            consultas["/consultas (Data Explorer)"]
+            inventory["/inventory"]
+            financial["/financial"]
+            volunteers["/volunteers"]
+            distributions["/distributions"]
         end
     end
 
-    Root --> Public
-    Root --> Protected
-    Protected --> Layout
-    Layout --> Home
-    Layout --> Modules
+    root --> public
+    root --> protected
+    protected --> layout
+    layout --> home
+    layout --> modules
 ```
 
 ---
@@ -148,35 +148,35 @@ Este diagrama mapeia os conceitos do T3 Stack para a arquitetura clássica em ca
 
 ```mermaid
 graph TD
-    subgraph Presentation [1. Camada de Apresentação (Frontend)]
-        UI[Pages & Components]
-        style UI fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    subgraph presentation ["1. Camada de Apresentação (Frontend)"]
+        ui["Pages & Components"]
+        style ui fill:#e1f5fe,stroke:#01579b,stroke-width:2px
     end
 
-    subgraph Service [2. Camada de Serviço/Controller (Backend Logic)]
-        Action[Server Actions]
-        Auth[Auth.js]
-        Zod[Zod Validation]
-        style Action fill:#fff9c4,stroke:#fbc02d,stroke-width:2px
+    subgraph service ["2. Camada de Serviço/Controller (Backend Logic)"]
+        action["Server Actions"]
+        auth["Auth.js"]
+        zod["Zod Validation"]
+        style action fill:#fff9c4,stroke:#fbc02d,stroke-width:2px
     end
 
-    subgraph DataAccess [3. Camada de Acesso a Dados (Persistence)]
-        Prisma[Prisma Client]
-        style Prisma fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    subgraph dataAccess ["3. Camada de Acesso a Dados (Persistence)"]
+        prisma["Prisma Client"]
+        style prisma fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
     end
 
-    subgraph Database [4. Camada de Banco de Dados (Storage)]
-        Neon[(Neon PostgreSQL)]
-        style Neon fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    subgraph database ["4. Camada de Banco de Dados (Storage)"]
+        neon["Neon (PostgreSQL)"]
+        style neon fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
     end
 
     %% Fluxo
-    UI -- "1. Request (Form Submit)" --> Action
-    Action -- "2. Auth Check" --> Auth
-    Action -- "3. Validate" --> Zod
-    Action -- "4. Call DB" --> Prisma
-    Prisma -- "5. SQL Query" --> Neon
-    Neon -- "6. Raw Data" --> Prisma
-    Prisma -- "7. Typed Object" --> Action
-    Action -- "8. Response (UI Update)" --> UI
+    ui -- "1. Request (Form Submit)" --> action
+    action -- "2. Auth Check" --> auth
+    action -- "3. Validate" --> zod
+    action -- "4. Call DB" --> prisma
+    prisma -- "5. SQL Query" --> neon
+    neon -- "6. Raw Data" --> prisma
+    prisma -- "7. Typed Object" --> action
+    action -- "8. Response (UI Update)" --> ui
 ```
