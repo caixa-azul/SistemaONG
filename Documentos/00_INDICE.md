@@ -13,3 +13,4 @@ Aqui você encontra todos os documentos relacionados ao projeto do Sistema de Ge
 - [🚀 06 - Manual de Deploy em Produção (06_MANUAL_DEPLOY_PRODUCAO.md)](./06_MANUAL_DEPLOY_PRODUCAO.md) - Checklist para colocar o projeto em produção na Vercel.
 - [📋 07 - Status do Projeto (07_STATUS_DO_PROJETO.md)](./07_STATUS_DO_PROJETO.md) - Checklist de tarefas concluídas e pendentes.
 - [🔮 08 - Melhorias Futuras (08_MELHORIAS_FUTURAS.md)](./08_MELHORIAS_FUTURAS.md) - Roteiro para transformar o boilerplate em produto final.
+- [📊 09 - Diagramas Visuais (09_DIAGRAMAS_VISUAIS.md)](./09_DIAGRAMAS_VISUAIS.md) - **NOVO!** Representações visuais da arquitetura (C4, Sequence, Deployment).

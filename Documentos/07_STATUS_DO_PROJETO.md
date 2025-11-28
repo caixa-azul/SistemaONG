@@ -57,6 +57,8 @@
         - [x] Consolidação de arquivos ("Safe Merge")
         - [x] Padronização de nomes (01-08)
         - [x] Criação de Índice Atualizado
+        - [x] Criação de Diagramas Visuais (Mermaid.js)
+        - [x] Diagrama de Arquitetura Lógica (Camadas)
     - [x] **Automação de Ambiente**
         - [x] Scripts de Setup (Windows/Linux)
         - [x] Atualização do Manual de Execução
