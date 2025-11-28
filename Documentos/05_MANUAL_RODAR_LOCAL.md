@@ -30,29 +30,57 @@ Implementadas Server Actions robustas para operações CRUD, garantindo manuseio
 - **Layout**: Barra Lateral e Cabeçalho responsivos.
 - **Formulários**: Formulários validados no servidor usando Zod.
 
-## Como Executar
+## 🚀 Início Rápido (Automático)
 
-### 1. Configuração do Ambiente
-Certifique-se de que seu arquivo `.env` está configurado. Para a demonstração local, já configuramos para usar SQLite.
+Criamos scripts que fazem todo o trabalho pesado para você (instalar dependências, configurar banco, gerar cliente Prisma).
 
-### 2. Configuração do Banco de Dados (PostgreSQL)
-O projeto usa **PostgreSQL**. Você precisará de uma URL de conexão (ex: Neon, Supabase, ou local).
+### Opção A: Windows 🪟
+1.  Na pasta do projeto, dê dois cliques no arquivo `setup_windows.bat`.
+2.  Siga as instruções na tela.
+    - O script vai pausar para você preencher o arquivo `.env` com as credenciais do seu banco de dados.
+    - Depois, ele vai instalar tudo e perguntar se você quer criar dados de teste.
 
-1.  **Configurar .env**:
-    Crie um arquivo `.env` na raiz e adicione:
-    ```env
-    DATABASE_URL="postgresql://user:password@host:port/database"
-    AUTH_SECRET="seu-segredo-aqui"
+### Opção B: Linux / Mac 🐧
+1.  Abra o terminal na pasta do projeto.
+2.  Dê permissão de execução (só na primeira vez):
+    ```bash
+    chmod +x setup_linux.sh
+    ```
+3.  Rode o script:
+    ```bash
+    ./setup_linux.sh
     ```
 
-2.  **Gerar Cliente e Enviar Schema**:
+---
+
+## 🛠️ Método Manual (Caso o script falhe)
+
+Se por algum motivo os scripts não funcionarem, você pode fazer tudo manualmente:
+
+### 1. Configuração do Ambiente
+Certifique-se de que o **Node.js** está instalado.
+
+### 2. Configuração do Banco de Dados
+1.  **Configurar .env**:
+    Duplique o arquivo `.env.example`, renomeie para `.env` e adicione sua URL do banco:
+    ```env
+    DATABASE_URL="postgresql://user:password@host:port/database"
+    AUTH_SECRET="seu-segredo-aqui" # Gere um com: openssl rand -base64 32
+    ```
+
+2.  **Instalar Dependências**:
+    ```bash
+    npm install
+    ```
+
+3.  **Gerar Cliente Prisma e Sincronizar Banco**:
     ```bash
     npx prisma generate
     npx prisma db push
     ```
 
-2.  **Popular Banco de Dados (Seed)**:
-    Crie o usuário admin inicial (`admin@example.com` / `password123`):
+4.  **Popular Banco de Dados (Seed)**:
+    Isso cria o usuário admin inicial (`admin@example.com` / `password123`):
     ```bash
     npx prisma db seed
     ```

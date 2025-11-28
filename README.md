@@ -1,45 +1,46 @@
-# Sistema de Gestão de ONGs
+# 🤝 Sistema de Gestão de ONGs (Educational T3 Stack Project)
 
-Este é um projeto [Next.js](https://nextjs.org) inicializado com [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Um sistema completo de gestão para Organizações Não Governamentais, desenvolvido como projeto educacional para demonstrar o poder da **T3 Stack** (Next.js, Prisma, Tailwind, NextAuth).
 
-## Começando
+---
 
-Primeiro, instale as dependências:
+## 🚀 Como Rodar o Projeto (Início Rápido)
 
-```bash
-npm install
-```
+Não é necessário rodar comandos manuais. Preparamos scripts de automação para configurar o ambiente (Node, .env, Banco de Dados) para você.
 
-Configure o banco de dados (SQLite para desenvolvimento local):
+### Opção A: Windows 🪟
+Dê dois cliques no arquivo:
+> `setup_windows.bat`
 
-```bash
-npx prisma generate
-npx prisma db push
-npx prisma db seed
-```
+### Opção B: Linux / Mac 🐧
+Abra o terminal e rode:
+> `./setup_linux.sh`
 
-Em seguida, inicie o servidor de desenvolvimento:
+*(Caso prefira o método manual, consulte o guia passo a passo na documentação).*
 
-```bash
-npm run dev
-```
+---
 
-Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
+## 📚 Documentação e Aprendizado
 
-## Credenciais Padrão
+Este projeto foi desenhado para ser estudado. Toda a lógica está comentada e documentada.
 
-- **Email**: `admin@example.com`
-- **Senha**: `password123`
+### 🎓 Comece por aqui:
+1.  [**Guia de Estudos (Walkthrough)**](Documentos/01_GUIA_DE_ESTUDOS.md) - Entenda como ler este código.
+2.  [**Dicionário Técnico**](Documentos/03_DICIONARIO_TECNICO.md) - O significado de termos como ORM, Middleware e Hydration.
 
-## Saiba Mais
+### 📂 Índice Completo
+Para ver diagramas de banco, arquitetura e manuais de deploy, acesse o nosso sumário:
+👉 [**ÍNDICE DE DOCUMENTAÇÃO**](Documentos/00_INDICE.md)
 
-Para saber mais sobre Next.js, consulte os seguintes recursos:
+---
 
-- [Documentação do Next.js](https://nextjs.org/docs) - aprenda sobre recursos e API do Next.js.
-- [Aprenda Next.js](https://nextjs.org/learn) - um tutorial interativo de Next.js.
+## 🛠️ Stack Tecnológica
 
-## Implantação na Vercel
+* **Framework:** Next.js 14 (App Router)
+* **Banco de Dados:** PostgreSQL (via Prisma ORM)
+* **Estilização:** Tailwind CSS + Shadcn/UI
+* **Auth:** NextAuth.js v5
 
-A maneira mais fácil de implantar seu aplicativo Next.js é usar a [Plataforma Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) dos criadores do Next.js.
+---
 
-Consulte nossa [documentação de implantação do Next.js](https://nextjs.org/docs/app/building-your-application/deploying) para mais detalhes.
+*Credenciais de Admin (Geradas pelo Seed):* `admin@ong.com` / `admin`
