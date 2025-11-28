@@ -51,6 +51,86 @@ O projeto pode parecer grande, mas tudo tem seu lugar. Aqui está o guia:
 
 ---
 
+## 🗂️ Lista Detalhada de Arquivos
+
+Aqui está a lista completa de arquivos do projeto e o propósito de cada um:
+
+### 📁 Raiz do Projeto
+- `actions/` - Contém as Server Actions (lógica de backend executada no servidor).
+- `app/` - Diretório principal do Next.js App Router (páginas e rotas).
+- `components/` - Componentes React reutilizáveis (UI, formulários, PDFs).
+- `Documentos/` - Documentação do projeto (manuais, guias, diagramas).
+- `formsByONG/` - Modelos de formulários legados (referência para digitalização).
+- `hooks/` - Hooks personalizados do React (lógica de frontend reutilizável).
+- `lib/` - Bibliotecas e utilitários auxiliares (conexão com banco, validações).
+- `prisma/` - Arquivos relacionados ao banco de dados (schema, migrations, seeds).
+- `public/` - Arquivos estáticos públicos (imagens, ícones).
+- `types/` - Definições de tipos globais do TypeScript.
+- `auth.config.ts` - Configurações de autenticação (NextAuth).
+- `auth.ts` - Inicialização e exportação dos métodos de autenticação.
+- `components.json` - Configuração da biblioteca de componentes shadcn/ui.
+- `eslint.config.mjs` - Configuração do linter (verificador de qualidade de código).
+- `next.config.ts` - Configurações do framework Next.js.
+- `package.json` - Lista de dependências e scripts do projeto.
+- `postcss.config.mjs` - Configuração do processador de CSS.
+- `README.md` - Documentação inicial e visão geral do projeto.
+- `tsconfig.json` - Configuração do compilador TypeScript.
+
+### 📁 actions/ (Backend Logic)
+- `auth.ts` - Ações de autenticação (login, logout).
+- `beneficiaries.ts` - Criação e edição de beneficiários.
+- `consultas.ts` - Lógica de busca e filtros avançados.
+- `distributions.ts` - Registro de distribuição de itens.
+- `donation.ts` - Gerenciamento de doações recebidas.
+- `financial.ts` - Controle financeiro básico.
+- `forms.ts` - Processamento de formulários digitais e geração de PDFs.
+- `institutions.ts` - Gerenciamento de instituições parceiras.
+- `inventory.ts` - Controle de estoque.
+- `volunteers.ts` - Gestão de voluntários.
+
+### 📁 app/ (Frontend Routes)
+- `(dashboard)/` - Grupo de rotas protegidas (requer login).
+  - `beneficiaries/` - Páginas de gestão de beneficiários.
+  - `consultas/` - Página de busca avançada ("Data Explorer").
+  - `distributions/` - Páginas de registro de distribuições.
+  - `donations/` - Páginas de controle de doações.
+  - `financial/` - Painel financeiro.
+  - `inventory/` - Visualização de estoque.
+  - `volunteers/` - Gestão de voluntários.
+  - `layout.tsx` - Layout base do painel (Sidebar + Header).
+  - `page.tsx` - Dashboard principal (Home).
+- `api/` - Rotas de API (pouco usadas, preferimos Server Actions).
+- `forms-demo/` - Página de demonstração dos formulários digitais.
+- `login/` - Página pública de login.
+- `globals.css` - Estilos globais e variáveis CSS (Tailwind).
+- `layout.tsx` - Layout raiz da aplicação (HTML, Body, Fontes).
+
+### 📁 components/ (UI Blocks)
+- `forms/` - Formulários interativos (Client Components).
+  - `beneficiary-form.tsx` - Formulário principal de cadastro de beneficiários.
+  - `social-assessment-form.tsx` - Formulário de avaliação social.
+  - `...` - Outros formulários específicos.
+- `layout/` - Componentes estruturais.
+  - `header.tsx` - Barra superior.
+  - `sidebar.tsx` - Menu lateral de navegação.
+- `pdf/` - Componentes para geração de documentos PDF.
+  - `social-assessment-pdf.tsx` - Layout do PDF de avaliação social.
+  - `download-button.tsx` - Botão para gerar e baixar PDFs.
+- `ui/` - Componentes base do shadcn/ui (Button, Input, Card, etc.).
+
+### 📁 lib/ (Utilities)
+- `schemas/` - Schemas de validação Zod.
+  - `domain.ts` - Definições de tipos e validações do domínio (Entidades).
+- `prisma.ts` - Instância única do cliente Prisma (Singleton).
+- `utils.ts` - Funções utilitárias gerais (ex: formatação de classes CSS).
+
+### 📁 prisma/ (Database)
+- `migrations/` - Histórico de alterações no banco de dados.
+- `schema.prisma` - A "verdade absoluta" sobre a estrutura do banco de dados.
+- `seed.ts` - Script para popular o banco com dados iniciais (teste).
+
+---
+
 ## 🔄 Fluxo de Dados (Como a informação viaja?)
 
 Entender o caminho que o dado faz é essencial. Vamos ver o exemplo de **"Criar um Beneficiário"**:

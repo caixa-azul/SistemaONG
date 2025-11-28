@@ -46,3 +46,22 @@ npm run build
 4.  Verifica erros de ESLint.
 
 **Se aparecer "Build successfully", você está pronto para o deploy! 🚀**
+
+## 5. Dicas Adicionais
+
+### Configuração Inicial do GitHub
+Se você ainda não subiu o código:
+```bash
+git init
+git add .
+git commit -m "Commit inicial"
+# git remote add origin https://github.com/seuusuario/seu-repo.git
+# git push -u origin main
+```
+
+### Desenvolvimento Local (Voltando do Postgres Remoto)
+Se você precisar rodar localmente apontando para o banco de produção ou outro banco:
+1.  Atualize o `.env`.
+2.  Execute `npx prisma db push` para sincronizar o schema.
+3.  Execute `npx prisma db seed` para criar o usuário admin.
+4.  Execute `npm run dev`.
