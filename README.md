@@ -25,12 +25,12 @@ Abra o terminal e rode:
 Este projeto foi desenhado para ser estudado. Toda a lógica está comentada e documentada.
 
 ### 🎓 Comece por aqui:
-1.  [**Guia de Estudos (Walkthrough)**](Documentos/01_GUIA_DE_ESTUDOS.md) - Entenda como ler este código.
-2.  [**Dicionário Técnico**](Documentos/03_DICIONARIO_TECNICO.md) - O significado de termos como ORM, Middleware e Hydration.
+1.  [**Guia de Estudos (Walkthrough)**](docs/01_GUIA_DE_ESTUDOS.md) - Entenda como ler este código.
+2.  [**Dicionário Técnico**](docs/03_DICIONARIO_TECNICO.md) - O significado de termos como ORM, Middleware e Hydration.
 
 ### 📂 Índice Completo
 Para ver diagramas de banco, arquitetura e manuais de deploy, acesse o nosso sumário:
-👉 [**ÍNDICE DE DOCUMENTAÇÃO**](Documentos/00_INDICE.md)
+👉 [**ÍNDICE DE DOCUMENTAÇÃO**](docs/00_INDICE.md)
 
 ---
 

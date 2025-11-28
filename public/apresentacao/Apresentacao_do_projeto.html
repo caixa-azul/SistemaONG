@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass - NGO Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        /* --- THEME & ANIMATIONS --- */
+        body {
+            background-color: #0f172a;
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 70%);
+            color: #e2e8f0;
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 4rem;
+            }
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #f8fafc;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 0.75rem;
+        }
+
+        @media (min-width: 768px) {
+            h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            p {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Cards & Glassmorphism */
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(96, 165, 250, 0.3);
+        }
+
+        /* Code Blocks */
+        pre {
+            background: #1e1e1e;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #333;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-keyword {
+            color: #c678dd;
+            font-weight: bold;
+        }
+
+        .code-function {
+            color: #61afef;
+        }
+
+        .code-string {
+            color: #98c379;
+        }
+
+        .code-comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        .code-type {
+            color: #e5c07b;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-enter {
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body class="h-screen w-screen relative flex flex-col">
+
+    <!-- Progress Bar -->
+    <div class="w-full h-1 bg-gray-800 z-50">
+        <div id="progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300"
+            style="width: 0%"></div>
+    </div>
+
+    <!-- Main Stage -->
+    <main id="stage" class="flex-1 flex items-center justify-center p-8 relative overflow-hidden">
+        <!-- Slides injected by JS -->
+    </main>
+
+    <!-- Controls -->
+    <div
+        class="fixed bottom-8 right-8 flex items-center space-x-6 z-50 bg-gray-900/80 backdrop-blur px-6 py-3 rounded-full border border-gray-700 shadow-2xl">
+        <button onclick="prevSlide()"
+            class="text-gray-400 hover:text-white transition-colors transform hover:scale-110 focus:outline-none"
+            title="Anterior (Seta Esquerda)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6" />
+            </svg>
+        </button>
+        <span id="slide-counter" class="text-gray-300 font-mono text-sm select-none w-16 text-center">1 / 50</span>
+        <button onclick="nextSlide()"
+            class="text-blue-400 hover:text-blue-300 transition-colors transform hover:scale-110 focus:outline-none"
+            title="Próximo (Seta Direita)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6" />
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // --- DATA: 50 SLIDES ---
+        const slides = [
+            // --- MODULE 1: CONTEXT (5 Slides) ---
+            {
+                content: `
+                    <div class="text-center animate-enter">
+                        <div class="text-6xl mb-6">🚀</div>
+                        <h1>NGO Management System</h1>
+                        <p class="text-2xl text-gray-300 mb-8">Masterclass de Arquitetura T3 Stack</p>
+                        <div class="inline-block px-6 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-blue-400 text-sm font-semibold">
+                            Pressione ➡️ para começar
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>O Problema Real 📝</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <p>ONGs pequenas sofrem com desorganização.</p>
+                                <ul class="space-y-4 text-gray-300">
+                                    <li class="flex items-center">❌ Cadastros em papel que se perdem.</li>
+                                    <li class="flex items-center">❌ Planilhas Excel desconexas ("Versão Final 2.xls").</li>
+                                    <li class="flex items-center">❌ Falta de histórico de doações.</li>
+                                </ul>
+                            </div>
+                            <div class="card bg-red-500/5 border-red-500/20">
+                                <h3 class="text-red-400">O Caos</h3>
+                                <p class="text-sm">Sem dados confiáveis, a ONG perde doações e falha em prestar contas.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>A Solução Web 🌐</h2>
+                        <p>Um sistema centralizado, acessível de qualquer lugar.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                            <div class="card">
+                                <div class="text-3xl mb-4">📱</div>
+                                <h3>Acessível</h3>
+                                <p class="text-sm text-gray-400">Funciona no celular do voluntário em campo.</p>
+                            </div>
+                            <div class="card">
+                                <div class="text-3xl mb-4">🔒</div>
+                                <h3>Seguro</h3>
+                                <p class="text-sm text-gray-400">Login, senhas e níveis de acesso.</p>
+                            </div>
+                            <div class="card">
+                                <div class="text-3xl mb-4">⚡</div>
+                                <h3>Rápido</h3>
+                                <p class="text-sm text-gray-400">Busca instantânea de beneficiários.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Por que Software Customizado? 🛠️</h2>
+                        <p>Por que não usar apenas o Google Sheets?</p>
+                        <div class="space-y-4">
+                            <div class="card flex items-center space-x-4">
+                                <span class="text-2xl">📄</span>
+                                <div>
+                                    <h3>Geração de Documentos</h3>
+                                    <p class="text-sm text-gray-400">O sistema gera PDFs de termos de responsabilidade automaticamente.</p>
+                                </div>
+                            </div>
+                            <div class="card flex items-center space-x-4">
+                                <span class="text-2xl">👮</span>
+                                <div>
+                                    <h3>Validação de Regras</h3>
+                                    <p class="text-sm text-gray-400">O sistema impede cadastrar CPF inválido ou duplicado.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl text-center animate-enter">
+                        <h2>Nosso Objetivo Hoje 🎯</h2>
+                        <p class="text-xl mb-8">Não vamos apenas ver o código. Vamos entender a <strong>Engenharia</strong>.</p>
+                        <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-1 rounded-2xl">
+                            <div class="bg-gray-900 rounded-xl p-8">
+                                <p class="text-lg text-gray-200">
+                                    "Como construir uma aplicação Production-Ready usando as ferramentas mais modernas de 2025."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // --- MODULE 2: T3 STACK (10 Slides) ---
+            {
+                content: `
+                    <div class="text-center animate-enter">
+                        <h3 class="text-blue-400 uppercase tracking-widest mb-4">Módulo 2</h3>
+                        <h1>A Caixa de Ferramentas 🧰</h1>
+                        <p>Conhecendo a T3 Stack.</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>O que é uma "Stack"? 🥞</h2>
+                        <p>É o conjunto de tecnologias que escolhemos para resolver o problema.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                            <div class="card border-blue-500/30">
+                                <h3 class="text-blue-400">Frontend</h3>
+                                <p class="text-sm">O que o usuário vê.</p>
+                                <div class="mt-2 flex space-x-2">
+                                    <span class="px-2 py-1 bg-gray-800 rounded text-xs">React</span>
+                                    <span class="px-2 py-1 bg-gray-800 rounded text-xs">Tailwind</span>
+                                </div>
+                            </div>
+                            <div class="card border-green-500/30">
+                                <h3 class="text-green-400">Backend</h3>
+                                <p class="text-sm">A lógica e os dados.</p>
+                                <div class="mt-2 flex space-x-2">
+                                    <span class="px-2 py-1 bg-gray-800 rounded text-xs">Next.js</span>
+                                    <span class="px-2 py-1 bg-gray-800 rounded text-xs">Prisma</span>
+                                    <span class="px-2 py-1 bg-gray-800 rounded text-xs">Postgres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Next.js: O Framework 🏗️</h2>
+                        <p>Imagine que o React é o tijolo. O Next.js é a planta da casa, o guindaste e a equipe de construção.</p>
+                        <ul class="list-disc list-inside space-y-4 mt-6 text-gray-300">
+                            <li><strong>Fullstack:</strong> Frontend e Backend no mesmo projeto.</li>
+                            <li><strong>Roteamento:</strong> Pastas viram rotas (<code>app/login/page.tsx</code> -> <code>/login</code>).</li>
+                            <li><strong>Performance:</strong> Otimiza tudo automaticamente.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-5xl animate-enter">
+                        <h2>React: Componentes 🧩</h2>
+                        <p class="mb-6">Tudo é um componente reutilizável.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <pre><code class="language-tsx"><span class="code-keyword">function</span> <span class="code-function">CardUsuario</span>({ nome, cargo }) {
+  <span class="code-control">return</span> (
+    &lt;<span class="code-type">div</span> <span class="code-string">className="card"</span>&gt;
+      &lt;<span class="code-type">h3</span>&gt;{nome}&lt;/<span class="code-type">h3</span>&gt;
+      &lt;<span class="code-type">p</span>&gt;{cargo}&lt;/<span class="code-type">p</span>&gt;
+    &lt;/<span class="code-type">div</span>&gt;
+  );
+}</code></pre>
+                            </div>
+                            <div class="flex flex-col space-y-4 justify-center">
+                                <div class="card bg-gray-800 p-4">
+                                    <h3 class="text-white">Thiago</h3>
+                                    <p class="text-gray-400 text-sm">Admin</p>
+                                </div>
+                                <div class="card bg-gray-800 p-4">
+                                    <h3 class="text-white">Ana</h3>
+                                    <p class="text-gray-400 text-sm">Voluntária</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-5xl animate-enter">
+                        <h2>Tailwind CSS: Estilo Rápido 🎨</h2>
+                        <p class="mb-6">Escrever CSS em arquivos separados é coisa do passado.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="opacity-50">
+                                <h3>CSS Antigo 🐢</h3>
+                                <pre><code class="language-css">.btn-primary {
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}</code></pre>
+                            </div>
+                            <div>
+                                <h3 class="text-blue-400">Tailwind 🚀</h3>
+                                <pre><code class="language-html">&lt;button class="bg-blue-500 text-white p-2 rounded"&gt;
+  Salvar
+&lt;/button&gt;</code></pre>
+                                <p class="text-sm mt-2 text-green-400">Você lê e entende exatamente o que está acontecendo.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>TypeScript: O Corretor Ortográfico 👮</h2>
+                        <p>O JavaScript deixa você cometer erros bobos. O TypeScript não.</p>
+                        <div class="card border-red-500/20 bg-red-500/5 mb-4">
+                            <h3 class="text-red-400 text-sm">JavaScript</h3>
+                            <code class="block mt-2">function soma(a, b) { return a + b }<br>soma(10, "20") // "1020" 😱</code>
+                        </div>
+                        <div class="card border-green-500/20 bg-green-500/5">
+                            <h3 class="text-green-400 text-sm">TypeScript</h3>
+                            <code class="block mt-2">function soma(a: number, b: number) { ... }<br>soma(10, "20") // ❌ Erro antes de rodar!</code>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Prisma: Falando com o Banco 🗣️</h2>
+                        <p>Um tradutor que converte nosso código TypeScript em SQL.</p>
+                        <div class="mt-8">
+                            <pre><code class="language-ts"><span class="code-comment">// Buscar usuário pelo email</span>
+<span class="code-keyword">const</span> user = <span class="code-keyword">await</span> prisma.user.<span class="code-function">findUnique</span>({
+  where: {
+    email: <span class="code-string">"thiago@exemplo.com"</span>
+  }
+});</code></pre>
+                            <p class="text-center mt-4 text-gray-400">Muito mais legível que <code>SELECT * FROM users WHERE...</code></p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl text-center animate-enter">
+                        <h2>PostgreSQL & Neon 🐘</h2>
+                        <p class="text-xl mb-8">Onde os dados moram.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                            <div class="card">
+                                <h3>PostgreSQL</h3>
+                                <p class="text-sm text-gray-400">O banco de dados mais robusto do mundo open-source.</p>
+                            </div>
+                            <div class="card">
+                                <h3>Neon</h3>
+                                <p class="text-sm text-gray-400">Uma versão "Serverless" do Postgres. Escala automaticamente e é perfeita para nuvem.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>NextAuth.js: Segurança 🔐</h2>
+                        <p>Gerencia quem entra e quem sai.</p>
+                        <ul class="space-y-4 mt-6">
+                            <li class="card py-3">🔑 <strong>Login:</strong> Email/Senha ou Google/GitHub.</li>
+                            <li class="card py-3">🍪 <strong>Sessão:</strong> Mantém o usuário logado com cookies seguros.</li>
+                            <li class="card py-3">🛡️ <strong>Proteção:</strong> Bloqueia páginas para não-logados.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl text-center animate-enter">
+                        <h2>Vercel: A Casa do Site 🏠</h2>
+                        <p class="mb-8">Onde fazemos o Deploy.</p>
+                        <div class="card p-8">
+                            <p class="text-lg">Conectamos o GitHub na Vercel.</p>
+                            <p class="text-lg mt-2">Sempre que damos <code>git push</code>, a Vercel constrói o site e atualiza em segundos.</p>
+                            <div class="mt-6 text-green-400 font-mono">https://meu-projeto.vercel.app</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // --- MODULE 3: DATABASE (10 Slides) ---
+            {
+                content: `
+                    <div class="text-center animate-enter">
+                        <h3 class="text-green-400 uppercase tracking-widest mb-4">Módulo 3</h3>
+                        <h1>O Banco de Dados 💾</h1>
+                        <p>A memória do sistema.</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Relacional? 🤔</h2>
+                        <p>Imagine várias planilhas Excel que "conversam" entre si através de IDs.</p>
+                        <div class="flex justify-center space-x-8 mt-8">
+                            <div class="card w-48 text-center">
+                                <div class="text-4xl mb-2">👤</div>
+                                <h3>Users</h3>
+                                <p class="text-xs text-gray-400">ID: 1</p>
+                            </div>
+                            <div class="self-center text-2xl text-gray-500">⬅️ ID ➡️</div>
+                            <div class="card w-48 text-center">
+                                <div class="text-4xl mb-2">📝</div>
+                                <h3>Posts</h3>
+                                <p class="text-xs text-gray-400">AuthorID: 1</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="w-full h-full flex flex-col items-center justify-center animate-enter">
+                        <h2>O Diagrama ER 🗺️</h2>
+                        <p class="mb-4 text-sm text-gray-400">Nossa estrutura real.</p>
+                        <div class="bg-white p-4 rounded-lg w-full max-w-4xl overflow-hidden text-black shadow-2xl">
+                            <div class="mermaid">
+                                erDiagram
+                                    User ||--o{ Session : "tem"
+                                    Beneficiary ||--o{ Donation : "recebe"
+                                    Beneficiary ||--|| SocialAssessment : "tem"
+                                    
+                                    Beneficiary {
+                                        string name
+                                        string cpf
+                                    }
+                                    Donation {
+                                        float amount
+                                        string type
+                                    }
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Deep Dive: Modelo User 👤</h2>
+                        <pre><code class="language-prisma"><span class="code-keyword">model</span> <span class="code-type">User</span> {
+  id       <span class="code-type">String</span>  <span class="code-keyword">@id</span> <span class="code-keyword">@default</span>(cuid())
+  email    <span class="code-type">String</span>  <span class="code-keyword">@unique</span>
+  password <span class="code-type">String</span>?
+  role     <span class="code-type">String</span>  <span class="code-keyword">@default</span>("USER")
+  
+  createdAt <span class="code-type">DateTime</span> <span class="code-keyword">@default</span>(now())
+}</code></pre>
+                        <ul class="mt-4 space-y-2 text-sm text-gray-300">
+                            <li>🔹 <strong>@id:</strong> Chave primária.</li>
+                            <li>🔹 <strong>cuid():</strong> Gera IDs seguros (ex: cl6...).</li>
+                            <li>🔹 <strong>@unique:</strong> Não permite dois emails iguais.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Deep Dive: Modelo Beneficiary 🤝</h2>
+                        <pre><code class="language-prisma"><span class="code-keyword">model</span> <span class="code-type">Beneficiary</span> {
+  id        <span class="code-type">String</span>   <span class="code-keyword">@id</span> <span class="code-keyword">@default</span>(cuid())
+  name      <span class="code-type">String</span>
+  cpf       <span class="code-type">String</span>   <span class="code-keyword">@unique</span>
+  birthDate <span class="code-type">DateTime</span>
+  
+  <span class="code-comment">// Relação: Um beneficiário tem várias doações</span>
+  donations <span class="code-type">Donation</span>[]
+}</code></pre>
+                        <p class="mt-4">O campo <code>donations</code> não existe no banco SQL, é uma "mágica" do Prisma para facilitar nossa vida.</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Relações 1:N (Um para Muitos)</h2>
+                        <div class="flex items-center justify-center space-x-8 mt-8">
+                            <div class="card text-center">
+                                <div class="text-5xl mb-2">👵</div>
+                                <h3>Dona Maria</h3>
+                                <p class="text-xs text-gray-400">Beneficiário</p>
+                            </div>
+                            <div class="text-4xl text-gray-600">➡️</div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="card text-center p-2">📦 Cesta</div>
+                                <div class="card text-center p-2">👕 Roupas</div>
+                                <div class="card text-center p-2">💊 Remédios</div>
+                                <div class="card text-center p-2">💵 Auxílio</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Normalização: Separando Dados ✂️</h2>
+                        <p>Por que <code>SocialAssessment</code> é uma tabela separada?</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                            <div class="card border-red-500/20">
+                                <h3 class="text-red-400">Tabela Única</h3>
+                                <p class="text-sm">Nome, CPF, Renda, Tipo de Casa, Doenças, Escolaridade...</p>
+                                <p class="text-xs mt-2 text-gray-400">Pesada para carregar lista simples.</p>
+                            </div>
+                            <div class="card border-green-500/20">
+                                <h3 class="text-green-400">Tabelas Separadas</h3>
+                                <p class="text-sm"><strong>Beneficiary:</strong> Só identificação.</p>
+                                <p class="text-sm"><strong>Assessment:</strong> Detalhes sociais.</p>
+                                <p class="text-xs mt-2 text-gray-400">Carrega rápido. Detalhes sob demanda.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Enums: Escolhas Limitadas 🔒</h2>
+                        <p>Evita erros de digitação.</p>
+                        <pre><code class="language-prisma"><span class="code-keyword">enum</span> <span class="code-type">HousingType</span> {
+  OWNED     <span class="code-comment">// Própria</span>
+  RENTED    <span class="code-comment">// Alugada</span>
+  HOMELESS  <span class="code-comment">// Sem teto</span>
+}</code></pre>
+                        <p class="mt-4 text-sm">O banco rejeita qualquer valor que não seja um desses três.</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Migrations: Controle de Versão do Banco 📜</h2>
+                        <p>Como alteramos o banco sem perder dados?</p>
+                        <div class="card bg-black mt-6 font-mono text-sm">
+                            <p class="text-gray-500">$ npx prisma migrate dev --name add_phone</p>
+                            <p class="text-green-400 mt-2">✔ Generated migration '20241128_add_phone'</p>
+                            <p class="text-green-400">✔ The migration has been applied</p>
+                        </div>
+                        <p class="mt-4 text-sm text-gray-400">Cria um arquivo SQL histórico com as mudanças.</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Seed: Dados Falsos 🌱</h2>
+                        <p>Preencher formulários na mão para testar é chato.</p>
+                        <pre><code class="language-ts"><span class="code-comment">// seed.ts</span>
+<span class="code-keyword">for</span> (<span class="code-keyword">let</span> i = 0; i < 50; i++) {
+  <span class="code-keyword">await</span> prisma.beneficiary.<span class="code-function">create</span>({
+    data: {
+      name: faker.person.<span class="code-function">fullName</span>(), <span class="code-comment">// "João Silva"</span>
+      cpf: faker.string.<span class="code-function">numeric</span>(11),
+    }
+  });
+}</code></pre>
+                        <p class="mt-4 text-sm">Cria 50 beneficiários em 1 segundo.</p>
+                    </div>
+                `
+            },
+
+            // --- MODULE 4: BACKEND (10 Slides) ---
+            {
+                content: `
+                    <div class="text-center animate-enter">
+                        <h3 class="text-purple-400 uppercase tracking-widest mb-4">Módulo 4</h3>
+                        <h1>O Backend 🧠</h1>
+                        <p>A lógica, as regras e a segurança.</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-5xl animate-enter">
+                        <h2>O Fluxo do Pedido 🌊</h2>
+                        <div class="bg-white p-4 rounded-lg w-full text-black shadow-2xl">
+                            <div class="mermaid">
+                                sequenceDiagram
+                                    User->>Form: Preenche Dados
+                                    Form->>ServerAction: Envia (RPC)
+                                    ServerAction->>Zod: Valida Dados
+                                    ServerAction->>Auth: Verifica Login
+                                    ServerAction->>Prisma: Salva no Banco
+                                    Prisma-->>ServerAction: OK
+                                    ServerAction-->>Form: Sucesso!
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Server Actions: O Novo API ⚡</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="opacity-50">
+                                <h3>Antigamente (API REST)</h3>
+                                <p class="text-sm">Criar arquivo <code>api/save.ts</code>, configurar fetch, tratar JSON, lidar com headers...</p>
+                            </div>
+                            <div class="card border-purple-500/50">
+                                <h3>Hoje (Server Actions)</h3>
+                                <p class="text-sm">Apenas uma função assíncrona que roda no servidor.</p>
+                                <pre class="mt-2 p-2"><code class="language-ts"><span class="code-string">"use server"</span>
+<span class="code-keyword">async</span> <span class="code-function">save</span>(data) { ... }</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Validação: O Velho Oeste 🤠</h2>
+                        <p>O que acontece se não validarmos?</p>
+                        <div class="card bg-red-500/10 border-red-500/30">
+                            <p class="font-mono text-red-300">
+                                { name: "", cpf: "batata", age: -50 }
+                            </p>
+                        </div>
+                        <p class="mt-4">O banco explode ou salva lixo. O sistema quebra.</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Zod: O Segurança da Balada 🦍</h2>
+                        <p>O Zod fica na porta do servidor. Se os dados não tiverem o formato correto, nem entram.</p>
+                        <div class="flex justify-center mt-8">
+                            <div class="card text-center p-6 border-blue-500">
+                                <div class="text-4xl mb-2">🛡️</div>
+                                <h3>Zod Schema</h3>
+                                <p class="text-sm text-gray-400">"Só entra se tiver Nome e CPF com 11 dígitos."</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>O Código Zod 📜</h2>
+                        <pre><code class="language-ts"><span class="code-keyword">const</span> schema = z.<span class="code-function">object</span>({
+  name: z.<span class="code-function">string</span>().<span class="code-function">min</span>(2, <span class="code-string">"Nome muito curto"</span>),
+  cpf: z.<span class="code-function">string</span>().<span class="code-function">length</span>(11, <span class="code-string">"CPF inválido"</span>),
+  age: z.<span class="code-function">number</span>().<span class="code-function">min</span>(0),
+});
+
+<span class="code-comment">// Se falhar, lança erro automático com as mensagens acima.</span>
+<span class="code-keyword">const</span> data = schema.<span class="code-function">parse</span>(formData);</code></pre>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Autenticação: "Quem é você?" 🕵️</h2>
+                        <p>Antes de salvar, perguntamos: "Você está logado?"</p>
+                        <pre><code class="language-ts"><span class="code-keyword">import</span> { auth } <span class="code-keyword">from</span> <span class="code-string">"@/auth"</span>;
+
+<span class="code-keyword">const</span> session = <span class="code-keyword">await</span> <span class="code-function">auth</span>();
+
+<span class="code-control">if</span> (!session) {
+  <span class="code-control">throw</span> <span class="code-keyword">new</span> <span class="code-type">Error</span>(<span class="code-string">"Não autorizado!"</span>);
+}</code></pre>
+                        <p class="mt-4 text-sm text-green-400">Simples assim. Graças ao NextAuth.</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Salvando no Banco (Prisma Create) 💾</h2>
+                        <p>Se passou pelo Zod e pelo Auth, salvamos.</p>
+                        <pre><code class="language-ts"><span class="code-keyword">await</span> prisma.beneficiary.<span class="code-function">create</span>({
+  data: {
+    name: data.name,
+    cpf: data.cpf,
+    createdBy: session.user.id
+  }
+});</code></pre>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>RevalidatePath: Limpando o Cache 🧹</h2>
+                        <p>O Next.js é agressivo com cache para ser rápido.</p>
+                        <div class="card bg-yellow-500/10 border-yellow-500/30 mt-4">
+                            <p class="text-sm">Se você adicionar um beneficiário e voltar para a lista, ela pode mostrar a versão antiga (cacheada).</p>
+                        </div>
+                        <pre class="mt-4"><code class="language-ts"><span class="code-function">revalidatePath</span>(<span class="code-string">"/beneficiaries"</span>);</code></pre>
+                        <p class="text-sm mt-2">Isso diz: "Next, apague o cache dessa página e gere de novo."</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Tratamento de Erros (Try/Catch) 🚨</h2>
+                        <p>E se o banco cair? E se o CPF já existir?</p>
+                        <pre><code class="language-ts"><span class="code-control">try</span> {
+  <span class="code-comment">// ... tenta salvar</span>
+  <span class="code-control">return</span> { success: <span class="code-keyword">true</span> };
+} <span class="code-control">catch</span> (error) {
+  <span class="code-control">return</span> { error: <span class="code-string">"Erro ao salvar. Tente novamente."</span> };
+}</code></pre>
+                        <p class="mt-4 text-sm">Nunca deixe o aplicativo "quebrar" na cara do usuário.</p>
+                    </div>
+                `
+            },
+
+            // --- MODULE 5: FRONTEND (10 Slides) ---
+            {
+                content: `
+                    <div class="text-center animate-enter">
+                        <h3 class="text-yellow-400 uppercase tracking-widest mb-4">Módulo 5</h3>
+                        <h1>O Frontend 💅</h1>
+                        <p>A interface, a experiência e a beleza.</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Server vs Client Components ☯️</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                            <div class="card border-blue-500/30">
+                                <h3 class="text-blue-400">Server (Padrão)</h3>
+                                <p class="text-sm">Renderiza no servidor. Acessa banco. Não tem interatividade (onClick).</p>
+                                <p class="text-xs mt-2 text-gray-400">Ótimo para: Listagens, Textos.</p>
+                            </div>
+                            <div class="card border-yellow-500/30">
+                                <h3 class="text-yellow-400">Client ("use client")</h3>
+                                <p class="text-sm">Renderiza no navegador. Tem interatividade, State, Effects.</p>
+                                <p class="text-xs mt-2 text-gray-400">Ótimo para: Botões, Formulários.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Fetching de Dados 🎣</h2>
+                        <p>No Next.js (App Router), buscamos dados direto no componente Server.</p>
+                        <pre><code class="language-tsx"><span class="code-comment">// page.tsx (Server Component)</span>
+<span class="code-keyword">export</span> <span class="code-keyword">default</span> <span class="code-keyword">async</span> <span class="code-keyword">function</span> <span class="code-function">Page</span>() {
+  <span class="code-keyword">const</span> users = <span class="code-keyword">await</span> prisma.user.<span class="code-function">findMany</span>();
+
+  <span class="code-control">return</span> (
+    &lt;<span class="code-type">div</span>&gt;
+      {users.map(u => &lt;<span class="code-type">div</span>&gt;{u.name}&lt;/<span class="code-type">div</span>&gt;)}
+    &lt;/<span class="code-type">div</span>&gt;
+  );
+}</code></pre>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Formulários (Client) 📝</h2>
+                        <p>Para interagir, precisamos de um Client Component.</p>
+                        <pre><code class="language-tsx"><span class="code-string">"use client"</span>;
+
+<span class="code-keyword">export</span> <span class="code-keyword">function</span> <span class="code-function">Form</span>() {
+  <span class="code-keyword">const</span> [nome, setNome] = <span class="code-function">useState</span>(<span class="code-string">""</span>);
+
+  <span class="code-control">return</span> (
+    &lt;<span class="code-type">input</span> <span class="code-attr">value</span>={nome} <span class="code-attr">onChange</span>={e => ...} /&gt;
+  );
+}</code></pre>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>React Hook Form 🎣</h2>
+                        <p>Gerenciar formulários na mão (useState) é difícil. Usamos uma biblioteca.</p>
+                        <ul class="list-disc list-inside space-y-4 mt-6 text-gray-300">
+                            <li>✅ Gerencia o estado de todos os inputs.</li>
+                            <li>✅ Lida com validação (conecta com Zod).</li>
+                            <li>✅ Melhora performance (evita re-renders).</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>URL State: O Estado Compartilhável 🔗</h2>
+                        <p>Por que guardar a busca na URL?</p>
+                        <div class="card bg-blue-500/10 border-blue-500/30 text-center text-xl font-mono my-6">
+                            /beneficiarios?search=<span class="text-yellow-400">Maria</span>&page=<span class="text-yellow-400">2</span>
+                        </div>
+                        <p>Se você copiar esse link e mandar para alguém, a pessoa vê exatamente a mesma coisa. Se fosse <code>useState</code>, ela veria a página inicial.</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>PDF Generation 📄</h2>
+                        <p>Usamos <code>@react-pdf/renderer</code>.</p>
+                        <p class="mb-4">Desenhamos o PDF usando componentes React!</p>
+                        <pre><code class="language-tsx">&lt;<span class="code-type">Document</span>&gt;
+  &lt;<span class="code-type">Page</span>&gt;
+    &lt;<span class="code-type">Text</span>&gt;Olá Mundo&lt;/<span class="code-type">Text</span>&gt;
+    &lt;<span class="code-type">Image</span> <span class="code-attr">src</span>=<span class="code-string">"logo.png"</span> /&gt;
+  &lt;/<span class="code-type">Page</span>&gt;
+&lt;/<span class="code-type">Document</span>&gt;</code></pre>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Responsividade 📱</h2>
+                        <p>O Tailwind facilita criar layouts que funcionam no celular.</p>
+                        <pre><code class="language-html">&lt;div class="grid grid-cols-1 md:grid-cols-3"&gt;
+  &lt;!-- 1 coluna no celular --&gt;
+  &lt;!-- 3 colunas no desktop (md) --&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Shadcn UI 🧱</h2>
+                        <p>Não construímos componentes do zero. Usamos Shadcn UI.</p>
+                        <p class="text-sm text-gray-400 mb-6">São componentes acessíveis e bonitos (baseados em Radix UI) que copiamos para nosso projeto.</p>
+                        <div class="flex space-x-4">
+                            <button class="px-4 py-2 bg-white text-black rounded">Button</button>
+                            <input type="text" placeholder="Input" class="px-4 py-2 bg-gray-800 rounded border border-gray-600">
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Toasts: Feedback Visual 🍞</h2>
+                        <p>Quando algo acontece, avisamos o usuário.</p>
+                        <div class="card bg-green-500 text-white p-4 rounded shadow-lg mt-8 w-64 mx-auto animate-bounce">
+                            ✅ Salvo com sucesso!
+                        </div>
+                        <p class="text-center mt-4 text-sm text-gray-400">Usamos a biblioteca <code>sonner</code>.</p>
+                    </div>
+                `
+            },
+
+            // --- MODULE 6: CONCLUSION (5 Slides) ---
+            {
+                content: `
+                    <div class="text-center animate-enter">
+                        <h3 class="text-red-400 uppercase tracking-widest mb-4">Módulo 6</h3>
+                        <h1>Conclusão 🏁</h1>
+                        <p>Prontos para o mundo real.</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Segurança (.env) 🤫</h2>
+                        <p>Segredos nunca vão para o GitHub.</p>
+                        <div class="card border-red-500/30">
+                            <pre class="bg-transparent border-none p-0"><code class="language-bash">DATABASE_URL="postgresql://..."
+AUTH_SECRET="segredo-super-secreto"</code></pre>
+                        </div>
+                        <p class="mt-4 text-red-400 font-bold">⚠️ O arquivo .env fica apenas no seu computador.</p>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Automação (Scripts) 🤖</h2>
+                        <p>Facilitamos o setup para novos devs.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                            <div class="card">
+                                <h3>setup_windows.bat</h3>
+                                <p class="text-sm">Configura tudo com 2 cliques.</p>
+                            </div>
+                            <div class="card">
+                                <h3>setup_linux.sh</h3>
+                                <p class="text-sm">O mesmo para Linux/Mac.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="max-w-4xl animate-enter">
+                        <h2>Roadmap Futuro 🗺️</h2>
+                        <ul class="space-y-4 mt-6">
+                            <li class="flex items-center text-green-400">✅ Boilerplate Completo</li>
+                            <li class="flex items-center text-green-400">✅ Documentação</li>
+                            <li class="flex items-center text-gray-400">⬜ Dashboard com Gráficos</li>
+                            <li class="flex items-center text-gray-400">⬜ Upload de Imagens (AWS S3)</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                content: `
+                    <div class="text-center animate-enter">
+                        <h1 class="mb-8">Parabéns! 🎓</h1>
+                        <p class="text-2xl text-gray-300 mb-12">Você completou a Masterclass.</p>
+                        <div class="inline-block p-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl transform hover:scale-105 transition-transform cursor-pointer">
+                            <div class="bg-gray-900 p-8 rounded-xl">
+                                <h3 class="text-2xl font-bold text-white mb-4">Hora de Codar</h3>
+                                <code class="text-xl font-mono bg-black px-6 py-3 rounded text-green-400">npm run dev</code>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        // --- LOGIC ---
+        let currentSlide = 0;
+
+        function init() {
+            renderSlide(0);
+
+            // Keyboard Nav
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+                if (e.key === 'ArrowLeft') prevSlide();
+            });
+
+            // Touch Nav (Swipe)
+            let touchStartX = 0;
+            let touchEndX = 0;
+            const stage = document.getElementById('stage');
+
+            stage.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            stage.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+
+            function handleSwipe() {
+                if (touchEndX < touchStartX - 50) nextSlide();
+                if (touchEndX > touchStartX + 50) prevSlide();
+            }
+        }
+
+        function renderSlide(index) {
+            const stage = document.getElementById('stage');
+            stage.innerHTML = slides[index].content;
+
+            // Re-render Mermaid
+            stage.querySelectorAll('.mermaid').forEach(el => {
+                mermaid.init(undefined, el);
+            });
+
+            // Update UI
+            document.getElementById('slide-counter').innerText = `${index + 1} / ${slides.length}`;
+            document.getElementById('progress-bar').style.width = `${((index + 1) / slides.length) * 100}%`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                renderSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                renderSlide(currentSlide);
+            }
+        }
+
+        // Start
+        init();
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+
+    </script>
+</body>
+
+</html>

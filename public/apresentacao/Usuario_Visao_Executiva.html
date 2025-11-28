@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Visão Geral Executiva - ONG Além dos Olhos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom Scrollbar Hide */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Smooth Transitions */
+        .slide {
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(100%);
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .slide.prev {
+            opacity: 0;
+            transform: translateX(-100%);
+            z-index: 5;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-slate-900 text-white font-sans overflow-hidden h-screen w-screen selection:bg-blue-500 selection:text-white">
+
+    <!-- Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 bg-slate-800 z-50">
+        <div id="progress-bar" class="h-full bg-blue-500 transition-all duration-300" style="width: 0%"></div>
+    </div>
+
+    <!-- Navigation Controls (Desktop) -->
+    <div class="fixed bottom-8 right-8 z-50 hidden md:flex gap-4">
+        <button onclick="prevSlide()"
+            class="p-3 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors border border-slate-700"
+            aria-label="Anterior">
+            <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <button onclick="nextSlide()"
+            class="p-3 rounded-full bg-blue-600 hover:bg-blue-500 transition-colors shadow-lg shadow-blue-900/50"
+            aria-label="Próximo">
+            <i data-lucide="chevron-right" class="w-6 h-6"></i>
+        </button>
+    </div>
+
+    <!-- Share Button -->
+    <button onclick="sharePresentation()"
+        class="fixed top-6 right-6 z-50 p-2 rounded-full bg-slate-800/50 hover:bg-slate-700/50 backdrop-blur transition-colors"
+        aria-label="Compartilhar">
+        <i data-lucide="share-2" class="w-5 h-5 text-slate-300"></i>
+    </button>
+
+    <!-- Main Container -->
+    <main id="slider-container" class="relative w-full h-full flex items-center justify-center overflow-hidden">
+
+        <!-- Slide 1: Capa -->
+        <section class="slide active flex flex-col items-center justify-center text-center p-6 md:p-12">
+            <div class="mb-8 p-6 rounded-full bg-blue-500/10 border border-blue-500/20 animate-pulse">
+                <i data-lucide="heart-handshake" class="w-16 h-16 md:w-24 md:h-24 text-blue-400"></i>
+            </div>
+            <h1
+                class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Sistema de Gestão Integrada
+            </h1>
+            <h2 class="text-xl md:text-3xl text-slate-300 font-light mb-8">
+                ONG Além dos Olhos
+            </h2>
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mb-12">
+                Tecnologia transformando solidariedade em impacto real.
+            </p>
+            <button onclick="nextSlide()"
+                class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold text-lg shadow-lg shadow-blue-900/30 transition-all transform hover:scale-105 flex items-center gap-2">
+                Conhecer o Sistema <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+        </section>
+
+        <!-- Slide 2: O Desafio Atual -->
+        <section class="slide flex flex-col items-center justify-center p-6 md:p-12">
+            <div class="max-w-4xl w-full">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-3 rounded-lg bg-red-500/10">
+                        <i data-lucide="alert-triangle" class="w-8 h-8 text-red-400"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-bold">O Desafio Atual</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass p-6 rounded-2xl">
+                        <h3 class="text-xl font-semibold text-red-300 mb-3 flex items-center gap-2">
+                            <i data-lucide="file-x" class="w-5 h-5"></i> Caos de Papel
+                        </h3>
+                        <p class="text-slate-300">Fichas perdidas, letras ilegíveis e pilhas de documentos que
+                            dificultam o acesso rápido à informação.</p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl">
+                        <h3 class="text-xl font-semibold text-red-300 mb-3 flex items-center gap-2">
+                            <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Falta de Dados
+                        </h3>
+                        <p class="text-slate-300">Sem relatórios precisos, é impossível medir o impacto real ou prestar
+                            contas com transparência total.</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 text-center">
+                    <p class="text-2xl font-light text-slate-400 italic">"Sem dados organizados, não há visibilidade do
+                        problema."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: A Nossa Solução -->
+        <section class="slide flex flex-col items-center justify-center p-6 md:p-12">
+            <div class="max-w-4xl w-full text-center">
+                <div class="mb-6 inline-flex p-4 rounded-full bg-green-500/10 mx-auto">
+                    <i data-lucide="check-circle-2" class="w-12 h-12 text-green-400"></i>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold mb-8">A Nossa Solução</h2>
+                <p class="text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
+                    Uma plataforma web centralizada, acessível de qualquer lugar, projetada para conectar quem ajuda a
+                    quem precisa.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass p-6 rounded-xl flex flex-col items-center">
+                        <i data-lucide="layers" class="w-10 h-10 text-blue-400 mb-4"></i>
+                        <h3 class="text-lg font-bold mb-2">Centralização</h3>
+                        <p class="text-sm text-slate-400">Tudo em um só lugar.</p>
+                    </div>
+                    <div class="glass p-6 rounded-xl flex flex-col items-center">
+                        <i data-lucide="shield-check" class="w-10 h-10 text-blue-400 mb-4"></i>
+                        <h3 class="text-lg font-bold mb-2">Segurança</h3>
+                        <p class="text-sm text-slate-400">Dados protegidos.</p>
+                    </div>
+                    <div class="glass p-6 rounded-xl flex flex-col items-center">
+                        <i data-lucide="zap" class="w-10 h-10 text-blue-400 mb-4"></i>
+                        <h3 class="text-lg font-bold mb-2">Agilidade</h3>
+                        <p class="text-sm text-slate-400">Menos tempo, mais ação.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Para o Beneficiário -->
+        <section class="slide flex flex-col items-center justify-center p-6 md:p-12">
+            <div class="max-w-4xl w-full">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-3 rounded-lg bg-orange-500/10">
+                        <i data-lucide="users" class="w-8 h-8 text-orange-400"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-bold">Para o Beneficiário</h2>
+                </div>
+
+                <div class="glass p-8 rounded-2xl border-l-4 border-orange-400 mb-8">
+                    <h3 class="text-2xl font-bold mb-4">Dignidade no Atendimento</h3>
+                    <p class="text-lg text-slate-300 mb-6">
+                        Chega de repetir a mesma história triste a cada visita. Com o histórico unificado, nós já
+                        sabemos quem eles são e do que precisam.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <i data-lucide="clock" class="w-5 h-5 text-orange-400"></i> Atendimento mais rápido
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <i data-lucide="history" class="w-5 h-5 text-orange-400"></i> Histórico completo preservado
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Para o Voluntário -->
+        <section class="slide flex flex-col items-center justify-center p-6 md:p-12">
+            <div class="max-w-4xl w-full">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-3 rounded-lg bg-pink-500/10">
+                        <i data-lucide="heart" class="w-8 h-8 text-pink-400"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-bold">Para o Voluntário</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass p-6 rounded-2xl">
+                        <div class="mb-4 bg-slate-800 w-12 h-12 rounded-full flex items-center justify-center">
+                            <i data-lucide="tablet" class="w-6 h-6 text-pink-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Formulários Digitais</h3>
+                        <p class="text-slate-400">Preenchimento fácil em tablets ou celulares. Adeus pranchetas e
+                            canetas falhando.</p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl">
+                        <div class="mb-4 bg-slate-800 w-12 h-12 rounded-full flex items-center justify-center">
+                            <i data-lucide="file-signature" class="w-6 h-6 text-pink-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Automação</h3>
+                        <p class="text-slate-400">Geração automática de PDFs e termos de responsabilidade com assinatura
+                            digital.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Gestão de Doações -->
+        <section class="slide flex flex-col items-center justify-center p-6 md:p-12">
+            <div class="max-w-4xl w-full">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-3 rounded-lg bg-yellow-500/10">
+                        <i data-lucide="package" class="w-8 h-8 text-yellow-400"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-bold">Gestão de Doações</h2>
+                </div>
+
+                <div class="glass p-8 rounded-2xl text-center">
+                    <h3 class="text-2xl font-bold mb-6 text-yellow-400">Transparência Total</h3>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-8 mb-8">
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-white mb-2">Entrada</div>
+                            <div class="text-sm text-slate-400">Registro de Doações</div>
+                        </div>
+                        <i data-lucide="arrow-right" class="w-8 h-8 text-slate-600 hidden md:block"></i>
+                        <i data-lucide="arrow-down" class="w-8 h-8 text-slate-600 md:hidden"></i>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-white mb-2">Saída</div>
+                            <div class="text-sm text-slate-400">Distribuição às Famílias</div>
+                        </div>
+                    </div>
+                    <p class="text-slate-300">
+                        Rastreabilidade de cada quilo de alimento e cada centavo doado. Conectamos a doação diretamente
+                        a quem a recebeu.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Inteligência de Dados -->
+        <section class="slide flex flex-col items-center justify-center p-6 md:p-12">
+            <div class="max-w-4xl w-full">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-3 rounded-lg bg-purple-500/10">
+                        <i data-lucide="pie-chart" class="w-8 h-8 text-purple-400"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-bold">Inteligência de Dados</h2>
+                </div>
+
+                <p class="text-xl text-slate-300 mb-8">Não apenas guardamos dados; geramos inteligência para tomada de
+                    decisão.</p>
+
+                <div class="grid gap-4">
+                    <div class="glass p-4 rounded-lg flex items-center gap-4">
+                        <i data-lucide="map-pin" class="w-8 h-8 text-purple-400"></i>
+                        <div>
+                            <h4 class="font-bold">Mapa de Vulnerabilidade</h4>
+                            <p class="text-sm text-slate-400">Identificação visual das áreas com maior necessidade.</p>
+                        </div>
+                    </div>
+                    <div class="glass p-4 rounded-lg flex items-center gap-4">
+                        <i data-lucide="trending-up" class="w-8 h-8 text-purple-400"></i>
+                        <div>
+                            <h4 class="font-bold">Métricas de Impacto</h4>
+                            <p class="text-sm text-slate-400">Famílias atendidas por mês, crescimento da demanda, etc.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Segurança e Privacidade -->
+        <section class="slide flex flex-col items-center justify-center p-6 md:p-12">
+            <div class="max-w-4xl w-full">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-3 rounded-lg bg-indigo-500/10">
+                        <i data-lucide="lock" class="w-8 h-8 text-indigo-400"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-bold">Segurança (LGPD)</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass p-6 rounded-2xl border-t-4 border-indigo-500">
+                        <h3 class="text-xl font-bold mb-4">Criptografia</h3>
+                        <p class="text-slate-300">
+                            Os dados são armazenados de forma ilegível para estranhos. Apenas pessoas autorizadas
+                            possuem a "chave" para ler.
+                        </p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl border-t-4 border-indigo-500">
+                        <h3 class="text-xl font-bold mb-4">Níveis de Acesso</h3>
+                        <ul class="space-y-2 text-slate-300 text-sm">
+                            <li class="flex items-center gap-2"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-400"></i> Voluntário: Vê apenas o necessário.</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check"
+                                    class="w-4 h-4 text-green-400"></i> Admin: Vê relatórios gerenciais.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: A Tecnologia -->
+        <section class="slide flex flex-col items-center justify-center p-6 md:p-12">
+            <div class="max-w-4xl w-full text-center">
+                <div class="mb-6 inline-flex p-4 rounded-full bg-cyan-500/10 mx-auto">
+                    <i data-lucide="cpu" class="w-12 h-12 text-cyan-400"></i>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold mb-8">Tecnologia Moderna</h2>
+
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span
+                        class="px-6 py-3 rounded-full bg-slate-800 border border-slate-700 text-cyan-400 font-semibold">Cloud
+                        Computing</span>
+                    <span
+                        class="px-6 py-3 rounded-full bg-slate-800 border border-slate-700 text-cyan-400 font-semibold">Backup
+                        Automático</span>
+                    <span
+                        class="px-6 py-3 rounded-full bg-slate-800 border border-slate-700 text-cyan-400 font-semibold">Alta
+                        Disponibilidade</span>
+                    <span
+                        class="px-6 py-3 rounded-full bg-slate-800 border border-slate-700 text-cyan-400 font-semibold">Acesso
+                        Mobile</span>
+                </div>
+
+                <p class="mt-12 text-xl text-slate-400">
+                    "Não é sobre o código, é sobre a confiabilidade."
+                </p>
+            </div>
+        </section>
+
+        <!-- Slide 10: Próximos Passos -->
+        <section class="slide flex flex-col items-center justify-center p-6 md:p-12 text-center">
+            <div class="max-w-3xl w-full">
+                <h2
+                    class="text-4xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+                    Vamos Transformar Vidas?
+                </h2>
+
+                <div class="space-y-6 mb-12 text-left max-w-lg mx-auto">
+                    <div class="flex items-center gap-4">
+                        <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold">1</div>
+                        <p class="text-lg">Implantação do Sistema</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold">2</div>
+                        <p class="text-lg">Treinamento dos Voluntários</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold">3</div>
+                        <p class="text-lg">Início dos Atendimentos Digitais</p>
+                    </div>
+                </div>
+
+                <button onclick="location.reload()"
+                    class="px-8 py-4 bg-white text-slate-900 hover:bg-slate-200 rounded-xl font-bold text-lg shadow-xl transition-all transform hover:scale-105">
+                    Reiniciar Apresentação
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Mobile Hint -->
+    <div class="fixed bottom-8 left-0 w-full text-center md:hidden pointer-events-none animate-bounce opacity-50">
+        <p class="text-xs text-slate-500 uppercase tracking-widest">Deslize para navegar</p>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // State
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progress-bar');
+        const totalSlides = slides.length;
+
+        // Navigation Functions
+        function updateSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else if (index < currentSlide) {
+                    slide.classList.add('prev');
+                }
+            });
+
+            // Update Progress Bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlides();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlides();
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Touch Navigation (Swipe)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const sliderContainer = document.getElementById('slider-container');
+
+        sliderContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        sliderContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const threshold = 50; // Minimum distance for swipe
+            if (touchEndX < touchStartX - threshold) {
+                nextSlide(); // Swipe Left -> Next
+            }
+            if (touchEndX > touchStartX + threshold) {
+                prevSlide(); // Swipe Right -> Prev
+            }
+        }
+
+        // Share Functionality
+        async function sharePresentation() {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'Apresentação ONG Além dos Olhos',
+                        text: 'Confira a visão geral do novo sistema de gestão integrada.',
+                        url: window.location.href
+                    });
+                } catch (err) {
+                    console.log('Error sharing:', err);
+                }
+            } else {
+                // Fallback
+                alert('Copie o link do navegador para compartilhar!');
+            }
+        }
+
+        // Initial Update
+        updateSlides();
+    </script>
+</body>
+
+</html>

@@ -59,8 +59,8 @@ Aqui está a lista completa de arquivos do projeto e o propósito de cada um:
 - `actions/` - Contém as Server Actions (lógica de backend executada no servidor).
 - `app/` - Diretório principal do Next.js App Router (páginas e rotas).
 - `components/` - Componentes React reutilizáveis (UI, formulários, PDFs).
-- `Documentos/` - Documentação do projeto (manuais, guias, diagramas).
-- `formsByONG/` - Modelos de formulários legados (referência para digitalização).
+- `docs/` - Documentação do projeto (manuais, guias, diagramas).
+- `docs/referencia_legada/` - Modelos de formulários legados (referência para digitalização).
 - `hooks/` - Hooks personalizados do React (lógica de frontend reutilizável).
 - `lib/` - Bibliotecas e utilitários auxiliares (conexão com banco, validações).
 - `prisma/` - Arquivos relacionados ao banco de dados (schema, migrations, seeds).
