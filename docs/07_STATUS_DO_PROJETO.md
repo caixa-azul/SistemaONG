@@ -66,6 +66,20 @@
         - [x] Novo README.md (Entry Point)
         - [x] Integração com Índice de Documentação
 
+    - [x] **Entrega Final e Auditoria**
+        - [x] **Apresentações**
+            - [x] Masterclass (`public/apresentacao/Apresentacao_do_projeto.html`) - Responsivo
+            - [x] Onboarding Dev (`public/apresentacao/Onboarding_Dev_Resumo.html`) - Responsivo e Macro
+            - [x] Visão Executiva (`public/apresentacao/Visao_Geral_Executiva.html`)
+        - [x] **Reestruturação de Diretórios**
+            - [x] Padronização (`docs/`, `public/apresentacao/`)
+            - [x] Organização de Legado (`docs/referencia_legada/`)
+        - [x] **Auditoria de Sistema**
+            - [x] Integridade de Links e Caminhos
+            - [x] Consistência de Dados (Prisma vs Zod)
+            - [x] Segurança (Auth.js em todas as Actions)
+            - [x] Relatório de Auditoria (`docs/AUDIT_REPORT.md`)
+
 ## Plano de Verificação
 
 ### Testes Automatizados
