@@ -179,7 +179,7 @@ export function NutritionistReferralForm({ beneficiaryId }: NutritionistReferral
                     </CardContent>
                 </Card>
 
-                {/* Health Metrics (for Nutritionist) */}
+                {/* Métricas de Saúde (para Nutricionista) */}
                 {isNutritionist && (
                     <Card>
                         <CardHeader>

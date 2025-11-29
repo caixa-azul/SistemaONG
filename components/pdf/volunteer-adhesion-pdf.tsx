@@ -2,7 +2,7 @@ import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
 
 // Register a font that supports bold/italic if needed, or use standard ones.
-// For simplicity, we'll use standard Helvetica.
+// Por simplicidade, usaremos Helvetica padrão.
 
 const styles = StyleSheet.create({
     page: {
@@ -210,7 +210,7 @@ export const VolunteerAdhesionPDF: React.FC<VolunteerAdhesionPDFProps> = ({ data
                     </Text>
                 </View>
 
-                {/* Date and Signatures */}
+                {/* Data e Assinaturas */}
                 <View style={styles.dateLine}>
                     <Text>São José (SC), {getDay()} de {getMonth()} de {getYear()}.</Text>
                 </View>

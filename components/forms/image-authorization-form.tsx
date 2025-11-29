@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { saveImageAuthorization } from "@/actions/forms"; // Updated import to use correct action
+import { saveImageAuthorization } from "@/actions/forms"; // Importação atualizada para usar a action correta
 import { Button } from "@/components/ui/button";
 import {
     Form,
@@ -75,11 +75,10 @@ export function ImageAuthorizationForm({
             formData.append("authorized", values.commercialUse ? "on" : "off");
             if (values.signaturePath) formData.append("signaturePath", values.signaturePath);
 
-            // Note: The current saveImageAuthorization action in actions/forms.ts 
-            // mainly expects beneficiaryId, authorized, signaturePath.
-            // It defaults dates to now/1 year later.
-            // To support custom dates, we would need to update the action or use a different one.
-            // For now, we stick to the action we refactored which is safe.
+            // Nota: A action atual saveImageAuthorization em actions/forms.ts
+            // Define datas padrão para agora/1 ano depois.
+            // Para suportar datas personalizadas, precisaríamos atualizar a action ou usar uma diferente.
+            // Por enquanto, mantemos a action que refatoramos, que é segura.
 
             const result = await saveImageAuthorization({ message: "", errors: {} }, formData);
 

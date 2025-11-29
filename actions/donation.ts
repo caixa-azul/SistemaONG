@@ -86,9 +86,9 @@ export async function createDonation(prevState: State, formData: FormData) {
                         donationId: donation.id,
                     },
                 });
-                // Note: Balance calculation would typically require fetching the last balance. 
-                // For this boilerplate, we might need a more robust ledger system or a trigger.
-                // Simplified for now.
+                // Nota: O cálculo do saldo normalmente exigiria buscar o último saldo.
+                // Para este boilerplate, poderíamos precisar de um sistema de razão mais robusto ou um trigger.
+                // Simplificado por enquanto.
             } else if (type === "MATERIAL" && itemName && quantity && unit) {
                 // Check if item exists
                 const existingItem = await tx.inventory.findUnique({
@@ -108,15 +108,15 @@ export async function createDonation(prevState: State, formData: FormData) {
                             itemName,
                             quantity,
                             unit,
-                            donationId: donation.id, // Link to first donation of this item? Or maybe just track it.
-                            // The schema has donationId unique on Inventory, which implies 1:1. 
-                            // This might be a schema design limitation if we want to track inventory from multiple donations.
-                            // For now, let's ignore linking donationId directly to Inventory if it's an aggregate.
-                            // Actually, the schema says: donationId String? @unique. 
-                            // This means an inventory item can be linked to ONE donation. 
-                            // This is likely for "Asset" tracking rather than "Commodity" tracking.
-                            // But for "Rice", we get multiple donations.
-                            // Let's just update quantity and NOT set donationId if it already exists.
+                            donationId: donation.id, // Vincular à primeira doação deste item? Ou talvez apenas rastrear.
+                            // O schema tem donationId único no Inventory, o que implica 1:1.
+                            // Isso pode ser uma limitação de design do schema se quisermos rastrear estoque de múltiplas doações.
+                            // Por enquanto, vamos ignorar vincular donationId diretamente ao Inventory se for um agregado.
+                            // Na verdade, o schema diz: donationId String? @unique.
+                            // Isso significa que um item de estoque pode ser vinculado a UMA doação.
+                            // Isso é provável para rastreamento de "Ativo" em vez de rastreamento de "Commodity".
+                            // Mas para "Arroz", recebemos múltiplas doações.
+                            // Vamos apenas atualizar a quantidade e NÃO definir donationId se já existir.
                         },
                     });
                 }

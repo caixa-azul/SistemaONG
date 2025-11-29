@@ -26,12 +26,12 @@ interface DownloadButtonProps {
         hasPublicTransport: boolean;
         socialPrograms: string[];
         consentDate: Date;
-        familyMembers?: any[]; // Simplified for now, or match the PDF expectation
+        familyMembers?: any[]; // Simplificado por enquanto, ou corresponder à expectativa do PDF
     };
 }
 
 export function DownloadButton({ beneficiary, assessment }: DownloadButtonProps) {
-    // Map props to the structure expected by SocialAssessmentPDF
+    // Mapear props para a estrutura esperada pelo SocialAssessmentPDF
     const pdfData = {
         beneficiary: {
             fullName: beneficiary.name,

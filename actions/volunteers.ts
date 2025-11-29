@@ -224,7 +224,7 @@ export async function updateVolunteer(
         // 🧠 TRANSACTION: Atualizar voluntário E endereço juntos.
         const volunteer = await prisma.$transaction(async (tx) => {
             // 1. Update Address
-            // First find the address ID associated with this volunteer
+            // Primeiro encontre o ID do endereço associado a este voluntário
             const currentVolunteer = await tx.volunteer.findUnique({
                 where: { id },
                 select: { addressId: true }

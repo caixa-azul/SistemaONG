@@ -34,7 +34,7 @@ export default async function DashboardPage() {
         }
     });
 
-    // Fetch all inventory to count low stock correctly
+    // Buscar todo o estoque para contar estoque baixo corretamente
     const allInventory = await prisma.inventory.findMany();
     const lowStockCount = allInventory.filter((item: any) => item.quantity <= item.minThreshold).length;
 

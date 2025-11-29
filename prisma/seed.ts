@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 async function main() {
     console.log('🌱 Starting seed...');
 
-    // 1. Clean Slate (Delete in correct order to avoid FK constraints)
+    // 1. Limpeza (Deletar na ordem correta para evitar restrições de FK)
     console.log('🧹 Cleaning database...');
     await prisma.distributionItem.deleteMany();
     await prisma.institutionalDistribution.deleteMany();
@@ -45,7 +45,7 @@ async function main() {
         },
     });
 
-    // Volunteer Users (for login)
+    // Usuários Voluntários (para login)
     const volunteerUsers = [];
     for (let i = 0; i < 5; i++) {
         const vUser = await prisma.user.create({
@@ -118,7 +118,7 @@ async function main() {
         });
         beneficiaries.push(beneficiary);
 
-        // 80% chance of having Social Assessment
+        // 80% de chance de ter Avaliação Social
         if (Math.random() < 0.8) {
             const householdSize = faker.number.int({ min: 1, max: 8 });
 
@@ -149,7 +149,7 @@ async function main() {
             });
         }
 
-        // 30% chance of Image Authorization
+        // 30% de chance de Autorização de Imagem
         if (Math.random() < 0.3) {
             await prisma.imageAuthorization.create({
                 data: {
@@ -197,7 +197,7 @@ async function main() {
     const luckyBeneficiaries = faker.helpers.arrayElements(beneficiaries, 20);
 
     for (const beneficiary of luckyBeneficiaries) {
-        // Create 1-5 distributions for each
+        // Criar 1-5 distribuições para cada
         const numDistributions = faker.number.int({ min: 1, max: 5 });
 
         for (let k = 0; k < numDistributions; k++) {

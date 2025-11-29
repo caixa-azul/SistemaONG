@@ -1,4 +1,4 @@
-// Manually defined Enums for SQLite compatibility
+// Enums definidos manualmente para compatibilidade com SQLite
 export const UserRole = {
   ADMIN: 'ADMIN',
   VOLUNTEER: 'VOLUNTEER',

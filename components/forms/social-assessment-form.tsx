@@ -36,7 +36,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, Plus, Trash2 } from "lucide-react";
 import { z } from "zod";
 
-// Extend schema for form handling
+// Estender schema para manipulação do formulário
 const formSchema = z.object({
     beneficiaryId: z.string(),
     householdSize: z.number().int().min(1),

@@ -99,7 +99,7 @@ export const socialAssessmentSchema = z.object({
 
 export const imageAuthorizationSchema = z.object({
     beneficiaryId: z.string(),
-    // rg and cpf removed (normalized in Beneficiary)
+    // rg e cpf removidos (normalizados em Beneficiary)
     startDate: z.date({
         message: "Data de início é obrigatória",
     }),
@@ -211,9 +211,9 @@ export const volunteerTerminationSchema = z.object({
 });
 
 // ============================================
-// TYPE EXPORTS
+// EXPORTAÇÃO DE TIPOS
 // ============================================
-// 🧠 TYPE INFERENCE: O Zod gera os tipos TypeScript automaticamente.
+// 🧠 INFERÊNCIA DE TIPO: O Zod gera os tipos TypeScript automaticamente.
 // Não precisamos escrever `interface Beneficiary { ... }` manualmente.
 // Se mudarmos o schema acima, o tipo atualiza sozinho!
 export type Address = z.infer<typeof addressSchema>;

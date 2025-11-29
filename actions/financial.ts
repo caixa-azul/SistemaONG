@@ -10,7 +10,7 @@ import { State } from "@/types";
 
 const TransactionSchema = z.object({
     description: z.string().min(1, "Description is required"),
-    amount: z.coerce.number(), // Can be negative for expenses
+    amount: z.coerce.number(), // Pode ser negativo para despesas
 });
 
 export async function recordTransaction(prevState: State, formData: FormData) {

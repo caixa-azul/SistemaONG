@@ -11,13 +11,13 @@ import {
     SocialAssessment
 } from "@/lib/schemas/domain";
 
-// Local schema adapting form data to DB schema
+// Schema local adaptando dados do formulário para o schema do DB
 const SocialAssessmentFormSchema = z.object({
     beneficiaryId: z.string(),
     familyIncome: z.string().min(1, "Renda familiar é obrigatória"),
     householdSize: z.coerce.number().min(1, "Mínimo de 1 membro"),
     housingType: HousingTypeEnum,
-    // Fields missing in original form, providing defaults or optional
+    // Campos ausentes no formulário original, fornecendo padrões ou opcionais
     housingCondition: HousingConditionEnum.default("REGULAR"),
     governmentBenefits: z.string().optional(),
     healthIssues: z.string().optional(),
@@ -37,7 +37,7 @@ export async function saveSocialAssessment(prevState: State, formData: FormData)
         return { message: "Não autorizado", errors: {} };
     }
 
-    // Map legacy form fields to new schema
+    // Mapear campos do formulário legado para o novo schema
     const rawData = {
         beneficiaryId: formData.get("beneficiaryId"),
         familyIncome: formData.get("familyIncome"),
@@ -65,7 +65,7 @@ export async function saveSocialAssessment(prevState: State, formData: FormData)
             where: { beneficiaryId },
             update: {
                 ...data,
-                // Ensure required fields for Prisma are present (defaults)
+                // Garantir que campos obrigatórios para o Prisma estejam presentes (padrões)
                 hasSanitation: false,
                 hasWater: false,
                 hasSewage: false,
@@ -77,7 +77,7 @@ export async function saveSocialAssessment(prevState: State, formData: FormData)
             create: {
                 beneficiaryId,
                 ...data,
-                // Defaults for required fields
+                // Padrões para campos obrigatórios
                 hasSanitation: false,
                 hasWater: false,
                 hasSewage: false,
@@ -154,7 +154,7 @@ export async function saveImageAuthorization(prevState: State, formData: FormDat
     return { message: "Autorização salva com sucesso!", errors: {} };
 }
 
-// Helper to map legacy status to new Enum
+// Helper para mapear status legado para novo Enum
 function mapHousingStatus(status: string | null): string | undefined {
     if (!status) return undefined;
     const map: Record<string, string> = {

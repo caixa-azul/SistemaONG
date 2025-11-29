@@ -72,11 +72,11 @@ export function FamilyDistributionForm({
 
     const selectedType = form.watch("distributionType");
 
-    // Auto-select program based on distribution type
+    // Selecionar programa automaticamente com base no tipo de distribuição
     const handleTypeChange = (value: any) => {
         form.setValue("distributionType", value);
 
-        // Auto-set program for CONAB types
+        // Definir programa automaticamente para tipos CONAB
         if (value === "LEITE_CONAB") {
             form.setValue("program", "CONAB");
         } else if (value === "KIT_ALIMENTO_ACOLHIMENTO") {

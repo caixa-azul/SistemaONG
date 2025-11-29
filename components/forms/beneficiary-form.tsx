@@ -89,7 +89,7 @@ export function BeneficiaryForm() {
         setIsSubmitting(true);
 
         try {
-            // Separate beneficiary and address data
+            // Separar dados do beneficiário e endereço
             const beneficiaryData = {
                 fullName: values.fullName,
                 dateOfBirth: new Date(values.dateOfBirth),

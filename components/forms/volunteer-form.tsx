@@ -54,7 +54,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 interface VolunteerFormProps {
-    initialData?: any; // Optional initial data for edit mode
+    initialData?: any; // Dados iniciais opcionais para modo de edição
 }
 
 export function VolunteerForm({ initialData }: VolunteerFormProps) {
