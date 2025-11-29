@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Gestão - Projeto Além dos Olhos",
   description: "Sistema de Gestão de Beneficiários e Doações",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({

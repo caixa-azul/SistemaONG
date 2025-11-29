@@ -168,10 +168,14 @@ export const ActivityReport: React.FC<ActivityReportProps> = ({ data, stats, fil
             {/* 🧠 WRAP: A propriedade 'wrap' permite que o conteúdo quebre para a próxima página automaticamente */}
             <Page size="A4" style={styles.page} wrap>
                 {/* Cabeçalho */}
+                {/* Cabeçalho */}
                 <View style={styles.headerContainer} fixed>
-                    <View style={styles.logoPlaceholder}>
-                        <Text style={styles.logoText}>LOGO ONG</Text>
-                    </View>
+                    {/* Logo da ONG */}
+                    <Image
+                        src={process.cwd() + '/public/logo.png'}
+                        style={{ width: 60, height: 60, objectFit: 'contain' }}
+                    />
+
                     <View style={styles.headerTextContainer}>
                         <Text style={styles.orgName}>Projeto Além dos Olhos</Text>
                         <Text style={styles.reportTitle}>Relatório Mensal de Atividades e Distribuições</Text>
@@ -180,6 +184,8 @@ export const ActivityReport: React.FC<ActivityReportProps> = ({ data, stats, fil
                         </Text>
                         <Text style={styles.orgDetails}>CNPJ: 37.591.117/0001-05 | Rua Francisco Jacinto de Melo, Areias, São José - SC</Text>
                     </View>
+
+                    {/* Placeholder para Órgão Regulador (ou segundo logo se houver) */}
                     <View style={styles.logoPlaceholder}>
                         <Text style={styles.logoText}>ÓRGÃO REG.</Text>
                     </View>

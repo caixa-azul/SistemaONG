@@ -10,5 +10,5 @@ export const config = {
     // 🧠 MATCHER: Define quais rotas o middleware deve "vigiar".
     // A expressão regular abaixo diz: "Vigie tudo, MENOS api, arquivos estáticos e imagens".
     // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-    matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+    matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"],
 };
