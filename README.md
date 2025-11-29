@@ -29,8 +29,17 @@ Este projeto foi desenhado para ser estudado. Toda a lógica está comentada e d
 2.  [**Dicionário Técnico**](docs/03_DICIONARIO_TECNICO.md) - O significado de termos como ORM, Middleware e Hydration.
 
 ### 📂 Índice Completo
-Para ver diagramas de banco, arquitetura e manuais de deploy, acesse o nosso sumário:
-👉 [**ÍNDICE DE DOCUMENTAÇÃO**](docs/00_INDICE.md)
+Para ver diagramas de banco, arquitetura e manuais de deploy, acesse nossa documentação:
+
+- [🎓 01 - Guia de Estudos](docs/01_GUIA_DE_ESTUDOS.md) - **COMECE AQUI!** Guia sobre os comentários didáticos e como estudar o código.
+- [🏰 02 - Arquitetura do Sistema](docs/02_ARQUITETURA_DO_SISTEMA.md) - Explicação do T3 Stack, estrutura de pastas e fluxo de dados.
+- [📖 03 - Dicionário Técnico](docs/03_DICIONARIO_TECNICO.md) - Glossário de termos (API, ORM, Middleware) com analogias simples.
+- [🗄️ 04 - Modelagem de Dados](docs/04_MODELAGEM_DE_DADOS.md) - Visualização gráfica das tabelas e relacionamentos (ERD).
+- [👣 05 - Manual para Rodar Local](docs/05_MANUAL_RODAR_LOCAL.md) - Guia detalhado das funcionalidades e como rodar o projeto.
+- [🚀 06 - Manual de Deploy em Produção](docs/06_MANUAL_DEPLOY_PRODUCAO.md) - Checklist para colocar o projeto em produção na Vercel.
+- [📋 07 - Status do Projeto](docs/07_STATUS_DO_PROJETO.md) - Checklist de tarefas concluídas e pendentes.
+- [🔮 08 - Melhorias Futuras](docs/08_MELHORIAS_FUTURAS.md) - Roteiro para transformar o boilerplate em produto final.
+- [📊 09 - Diagramas Visuais](docs/09_DIAGRAMAS_VISUAIS.md) - **NOVO!** Representações visuais da arquitetura (C4, Sequence, Deployment).
 
 ---
 

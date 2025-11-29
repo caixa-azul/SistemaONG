@@ -1,0 +1,3 @@
+# Bloquear indexação de todo o site (Dashboard Administrativo)
+User-agent: *
+Disallow: /

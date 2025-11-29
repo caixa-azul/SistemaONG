@@ -133,7 +133,6 @@ Abaixo, a árvore completa de arquivos do projeto para referência rápida:
 │
 ├── 📁 docs/ # 📚 Documentação do Projeto
 │   ├── referencia_legada/ # Modelos antigos para referência
-│   ├── 00_INDICE.md # Índice da documentação
 │   ├── 01_GUIA_DE_ESTUDOS.md # Guia para iniciantes
 │   ├── 02_ARQUITETURA_DO_SISTEMA.md # Este arquivo (Visão Geral)
 │   ├── 03_DICIONARIO_TECNICO.md # Glossário de termos
@@ -161,13 +160,14 @@ Abaixo, a árvore completa de arquivos do projeto para referência rápida:
 │
 ├── 📁 public/ # 🖼️ Arquivos Estáticos
 │   ├── apresentacao/ # Slides e apresentações
-│   ├── logo.jpeg # Logo em JPG
-│   └── logo.png # Logo em PNG
+│   ├── logo.png # Logo em PNG
+│   └── robots.txt # Bloqueio de indexação
 │
 ├── 📁 types/ # 🏷️ Tipos TypeScript Globais
 │   ├── index.ts # Tipos gerais
 │   └── next-auth.d.ts # Extensão de tipos de autenticação
 │
+├── .env.example # Exemplo de variáveis de ambiente
 ├── auth.config.ts # Configuração do NextAuth
 ├── auth.ts # Inicialização da autenticação
 ├── components.json # Configuração do shadcn/ui
