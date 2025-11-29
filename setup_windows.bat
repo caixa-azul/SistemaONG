@@ -35,6 +35,24 @@ if not exist .env (
 ) else (
     echo [OK] Arquivo .env ja existe.
 )
+
+:: 2.1 Check .env content
+findstr "postgresql://postgres:password@localhost:5432/ngo_management" .env > nul
+if %errorlevel% equ 0 (
+    echo.
+    echo ===============================================================================
+    echo [ERRO] Voce ainda nao configurou o banco de dados no arquivo .env!
+    echo.
+    echo O valor de DATABASE_URL ainda eh o padrao.
+    echo Por favor, abra o arquivo .env e coloque a URL do seu banco Neon/Postgres.
+    echo.
+    echo Exemplo: postgresql://usuario:senha@ep-xyz.us-east-2.aws.neon.tech/neondb
+    echo ===============================================================================
+    echo.
+    pause
+    exit /b 1
+)
+echo [OK] .env parece estar configurado.
 echo.
 
 :: 3. Install & Generate

@@ -37,7 +37,7 @@ Criamos scripts que fazem todo o trabalho pesado para você (instalar dependênc
 ### Opção A: Windows 🪟
 1.  Na pasta do projeto, dê dois cliques no arquivo `setup_windows.bat`.
 2.  Siga as instruções na tela.
-    - O script vai pausar para você preencher o arquivo `.env` com as credenciais do seu banco de dados.
+    - O script vai pausar para você preencher o arquivo `.env` com as credenciais do seu banco de dados. **Isso é obrigatório!**
     - Depois, ele vai instalar tudo e perguntar se você quer criar dados de teste.
 
 ### Opção B: Linux / Mac 🐧
