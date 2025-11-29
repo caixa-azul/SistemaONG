@@ -89,6 +89,11 @@
         - [x] **Encerramento de Serviço:** Fluxo completo com validação por Nome/Data de Nascimento (sem ID), modal de confirmação e geração do **Termo de Encerramento (PDF)**.
         - [x] **Listagem:** Substituída a coluna de CPF pela Data de Nascimento para melhor identificação visual.
 
+    - [x] **Limpeza e Profissionalização (Recente)**
+        - [x] **Limpeza de Arquivos:** Remoção de `logo.jpeg` e `docs/00_INDICE.md` (mergeado no README).
+        - [x] **Configuração:** Criação de `.env.example` e `robots.txt`.
+        - [x] **Documentação Técnica:** Expansão do Dicionário Técnico (Endpoints, Handlers) e Comparativo de Mercado em Melhorias Futuras.
+
 ## Plano de Verificação
 
 ### Testes Automatizados

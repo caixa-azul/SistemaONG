@@ -159,3 +159,37 @@ Para maior segurança e transparência.
 -   `action`: O que fez (CREATE, UPDATE, DELETE).
 -   `entity`: Em qual entidade (Beneficiary, Volunteer).
 -   `timestamp`: Quando.
+
+## 11. Profissionalização do Repositório (Comparativo de Mercado)
+
+Com base em uma análise de projetos Open Source famosos (como Cal.com, Dub.co e Taxonomy), identificamos o que falta para elevar o nível do nosso repositório:
+
+### 🔍 Principais Diferenças
+
+1.  **Diretório `src/`**:
+    *   **Eles:** A maioria dos projetos grandes coloca todo o código (`app`, `components`, `lib`, `hooks`) dentro de uma pasta `src/`.
+    *   **Nós:** Estamos usando tudo na raiz.
+    *   **Veredito:** Usar `src/` é preferível para deixar a raiz do projeto mais limpa (só arquivos de configuração), mas não é obrigatório.
+
+2.  **Testes (`tests/` ou `__tests__`)**:
+    *   **Eles:** Todos possuem uma estrutura robusta de testes (Unitários, Integração, E2E) com Jest, Vitest ou Playwright.
+    *   **Nós:** **Não temos nada.** Essa é a maior falta técnica.
+
+3.  **CI/CD (`.github/workflows`)**:
+    *   **Eles:** Têm automações para rodar testes e checar o código a cada Pull Request.
+    *   **Nós:** Não temos automação configurada.
+
+4.  **Emails (`emails/`)**:
+    *   **Eles:** Projetos modernos (T3 Stack) geralmente usam **React Email** numa pasta dedicada para criar templates de email transacionais.
+    *   **Nós:** Não temos estrutura de emails definida.
+
+### ❌ Checklist de Profissionalização
+
+Para transformar este projeto em um case de portfólio "Sênior", sugerimos adicionar:
+
+- [ ] 📁 **`tests/`**: Configurar Vitest ou Jest.
+- [ ] 📁 **`.github/`**: Adicionar workflows de CI/CD e templates de Issue/PR.
+- [ ] 📄 **`LICENSE`**: Definir a licença (MIT, Apache, etc.).
+- [ ] 📄 **`CONTRIBUTING.md`**: Guia de como contribuir.
+- [ ] 📄 **`prettier.config.js`**: Para garantir formatação consistente além do ESLint.
+- [ ] 📁 **`emails/`**: Implementar React Email para notificações.
