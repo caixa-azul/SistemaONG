@@ -9,7 +9,7 @@ Um sistema completo de gestão para Organizações Não Governamentais, desenvol
 Não é necessário rodar comandos manuais. Preparamos scripts de automação para configurar o ambiente (Node, .env, Banco de Dados) para você.
 
 > [!IMPORTANT]
-> **Configuração do Banco de Dados**: O script criará um arquivo `.env` para você. **Você precisará editá-lo** e adicionar a URL do seu banco de dados (PostgreSQL/Neon) antes de continuar. O script irá avisar quando fazer isso.
+> **Configuração do Banco de Dados**: O script **criará automaticamente** um arquivo `.env` (copiando do `.env.example`) para você. **Você precisará editá-lo** e adicionar a URL do seu banco de dados (PostgreSQL/Neon) quando o script pausar e solicitar.
 
 ### Opção A: Windows 🪟
 Dê dois cliques no arquivo:
