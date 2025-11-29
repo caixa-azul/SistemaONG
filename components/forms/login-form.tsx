@@ -37,7 +37,7 @@ export function LoginForm() {
                     name="password"
                     placeholder="Digite sua senha"
                     required
-                    minLength={6}
+                    minLength={5}
                 />
             </div>
             <LoginButton />

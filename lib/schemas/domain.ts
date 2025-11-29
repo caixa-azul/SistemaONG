@@ -201,7 +201,9 @@ export const volunteerSchema = z.object({
 });
 
 export const volunteerTerminationSchema = z.object({
-    volunteerId: z.string(),
+    volunteerId: z.string().optional(),
+    fullName: z.string().optional(),
+    dateOfBirth: z.date().optional(),
     terminationDate: z.date({
         message: "Data de encerramento é obrigatória",
     }),

@@ -24,7 +24,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
                 // 🛡️ ZOD VALIDATION: Antes de qualquer coisa, validamos se o input é seguro.
                 // Isso previne injeção de código e erros bobos.
                 const parsedCredentials = z
-                    .object({ email: z.string().email(), password: z.string().min(6) })
+                    .object({ email: z.string().email(), password: z.string().min(5) })
                     .safeParse(credentials);
 
                 if (parsedCredentials.success) {

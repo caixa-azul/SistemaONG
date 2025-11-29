@@ -15,6 +15,7 @@ Não escolhemos as tecnologias aleatoriamente. Usamos o **T3 Stack**, que é fam
 | **Tailwind CSS** | Estilização | É a tinta e a decoração. |
 | **Prisma** | ORM (Banco de Dados) | É o tradutor que fala a língua do banco de dados. |
 | **NextAuth.js** | Autenticação | É o segurança da portaria. |
+| **React PDF** | Geração de Documentos | É a impressora que cria documentos oficiais na hora. |
 
 ---
 
@@ -163,6 +164,29 @@ sequenceDiagram
         S-->>F: "Sucesso!"
         
         F-->>U: Mostra Toast verde e muda de página
+    end
+```
+
+### 2. O Caminho do PDF (Geração de Documentos) 📄
+
+A geração de PDFs acontece no lado do cliente (navegador) para ser instantânea e não sobrecarregar o servidor.
+
+```mermaid
+sequenceDiagram
+    participant U as Usuário 👤
+    participant F as Frontend (React) 🖥️
+    participant PDF as React PDF (@react-pdf) 🖨️
+
+    U->>F: Clica em "Baixar Termo"
+    F->>F: Verifica se tem os dados (State)
+    
+    alt Dados Prontos ✅
+        F->>PDF: Envia objeto JSON com dados do voluntário
+        PDF->>PDF: Renderiza o layout (XML-like) em memória
+        PDF-->>F: Retorna Blob do arquivo PDF
+        F-->>U: Inicia download automático
+    else Dados Faltando ❌
+        F-->>U: Botão fica desabilitado ou mostra "Carregando..."
     end
 ```
 

@@ -15,7 +15,7 @@ Utilizamos emojis para categorizar os comentários e facilitar a leitura:
 *   ⚡ **Next.js / React:** Explica recursos específicos do framework.
     *   *Exemplo:* Server Actions, RevalidatePath, Client vs Server Components.
 
-## 📂 Arquivos Refatorados (Destaques)
+## 📂 Arquivos de Destaque
 
 ### 1. Infraestrutura e Autenticação
 *   **`auth.ts` & `auth.config.ts`**: Explicação completa do fluxo de autenticação com NextAuth.js, Providers, e Middleware.

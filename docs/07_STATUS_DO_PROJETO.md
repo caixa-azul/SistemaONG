@@ -79,6 +79,15 @@
             - [x] Consistência de Dados (Prisma vs Zod)
             - [x] Segurança (Auth.js em todas as Actions)
             - [x] Relatório de Auditoria (`docs/AUDIT_REPORT.md`)
+    - [x] **Gestão de Voluntários (Refinamento)**
+        - [x] Correção do Fluxo de Cadastro
+        - [x] Geração de PDF (Termo de Adesão) com texto oficial
+        - [x] Edição de Voluntários (UI e Backend)
+        - [x] Feedback de Sucesso (Modal e Toast)
+        - [x] **Edição de Voluntários:** Implementada a funcionalidade de editar dados cadastrais.
+        - [x] **Geração de PDF na Edição:** O termo de adesão é gerado novamente com os dados atualizados.
+        - [x] **Encerramento de Serviço:** Fluxo completo com validação por Nome/Data de Nascimento (sem ID), modal de confirmação e geração do **Termo de Encerramento (PDF)**.
+        - [x] **Listagem:** Substituída a coluna de CPF pela Data de Nascimento para melhor identificação visual.
 
 ## Plano de Verificação
 
