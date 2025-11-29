@@ -46,6 +46,24 @@ Bem-vindo ao glossário do projeto! Este documento foi criado para desmistificar
 - **Prisma** (Banco de Dados)
 - **NextAuth.js** (Autenticação)
 
+### Endpoint
+**O que é:** O endereço específico (URL) onde um serviço "mora".
+**Exemplo:** `/api/auth/signin` é o endpoint onde o navegador bate para começar o login.
+
+### Payload (Carga Útil)
+**O que é:** Os dados úteis que são enviados dentro de uma requisição. É o "conteúdo da carta", enquanto o cabeçalho é o envelope.
+
+### Request (Requisição) & Response (Resposta)
+**O que é:** O diálogo básico da web.
+- **Request:** O cliente (navegador) pede algo ("Me vê a página de login").
+- **Response:** O servidor responde ("Toma aqui o HTML").
+
+### Status Code
+**O que é:** Um número que o servidor devolve para dizer se deu tudo certo.
+- **200:** Sucesso (OK).
+- **404:** Não encontrado (Not Found).
+- **500:** Erro no servidor (Deu ruim).
+
 ---
 
 ## ⚛️ Frontend (React & Next.js)
@@ -123,6 +141,10 @@ Bem-vindo ao glossário do projeto! Este documento foi criado para desmistificar
 **O que é:** Um grupo de operações que devem acontecer todas juntas. Se uma falhar, todas são canceladas (Rollback).
 **Exemplo:** Transferência bancária. Se tirar dinheiro da minha conta mas der erro ao colocar na sua, o dinheiro tem que voltar pra mim.
 
+### Singleton
+**O que é:** Um padrão de código que garante que uma classe tenha apenas **uma** instância rodando no sistema todo.
+**No nosso projeto:** Usamos no `lib/prisma.ts` para não abrir mil conexões com o banco de dados à toa.
+
 ---
 
 ## 🛡️ Segurança & Autenticação
@@ -149,6 +171,14 @@ Bem-vindo ao glossário do projeto! Este documento foi criado para desmistificar
 ### Salt
 **O que é:** Dados aleatórios adicionados à senha antes de fazer o Hash. Serve para garantir que duas pessoas com a senha "123456" tenham Hashes diferentes no banco.
 
+### Adapter
+**O que é:** Uma "ponte" que conecta duas peças que não se encaixam nativamente.
+**No nosso projeto:** O `PrismaAdapter` conecta o **NextAuth** (que não sabe qual banco usamos) com o **Prisma** (que sabe falar com o Postgres).
+
+### Callback
+**O que é:** Uma função que é passada como argumento para outra função e é "chamada de volta" (called back) quando algo acontece.
+**No Login:** O "Callback URL" é para onde o usuário é redirecionado depois que o Google/Email diz "Sim, a senha está certa".
+
 ---
 
 ## ⚡ Next.js Específico
@@ -171,6 +201,14 @@ Bem-vindo ao glossário do projeto! Este documento foi criado para desmistificar
 ### Search Params (URL Query Parameters)
 **O que é:** Aquela parte da URL depois do `?` (ex: `?search=maria&page=1`).
 **Uso:** Usamos para guardar o estado dos filtros. Assim, se você recarregar a página, a busca continua lá. Também permite compartilhar o link com o filtro aplicado.
+
+### Route Handler (`route.ts`)
+**O que é:** O jeito do Next.js criar endpoints de API tradicionais.
+**Uso:** Usamos pouco (preferimos Server Actions), mas é obrigatório para o **NextAuth** funcionar (`app/api/auth/[...nextauth]/route.ts`).
+
+### Slug
+**O que é:** A parte de uma URL que identifica uma página de forma legível.
+**Exemplo:** Em `meusite.com/blog/como-aprender-react`, o slug é `como-aprender-react`. É melhor que usar IDs (`/blog/123`).
 
 ---
 
