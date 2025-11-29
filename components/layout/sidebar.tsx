@@ -54,14 +54,24 @@ const routes = [
     },
 ];
 
-export function Sidebar() {
+// 🧠 PROPS: A Sidebar pode receber o usuário logado para exibir seus dados.
+// É opcional (?) porque em alguns casos de erro de carregamento pode vir undefined.
+interface SidebarProps {
+    user?: {
+        name?: string | null;
+        email?: string | null;
+        image?: string | null;
+    };
+}
+
+export function Sidebar({ user }: SidebarProps) {
     const pathname = usePathname();
 
     return (
         <div className="space-y-4 py-4 flex flex-col h-full bg-[#111827] text-white">
             <div className="px-3 py-2 flex-1">
                 <Link href="/" className="flex items-center pl-3 mb-14">
-                    <h1 className="text-2xl font-bold">Gestão ONG</h1>
+                    <h1 className="text-xl font-bold">Projeto Além dos Olhos</h1>
                 </Link>
                 <div className="space-y-1">
                     {routes.map((route) => (
@@ -81,7 +91,14 @@ export function Sidebar() {
                     ))}
                 </div>
             </div>
-            <div className="px-3 py-2">
+
+            <div className="px-3 py-2 border-t border-gray-800">
+                {user && (
+                    <div className="mb-4 px-3 py-2 bg-white/5 rounded-lg">
+                        <p className="text-sm font-medium text-white">{user.name || "Usuário"}</p>
+                        <p className="text-xs text-zinc-400 truncate">{user.email}</p>
+                    </div>
+                )}
                 <Button onClick={() => signOut()} variant="ghost" className="w-full justify-start text-zinc-400 hover:text-white hover:bg-white/10">
                     <LogOut className="h-5 w-5 mr-3" />
                     Sair

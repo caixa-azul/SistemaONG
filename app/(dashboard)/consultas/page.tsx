@@ -3,6 +3,7 @@ import { getFilteredDistributions } from '@/actions/consultas';
 import { FilterSidebar } from './filter-sidebar';
 import { ResultsTable } from './results-table';
 import { ConsultasReportPDF } from '@/components/pdf/consultas-report-pdf';
+import { ActivityReport } from '@/components/pdf/activity-report';
 import { PDFDownloadButton } from '@/components/pdf/pdf-download-button';
 
 // ⚡ FORCE DYNAMIC: Forçamos a página a ser dinâmica (SSR) porque ela depende dos parâmetros da URL.
@@ -47,6 +48,18 @@ export default async function ConsultasPage({ searchParams }: PageProps) {
     // Como estamos no servidor, isso é muito rápido e seguro.
     const results = await getFilteredDistributions(filters);
 
+    // 🧠 REPORT DATA: Buscamos TODOS os dados (até 1000) para o relatório oficial.
+    // Isso garante que o PDF tenha o mês inteiro, não só a página atual.
+    // Diferente da tabela visual que é paginada, o relatório precisa ser completo.
+    const reportResults = await getFilteredDistributions({ ...filters, pageSize: 1000, page: 1 });
+
+    // Cálculo de Estatísticas para o Relatório
+    const stats = {
+        totalDistributions: reportResults.total,
+        totalItems: reportResults.data.reduce((acc, item) => acc + item.quantity, 0),
+        totalFamilies: new Set(reportResults.data.map(item => item.beneficiaryId)).size
+    };
+
     return (
         <div className="p-6 space-y-6">
             <div className="flex items-center justify-between">
@@ -57,9 +70,15 @@ export default async function ConsultasPage({ searchParams }: PageProps) {
                     </p>
                 </div>
                 <PDFDownloadButton
-                    pdfDocument={<ConsultasReportPDF data={results.data} filters={filters} />}
-                    filename="relatorio-consultas"
-                    label="Exportar PDF"
+                    pdfDocument={
+                        <ActivityReport
+                            data={reportResults.data}
+                            stats={stats}
+                            filters={{ startDate: filters.startDate, endDate: filters.endDate }}
+                        />
+                    }
+                    filename="relatorio-oficial-atividades"
+                    label="Exportar Relatório Oficial"
                 />
             </div>
 

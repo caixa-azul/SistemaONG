@@ -71,6 +71,7 @@ Aqui está a lista completa de arquivos do projeto e o propósito de cada um:
 - `auth.ts` - Inicialização e exportação dos métodos de autenticação.
 - `components.json` - Configuração da biblioteca de componentes shadcn/ui.
 - `eslint.config.mjs` - Configuração do linter (verificador de qualidade de código).
+- `middleware.ts` - O "Porteiro" do sistema (proteção de rotas).
 - `next.config.ts` - Configurações do framework Next.js.
 - `package.json` - Lista de dependências e scripts do projeto.
 - `postcss.config.mjs` - Configuração do processador de CSS.
@@ -116,6 +117,7 @@ Aqui está a lista completa de arquivos do projeto e o propósito de cada um:
   - `sidebar.tsx` - Menu lateral de navegação.
 - `pdf/` - Componentes para geração de documentos PDF.
   - `social-assessment-pdf.tsx` - Layout do PDF de avaliação social.
+  - `activity-report.tsx` - Layout do Relatório Oficial de Atividades.
   - `download-button.tsx` - Botão para gerar e baixar PDFs.
 - `ui/` - Componentes base do shadcn/ui (Button, Input, Card, etc.).
 

@@ -9,23 +9,31 @@ export const authConfig = {
         // Roda em TODA requisição para decidir se o usuário pode ver a página.
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
-            const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
+            const isOnLogin = nextUrl.pathname.startsWith("/login");
+            const isPublicApi = nextUrl.pathname.startsWith("/api/auth");
 
-            if (isOnDashboard) {
-                // Se está tentando acessar o Dashboard...
-                if (isLoggedIn) return true; // Deixa passar se estiver logado.
-                return false; // 🚫 Bloqueia e manda pro login se não estiver.
-            } else if (isLoggedIn) {
-                // Se já está logado e tenta acessar o Login...
-                if (nextUrl.pathname === "/login") {
-                    return Response.redirect(new URL("/dashboard", nextUrl)); // Manda pro Dashboard.
+            // 1. Rotas Públicas (Login e API de Auth)
+            // Se o usuário tentar acessar login ou API, deixamos passar.
+            if (isOnLogin || isPublicApi) {
+                // Mas se ele JÁ estiver logado e tentar ir pro login, mandamos pro início.
+                if (isLoggedIn && isOnLogin) {
+                    return Response.redirect(new URL("/", nextUrl));
                 }
+                return true;
             }
-            return true; // Outras páginas (públicas) são liberadas.
+
+            // 2. Rotas Protegidas (Todo o resto)
+            // Se não estiver logado, bloqueia o acesso (o NextAuth redireciona pro login auto).
+            if (!isLoggedIn) {
+                return false;
+            }
+
+            return true;
         },
 
-        // 🧠 JWT: Ocorre quando o Token é criado ou atualizado.
-        // Aqui copiamos dados importantes do Usuário para o Token.
+        // 🧠 JWT (JSON Web Token): Ocorre quando o Token é criado ou atualizado.
+        // O token é o "crachá" criptografado que fica no cookie do usuário.
+        // Aqui copiamos dados importantes do Usuário (banco) para o Token.
         jwt({ token, user }) {
             if (user) {
                 token.role = user.role;
@@ -35,7 +43,8 @@ export const authConfig = {
         },
 
         // 🧠 SESSION: Ocorre quando o frontend pede a sessão (useSession).
-        // Aqui copiamos dados do Token para a Sessão que o React vai usar.
+        // A sessão é o objeto que o React consegue ler.
+        // Aqui copiamos dados do Token (crachá) para a Sessão (React).
         session({ session, token }) {
             if (token.sub && session.user) {
                 session.user.id = token.sub;

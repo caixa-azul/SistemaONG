@@ -1,15 +1,18 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { authenticate } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export function LoginForm() {
-    // ⚡ USE FORM STATE: Hook do React para conectar com Server Actions.
+    // ⚡ USE ACTION STATE: Hook do React 19 para conectar com Server Actions.
+    // Substitui o antigo `useFormState`.
     // `errorMessage`: O retorno da função `authenticate` (se houver erro).
     // `dispatch`: A função que chamamos no `action` do formulário.
-    const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+    // `isPending`: Booleano que indica se a ação está em andamento (opcional, mas útil).
+    const [errorMessage, dispatch, isPending] = useActionState(authenticate, undefined);
 
     return (
         <form action={dispatch} className="space-y-4">

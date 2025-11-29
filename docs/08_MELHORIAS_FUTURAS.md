@@ -85,32 +85,20 @@ A interface foi totalmente traduzida para Português (Brasil).
 
 ### Melhorias Pendentes:
 
-### Feedback Visual (Toasts)
-O usuário precisa saber se deu certo. Instale `sonner` (já usado pelo shadcn/ui).
-No seu formulário (Client Component):
-```typescript
-import { toast } from "sonner";
+### Feedback Visual (Padronização)
+O sistema já utiliza `use-toast` (shadcn/ui) para feedback em formulários.
+**Melhoria:** Padronizar todas as mensagens de erro e sucesso em todo o sistema para garantir consistência. Considerar migração para `sonner` para toasts empilháveis e mais bonitos.
 
-// ... dentro do onSubmit
-const result = await createBeneficiary(data);
-if (result.success) {
-  toast.success("Beneficiário criado com sucesso!");
-} else {
-  toast.error("Erro ao criar: " + result.error);
-}
-```
+### Paginação (Expansão)
+A paginação já existe no módulo de "Consultas Avançadas".
+**Melhoria:** Implementar paginação (Server-Side) nas listagens principais de **Beneficiários** e **Voluntários**, que atualmente carregam todos os registros de uma vez.
 
-### Paginação
-Listar 1000 beneficiários vai travar a página.
-1.  No Prisma, use `skip` e `take`:
-    ```typescript
-    const PAGE_SIZE = 10;
-    const beneficiaries = await prisma.beneficiary.findMany({
-      skip: (page - 1) * PAGE_SIZE,
-      take: PAGE_SIZE,
-    });
-    ```
-2.  Na UI, adicione botões "Anterior" e "Próximo" que alteram o parâmetro `?page=2` na URL.
+### Relatórios e Exportação (CSV)
+O cliente vai querer baixar os dados para Excel.
+1.  **Backend:** Criar Server Action `exportDistributionsToCSV` reutilizando os filtros da busca.
+2.  **Biblioteca:** Usar `csv-stringify` para gerar o texto CSV.
+3.  **Frontend:** Adicionar botão "Exportar CSV" ao lado do botão de PDF na tela de Consultas.
+4.  **Dados:** Incluir Data, Nome, CPF, Programa e Quantidade.
 
 ## 5. Testes Automatizados
 
@@ -154,3 +142,20 @@ O projeto foi transformado em um recurso educacional com:
 
 - **Formulários Digitais**: Avaliação Social e Autorização de Imagem implementados.
 - **Geração de PDF**: Documentos gerados dinamicamente no frontend.
+
+## 10. Novos Módulos Sugeridos
+
+### Dashboard Analytics (Visualização de Dados)
+Atualmente, a rota `/` redireciona para a lista de beneficiários.
+**Melhoria:** Criar um Dashboard real com gráficos (usando `recharts`):
+-   Total de atendimentos no mês.
+-   Distribuição de cestas por programa.
+-   Novos voluntários nos últimos 6 meses.
+
+### Logs de Auditoria (Rastreabilidade)
+Para maior segurança e transparência.
+**Melhoria:** Criar tabela `AuditLog` no banco para registrar quem fez o que:
+-   `userId`: Quem fez.
+-   `action`: O que fez (CREATE, UPDATE, DELETE).
+-   `entity`: Em qual entidade (Beneficiary, Volunteer).
+-   `timestamp`: Quando.
