@@ -101,7 +101,7 @@ Aqui está a lista completa de arquivos do projeto e o propósito de cada um:
   - `layout.tsx` - Layout base do painel (Sidebar + Header).
   - `page.tsx` - Dashboard principal (Home).
 - `api/` - Rotas de API (pouco usadas, preferimos Server Actions).
-- `forms-demo/` - Página de demonstração dos formulários digitais.
+
 - `login/` - Página pública de login.
 - `globals.css` - Estilos globais e variáveis CSS (Tailwind).
 - `layout.tsx` - Layout raiz da aplicação (HTML, Body, Fontes).

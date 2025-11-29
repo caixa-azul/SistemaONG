@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
 import { getBeneficiaryById } from "@/actions/beneficiaries";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,19 +26,20 @@ import {
 } from "@/components/ui/table";
 
 interface PageProps {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
 export default function BeneficiaryDetailsPage({ params }: PageProps) {
+    const { id } = use(params);
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [beneficiary, setBeneficiary] = useState<any>(null);
 
     useEffect(() => {
         async function loadBeneficiary() {
-            const result = await getBeneficiaryById(params.id);
+            const result = await getBeneficiaryById(id);
             if (result.success && result.data) {
                 setBeneficiary(result.data);
             }
@@ -46,7 +47,7 @@ export default function BeneficiaryDetailsPage({ params }: PageProps) {
         }
 
         loadBeneficiary();
-    }, [params.id]);
+    }, [id]);
 
     if (loading) {
         return (
@@ -96,7 +97,7 @@ export default function BeneficiaryDetailsPage({ params }: PageProps) {
             {/* Quick Actions */}
             <div className="grid gap-4 md:grid-cols-3">
                 <Card className="hover:bg-accent cursor-pointer transition-colors"
-                    onClick={() => router.push(`/beneficiaries/${params.id}/assessment`)}>
+                    onClick={() => router.push(`/beneficiaries/${id}/assessment`)}>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Cadastro Socioeconômico</CardTitle>
                         <FileText className="h-4 w-4 text-muted-foreground" />
@@ -114,7 +115,7 @@ export default function BeneficiaryDetailsPage({ params }: PageProps) {
                 </Card>
 
                 <Card className="hover:bg-accent cursor-pointer transition-colors"
-                    onClick={() => router.push(`/beneficiaries/${params.id}/image-auth`)}>
+                    onClick={() => router.push(`/beneficiaries/${id}/image-auth`)}>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Autorização de Imagem</CardTitle>
                         <Image className="h-4 w-4 text-muted-foreground" />
@@ -132,7 +133,7 @@ export default function BeneficiaryDetailsPage({ params }: PageProps) {
                 </Card>
 
                 <Card className="hover:bg-accent cursor-pointer transition-colors"
-                    onClick={() => router.push(`/beneficiaries/${params.id}/referral`)}>
+                    onClick={() => router.push(`/beneficiaries/${id}/referral`)}>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Encaminhamento</CardTitle>
                         <Utensils className="h-4 w-4 text-muted-foreground" />
