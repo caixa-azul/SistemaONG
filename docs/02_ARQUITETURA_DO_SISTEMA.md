@@ -40,6 +40,12 @@ O projeto pode parecer grande, mas tudo tem seu lugar. Aqui está o guia:
 │   ├── ui/              # Botões, Inputs, Cards (Componentes visuais básicos)
 │   └── pdf/             # Geradores de documentos PDF
 │
+├── 📁 docs/             # 📚 BIBLIOTECA (Documentação)
+│   └── (Manuais, guias e diagramas para entender o projeto)
+│
+├── 📁 hooks/            # 🎣 ANZÓIS (Lógica Reutilizável)
+│   └── (Pequenas funções que "pescam" funcionalidades do React para usar em vários lugares)
+│
 ├── 📁 lib/              # 🔧 FERRAMENTAS (Utilitários)
 │   ├── prisma.ts        # Conexão com o banco
 │   └── schemas/         # Validações Zod (Regras de negócio)
@@ -47,90 +53,132 @@ O projeto pode parecer grande, mas tudo tem seu lugar. Aqui está o guia:
 ├── 📁 prisma/           # 💾 DADOS
 │   └── schema.prisma    # O desenho do nosso banco de dados
 │
-└── 📄 auth.ts           # Configuração de Login e Sessão
+├── 📁 public/           # 🖼️ GALERIA (Arquivos Estáticos)
+│   └── (Imagens, logos e arquivos que são acessados publicamente)
+│
+├── 📁 types/            # 🏷️ ETIQUETAS (Definições de Tipos)
+│   └── (Onde definimos o formato exato dos dados para o TypeScript não reclamar)
+│
+├── 📄 auth.ts           # Configuração de Login e Sessão
+└── 📄 middleware.ts     # 👮 PORTEIRO (Segurança de Rotas)
 ```
 
 ---
 
 ## 🗂️ Lista Detalhada de Arquivos
 
-Aqui está a lista completa de arquivos do projeto e o propósito de cada um:
+Abaixo, a árvore completa de arquivos do projeto para referência rápida:
 
-### 📁 Raiz do Projeto
-- `actions/` - Contém as Server Actions (lógica de backend executada no servidor).
-- `app/` - Diretório principal do Next.js App Router (páginas e rotas).
-- `components/` - Componentes React reutilizáveis (UI, formulários, PDFs).
-- `docs/` - Documentação do projeto (manuais, guias, diagramas).
-- `docs/referencia_legada/` - Modelos de formulários legados (referência para digitalização).
-- `hooks/` - Hooks personalizados do React (lógica de frontend reutilizável).
-- `lib/` - Bibliotecas e utilitários auxiliares (conexão com banco, validações).
-- `prisma/` - Arquivos relacionados ao banco de dados (schema, migrations, seeds).
-- `public/` - Arquivos estáticos públicos (imagens, ícones).
-- `types/` - Definições de tipos globais do TypeScript.
-- `auth.config.ts` - Configurações de autenticação (NextAuth).
-- `auth.ts` - Inicialização e exportação dos métodos de autenticação.
-- `components.json` - Configuração da biblioteca de componentes shadcn/ui.
-- `eslint.config.mjs` - Configuração do linter (verificador de qualidade de código).
-- `middleware.ts` - O "Porteiro" do sistema (proteção de rotas).
-- `next.config.ts` - Configurações do framework Next.js.
-- `package.json` - Lista de dependências e scripts do projeto.
-- `postcss.config.mjs` - Configuração do processador de CSS.
-- `README.md` - Documentação inicial e visão geral do projeto.
-- `tsconfig.json` - Configuração do compilador TypeScript.
-
-### 📁 actions/ (Backend Logic)
-- `auth.ts` - Ações de autenticação (login, logout).
-- `beneficiaries.ts` - Criação e edição de beneficiários.
-- `consultas.ts` - Lógica de busca e filtros avançados.
-- `distributions.ts` - Registro de distribuição de itens.
-- `donation.ts` - Gerenciamento de doações recebidas.
-- `financial.ts` - Controle financeiro básico.
-- `forms.ts` - Processamento de formulários digitais e geração de PDFs.
-- `institutions.ts` - Gerenciamento de instituições parceiras.
-- `inventory.ts` - Controle de estoque.
-- `volunteers.ts` - Gestão de voluntários.
-
-### 📁 app/ (Frontend Routes)
-- `(dashboard)/` - Grupo de rotas protegidas (requer login).
-  - `beneficiaries/` - Páginas de gestão de beneficiários.
-  - `consultas/` - Página de busca avançada ("Data Explorer").
-  - `distributions/` - Páginas de registro de distribuições.
-  - `donations/` - Páginas de controle de doações.
-  - `financial/` - Painel financeiro.
-  - `inventory/` - Visualização de estoque.
-  - `volunteers/` - Gestão de voluntários.
-  - `layout.tsx` - Layout base do painel (Sidebar + Header).
-  - `page.tsx` - Dashboard principal (Home).
-- `api/` - Rotas de API (pouco usadas, preferimos Server Actions).
-
-- `login/` - Página pública de login.
-- `globals.css` - Estilos globais e variáveis CSS (Tailwind).
-- `layout.tsx` - Layout raiz da aplicação (HTML, Body, Fontes).
-
-### 📁 components/ (UI Blocks)
-- `forms/` - Formulários interativos (Client Components).
-  - `beneficiary-form.tsx` - Formulário principal de cadastro de beneficiários.
-  - `social-assessment-form.tsx` - Formulário de avaliação social.
-  - `...` - Outros formulários específicos.
-- `layout/` - Componentes estruturais.
-  - `header.tsx` - Barra superior.
-  - `sidebar.tsx` - Menu lateral de navegação.
-- `pdf/` - Componentes para geração de documentos PDF.
-  - `social-assessment-pdf.tsx` - Layout do PDF de avaliação social.
-  - `activity-report.tsx` - Layout do Relatório Oficial de Atividades.
-  - `download-button.tsx` - Botão para gerar e baixar PDFs.
-- `ui/` - Componentes base do shadcn/ui (Button, Input, Card, etc.).
-
-### 📁 lib/ (Utilities)
-- `schemas/` - Schemas de validação Zod.
-  - `domain.ts` - Definições de tipos e validações do domínio (Entidades).
-- `prisma.ts` - Instância única do cliente Prisma (Singleton).
-- `utils.ts` - Funções utilitárias gerais (ex: formatação de classes CSS).
-
-### 📁 prisma/ (Database)
-- `migrations/` - Histórico de alterações no banco de dados.
-- `schema.prisma` - A "verdade absoluta" sobre a estrutura do banco de dados.
-- `seed.ts` - Script para popular o banco com dados iniciais (teste).
+```
+```
+/
+├── 📁 actions/ # 🧠 Lógica de Backend (Server Actions)
+│   ├── auth.ts # Ações de autenticação (login, logout)
+│   ├── beneficiaries.ts # Criação e edição de beneficiários
+│   ├── consultas.ts # Lógica de busca e filtros avançados
+│   ├── distributions.ts # Registro de distribuição de itens
+│   ├── donation.ts # Gerenciamento de doações recebidas
+│   ├── financial.ts # Controle financeiro básico
+│   ├── forms.ts # Processamento de formulários digitais
+│   ├── institutions.ts # Gerenciamento de instituições parceiras
+│   ├── inventory.ts # Controle de estoque
+│   └── volunteers.ts # Gestão de voluntários
+│
+├── 📁 app/ # 👁️ Rotas e Páginas (Frontend)
+│   ├── (dashboard)/ # Área logada (Painel Administrativo)
+│   │   ├── beneficiaries/ # Gestão de beneficiários
+│   │   ├── consultas/ # Busca avançada (Data Explorer)
+│   │   ├── distributions/ # Registro de distribuições
+│   │   ├── donations/ # Controle de doações
+│   │   ├── financial/ # Painel financeiro
+│   │   ├── inventory/ # Visualização de estoque
+│   │   ├── volunteers/ # Gestão de voluntários
+│   │   ├── layout.tsx # Layout base (Sidebar + Header)
+│   │   └── page.tsx # Dashboard principal (Home)
+│   ├── api/ # Rotas de API (pouco usadas)
+│   ├── login/ # Página pública de login
+│   ├── globals.css # Estilos globais (Tailwind)
+│   └── layout.tsx # Layout raiz (HTML, Body)
+│
+├── 📁 components/ # 🧱 Componentes React
+│   ├── forms/ # Formulários Interativos (Client Components)
+│   │   ├── beneficiary-form.tsx # Cadastro de beneficiários
+│   │   ├── donation-form.tsx # Registro de doações
+│   │   ├── family-distribution-form.tsx # Distribuição para famílias
+│   │   ├── image-authorization-form.tsx # Autorização de imagem
+│   │   ├── institution-form.tsx # Cadastro de instituições
+│   │   ├── institutional-distribution-form.tsx # Distribuição para instituições
+│   │   ├── login-form.tsx # Formulário de login
+│   │   ├── nutritionist-referral-form.tsx # Encaminhamento nutricional
+│   │   ├── social-assessment-form.tsx # Avaliação social
+│   │   ├── volunteer-form.tsx # Cadastro de voluntários
+│   │   └── volunteer-termination-form.tsx # Desligamento de voluntários
+│   ├── layout/ # Componentes estruturais
+│   │   ├── header.tsx # Barra superior
+│   │   └── sidebar.tsx # Menu lateral
+│   ├── pdf/ # Geradores de documentos PDF
+│   │   ├── activity-report.tsx # Relatório de atividades
+│   │   ├── consultas-report-pdf.tsx # Relatório de consultas
+│   │   ├── download-button.tsx # Botão genérico de download
+│   │   ├── family-distribution-pdf.tsx # Comprovante de distribuição (família)
+│   │   ├── image-authorization-pdf.tsx # Termo de imagem
+│   │   ├── institutional-distribution-pdf.tsx # Comprovante de distribuição (instituição)
+│   │   ├── nutritionist-referral-pdf.tsx # Encaminhamento nutricional
+│   │   ├── pdf-download-button.tsx # Botão específico para PDFs
+│   │   ├── social-assessment-pdf.tsx # Relatório de avaliação social
+│   │   ├── volunteer-adhesion-pdf.tsx # Termo de adesão voluntária
+│   │   └── volunteer-termination-pdf.tsx # Termo de desligamento
+│   ├── shared/ # Componentes compartilhados
+│   └── ui/ # Componentes base do shadcn/ui (Button, Input, etc.)
+│
+├── 📁 docs/ # 📚 Documentação do Projeto
+│   ├── referencia_legada/ # Modelos antigos para referência
+│   ├── 00_INDICE.md # Índice da documentação
+│   ├── 01_GUIA_DE_ESTUDOS.md # Guia para iniciantes
+│   ├── 02_ARQUITETURA_DO_SISTEMA.md # Este arquivo (Visão Geral)
+│   ├── 03_DICIONARIO_TECNICO.md # Glossário de termos
+│   ├── 04_MODELAGEM_DE_DADOS.md # Explicação do Banco de Dados
+│   ├── 05_MANUAL_RODAR_LOCAL.md # Como rodar o projeto
+│   ├── 06_MANUAL_DEPLOY_PRODUCAO.md # Como colocar no ar
+│   ├── 07_STATUS_DO_PROJETO.md # O que está pronto/pendente
+│   ├── 08_MELHORIAS_FUTURAS.md # Backlog de ideias
+│   └── 09_DIAGRAMAS_VISUAIS.md # Diagramas de arquitetura
+│
+├── 📁 hooks/ # 🎣 Hooks Personalizados
+│   ├── use-debounce.ts # Delay para input de busca
+│   └── use-toast.ts # Notificações flutuantes
+│
+├── 📁 lib/ # 🔧 Utilitários e Configurações
+│   ├── schemas/ # Validações Zod
+│   │   └── domain.ts # Tipos e regras de negócio
+│   ├── prisma.ts # Conexão com o Banco de Dados
+│   └── utils.ts # Funções auxiliares gerais
+│
+├── 📁 prisma/ # 💾 Banco de Dados
+│   ├── migrations/ # Histórico de mudanças no banco
+│   ├── schema.prisma # Definição das tabelas e relações
+│   └── seed.ts # Dados iniciais para teste
+│
+├── 📁 public/ # 🖼️ Arquivos Estáticos
+│   ├── apresentacao/ # Slides e apresentações
+│   ├── logo.jpeg # Logo em JPG
+│   └── logo.png # Logo em PNG
+│
+├── 📁 types/ # 🏷️ Tipos TypeScript Globais
+│   ├── index.ts # Tipos gerais
+│   └── next-auth.d.ts # Extensão de tipos de autenticação
+│
+├── auth.config.ts # Configuração do NextAuth
+├── auth.ts # Inicialização da autenticação
+├── components.json # Configuração do shadcn/ui
+├── eslint.config.mjs # Regras de qualidade de código
+├── middleware.ts # Proteção de rotas (Porteiro)
+├── next.config.ts # Configuração do Next.js
+├── package.json # Dependências do projeto
+├── postcss.config.mjs # Processador de CSS
+├── README.md # Documentação inicial
+└── tsconfig.json # Configuração do TypeScript
+```
 
 ---
 
