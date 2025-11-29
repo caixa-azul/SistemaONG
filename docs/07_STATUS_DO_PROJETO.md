@@ -92,6 +92,7 @@
     - [x] **Limpeza e Profissionalização (Recente)**
         - [x] **Limpeza de Arquivos:** Remoção de `logo.jpeg` e `docs/00_INDICE.md` (mergeado no README).
         - [x] **Configuração:** Criação de `.env.example` e `robots.txt`.
+        - [x] **Segurança:** Atualização do `.gitignore` com regras para `.env` e arquivos de sistema.
         - [x] **Documentação Técnica:** Expansão do Dicionário Técnico (Endpoints, Handlers) e Comparativo de Mercado em Melhorias Futuras.
 
 ## Plano de Verificação

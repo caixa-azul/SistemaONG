@@ -10,6 +10,13 @@
 !.yarn/releases
 !.yarn/versions
 
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
 # testing
 /coverage
 
@@ -24,15 +31,27 @@
 .DS_Store
 *.pem
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-
 # vercel
 .vercel
 
+# local env files
+.env
+.env*.local
+
 # typescript
 *.tsbuildinfo
+next-env.d.ts
+
+# os
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# prisma
+*.db
+*.db-journal
