@@ -1,6 +1,6 @@
 # 🏰 Entendendo a Arquitetura do Sistema
 
-Este documento é o mapa do tesouro 🗺️. Ele explica como o projeto está organizado, quais tecnologias usamos e como elas conversam entre si.
+Este documento é o mapa do tesouro. Ele explica como o projeto está organizado, quais tecnologias usamos e como elas conversam entre si.
 
 ---
 
@@ -186,7 +186,10 @@ Abaixo, a árvore completa de arquivos do projeto para referência rápida:
 
 Entender o caminho que o dado faz é essencial. Vamos ver o exemplo de **"Criar um Beneficiário"**:
 
-### 1. O Caminho Feliz 😊
+> [!TIP]
+> Para visualização dos principais fluxos e importações, consulte o [Mapa de Dependências](10_MAPA_DE_DEPENDENCIAS.md).
+
+### 1. O Caminho Feliz 
 
 ```mermaid
 sequenceDiagram

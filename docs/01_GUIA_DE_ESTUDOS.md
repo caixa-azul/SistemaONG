@@ -37,6 +37,7 @@ Utilizamos emojis para categorizar os comentários e facilitar a leitura:
 2.  **Siga o Fluxo**: Tente traçar o caminho de uma funcionalidade.
     *   *Exemplo:* Cadastro de Beneficiário -> `beneficiary-form.tsx` (Frontend) -> `actions/beneficiaries.ts` (Backend) -> Banco de Dados.
 3.  **Leia os Emojis**: Sempre que vir um 🧠, pare e leia a explicação teórica.
+4.  **Consulte o Mapa**: Use o [🗺️ Mapa de Dependências](10_MAPA_DE_DEPENDENCIAS.md) para visualizar quem importa quem.
 
 ## ✅ Conclusão
 O projeto agora serve como um laboratório prático. Estudantes podem clonar, rodar e modificar o código tendo um "professor" embutido nos comentários.

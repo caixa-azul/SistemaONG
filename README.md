@@ -9,7 +9,7 @@ Um sistema completo de gestão para Organizações Não Governamentais, desenvol
 Não é necessário rodar comandos manuais. Preparamos scripts de automação para configurar o ambiente (Node, .env, Banco de Dados) para você.
 
 > [!IMPORTANT]
-> **Configuração do Banco de Dados**: O script **criará automaticamente** um arquivo `.env` (copiando do `.env.example`) para você. **Você precisará editá-lo** e adicionar a URL do seu banco de dados (PostgreSQL/Neon) quando o script pausar e solicitar.
+> **Configuração do Banco de Dados**: O script **criará automaticamente** um arquivo `.env` para você. **Você precisará editá-lo** e adicionar a URL do seu banco de dados (PostgreSQL/Neon) quando o script pausar e solicitar.
 
 ### Opção A: Windows 🪟
 Dê dois cliques no arquivo:
@@ -42,7 +42,8 @@ Para ver diagramas de banco, arquitetura e manuais de deploy, acesse nossa docum
 - [🚀 06 - Manual de Deploy em Produção](docs/06_MANUAL_DEPLOY_PRODUCAO.md) - Checklist para colocar o projeto em produção na Vercel.
 - [📋 07 - Status do Projeto](docs/07_STATUS_DO_PROJETO.md) - Checklist de tarefas concluídas e pendentes.
 - [🔮 08 - Melhorias Futuras](docs/08_MELHORIAS_FUTURAS.md) - Roteiro para transformar o boilerplate em produto final.
-- [📊 09 - Diagramas Visuais](docs/09_DIAGRAMAS_VISUAIS.md) - **NOVO!** Representações visuais da arquitetura (C4, Sequence, Deployment).
+- [📊 09 - Diagramas Visuais](docs/09_DIAGRAMAS_VISUAIS.md) - Representações visuais da arquitetura (C4, Sequence, Deployment).
+- [🗺️ 10 - Mapa de Dependências](docs/10_MAPA_DE_DEPENDENCIAS.md) - Diagramas de fluxo de dados e importações.
 
 ---
 

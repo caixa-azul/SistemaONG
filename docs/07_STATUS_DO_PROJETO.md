@@ -95,6 +95,7 @@
         - [x] **Segurança:** Atualização do `.gitignore` com regras para `.env` e arquivos de sistema.
         - [x] **Setup:** Melhoria nos scripts `setup_windows.bat` e `setup_linux.sh` com validação de `.env`.
         - [x] **Documentação Técnica:** Expansão do Dicionário Técnico (Endpoints, Handlers) e Comparativo de Mercado em Melhorias Futuras.
+        - [x] **Mapa de Dependências:** Criação de `docs/10_MAPA_DE_DEPENDENCIAS.md` com diagramas de fluxo.
 
 ## Plano de Verificação
 

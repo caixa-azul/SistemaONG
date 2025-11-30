@@ -3,6 +3,8 @@
 Este documento contém representações visuais da arquitetura, fluxo de dados e infraestrutura do sistema, utilizando a sintaxe **Mermaid.js**.
 
 > ⚠️ **Nota sobre o Banco de Dados:** Para visualizar o Diagrama Entidade-Relacionamento (ERD) detalhado das tabelas e colunas, consulte o documento dedicado: [04_MODELAGEM_DE_DADOS.md](./04_MODELAGEM_DE_DADOS.md).
+>
+> 🗺️ **Nota sobre Dependências:** Para ver quem importa quem (fluxo de arquivos), veja o [10_MAPA_DE_DEPENDENCIAS.md](./10_MAPA_DE_DEPENDENCIAS.md).
 
 ---
 
