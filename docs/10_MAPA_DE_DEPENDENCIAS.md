@@ -25,10 +25,10 @@ graph TD
     style Schema fill:#eceff1,stroke:#455a64,stroke-width:2px
 
     %% Conexões
-    Page -->|Importa e Renderiza| Form
-    Form -->|Chama Server Action (onSubmit)| Action
-    Action -->|Importa| PrismaLib
-    PrismaLib -->|Lê/Escreve| Schema
+    Page -->|"Importa e Renderiza"| Form
+    Form -->|"Chama Server Action (onSubmit)"| Action
+    Action -->|"Importa"| PrismaLib
+    PrismaLib -->|"Lê/Escreve"| Schema
 ```
 
 ## 2. Fluxo de Autenticação (Auth)
@@ -50,9 +50,9 @@ graph TD
     style AuthAction fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
 
     %% Conexões
-    Middleware -->|Verifica Sessão| AuthConfig
-    LoginPage -->|Chama| AuthAction
-    AuthAction -->|Executa signIn| AuthConfig
+    Middleware -->|"Verifica Sessão"| AuthConfig
+    LoginPage -->|"Chama"| AuthAction
+    AuthAction -->|"Executa signIn"| AuthConfig
 ```
 
 ## 3. Arquitetura Global (Visão de Alto Nível)
@@ -85,12 +85,12 @@ graph TD
     style Data fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
 
     %% Conexões entre camadas
-    Pages -->|Importa| Components
-    Components -->|Chama| Actions
-    Pages -->|Chama| Actions
+    Pages -->|"Importa"| Components
+    Components -->|"Chama"| Actions
+    Pages -->|"Chama"| Actions
     
-    Actions -->|Valida com| Lib
-    Actions -->|Usa| PrismaClient
+    Actions -->|"Valida com"| Lib
+    Actions -->|"Usa"| PrismaClient
     
-    PrismaClient -->|Conecta| DB
+    PrismaClient -->|"Conecta"| DB
 ```
