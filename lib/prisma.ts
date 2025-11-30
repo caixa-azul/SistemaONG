@@ -1,3 +1,4 @@
+// ⬅️ ORIGEM: @prisma/client (Cliente gerado automaticamente)
 import { PrismaClient } from "@prisma/client";
 
 // 🧠 SINGLETON PATTERN:
@@ -9,6 +10,7 @@ import { PrismaClient } from "@prisma/client";
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
+// ➡️ DESTINO: Usado globalmente por todas as Server Actions em /actions/
 export const prisma =
     globalForPrisma.prisma ||
     new PrismaClient({

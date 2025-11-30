@@ -2,8 +2,11 @@
 // O código aqui nunca é enviado para o navegador do usuário, protegendo segredos de banco de dados.
 "use server";
 
+// ⬅️ ORIGEM: next/cache (Utilidade do Next.js para limpar cache de rota)
 import { revalidatePath } from "next/cache";
+// ⬅️ ORIGEM: /lib/prisma.ts (Conexão Singleton com o Banco de Dados)
 import { prisma } from "@/lib/prisma";
+// ⬅️ ORIGEM: /lib/schemas/domain.ts (Definições centrais de tipos e validações Zod)
 import {
     beneficiarySchema,
     addressSchema,
@@ -13,7 +16,9 @@ import {
     type Beneficiary,
     type Address,
 } from "@/lib/schemas/domain";
+// ⬅️ ORIGEM: zod (Biblioteca de validação de schema)
 import { z } from "zod";
+// ⬅️ ORIGEM: /auth.ts (Sessão do usuário no servidor)
 import { auth } from "@/auth";
 
 // ============================================
@@ -21,6 +26,7 @@ import { auth } from "@/auth";
 // ============================================
 
 // 🧠 SERVER ACTION: Uma função assíncrona que pode ser chamada diretamente do frontend (form action).
+// ➡️ DESTINO: Usado por /components/forms/beneficiary-form.tsx
 export async function createBeneficiary(data: unknown) {
     try {
         // 🛡️ AUTHENTICATION: Primeira linha de defesa.
@@ -64,6 +70,7 @@ export async function createBeneficiary(data: unknown) {
     }
 }
 
+// ➡️ DESTINO: Usado por /components/forms/beneficiary-form.tsx (Fluxo completo)
 export async function createBeneficiaryWithAddress(
     beneficiaryData: unknown,
     addressData: unknown
@@ -114,6 +121,7 @@ export async function createBeneficiaryWithAddress(
     }
 }
 
+// ➡️ DESTINO: Usado por /app/(dashboard)/beneficiaries/page.tsx (Listagem)
 export async function getBeneficiaries() {
     try {
         const session = await auth();
@@ -137,6 +145,7 @@ export async function getBeneficiaries() {
     }
 }
 
+// ➡️ DESTINO: Usado por /app/(dashboard)/beneficiaries/[id]/page.tsx (Detalhes)
 export async function getBeneficiaryById(id: string) {
     try {
         const session = await auth();
@@ -176,6 +185,7 @@ export async function getBeneficiaryById(id: string) {
 // AÇÕES DE AVALIAÇÃO SOCIAL
 // ============================================
 
+// ➡️ DESTINO: Usado por /components/forms/social-assessment-form.tsx
 export async function createSocialAssessment(data: unknown) {
     try {
         const session = await auth();
@@ -233,6 +243,7 @@ export async function createSocialAssessment(data: unknown) {
 // AÇÕES DE AUTORIZAÇÃO DE IMAGEM
 // ============================================
 
+// ➡️ DESTINO: Usado por /components/forms/image-authorization-form.tsx
 export async function createImageAuthorization(data: unknown) {
     try {
         const session = await auth();
@@ -268,6 +279,7 @@ export async function createImageAuthorization(data: unknown) {
 // AÇÕES DE ENCAMINHAMENTO NUTRICIONAL
 // ============================================
 
+// ➡️ DESTINO: Usado por /components/forms/nutritionist-referral-form.tsx
 export async function createNutritionistReferral(data: unknown) {
     try {
         const session = await auth();

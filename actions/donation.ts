@@ -1,13 +1,21 @@
 "use server";
 
+// ⬅️ ORIGEM: zod (Biblioteca de validação)
 import { z } from "zod";
+// ⬅️ ORIGEM: /lib/prisma.ts (Conexão Singleton)
 import { prisma } from "@/lib/prisma";
+// ⬅️ ORIGEM: next/cache (Utilidade do Next.js para limpar cache de rota)
 import { revalidatePath } from "next/cache";
+// ⬅️ ORIGEM: next/navigation (Redirecionamento server-side)
 import { redirect } from "next/navigation";
+// ⬅️ ORIGEM: @prisma/client (Tipos gerados automaticamente pelo Prisma)
 import { Prisma } from "@prisma/client";
+// ⬅️ ORIGEM: /types/index.ts (Enums e tipos globais)
 import { DonationType, FinancialMethod, UnitOfMeasure } from "@/types";
+// ⬅️ ORIGEM: /auth.ts (Sessão do usuário)
 import { auth } from "@/auth";
 
+// ⬅️ ORIGEM: /types/index.ts (Tipo para Server Actions com useFormState)
 import { State } from "@/types";
 
 const CreateDonationSchema = z.object({
@@ -25,6 +33,7 @@ const CreateDonationSchema = z.object({
     unit: z.nativeEnum(UnitOfMeasure).optional(),
 });
 
+// ➡️ DESTINO: Usado por /components/forms/donation-form.tsx
 export async function createDonation(prevState: State, formData: FormData) {
     const session = await auth();
     if (!session?.user?.id) {

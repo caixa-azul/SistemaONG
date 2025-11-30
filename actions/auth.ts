@@ -1,10 +1,13 @@
 "use server";
 
+// ⬅️ ORIGEM: /auth.ts (Configuração principal do NextAuth)
 import { signIn } from "@/auth";
+// ⬅️ ORIGEM: next-auth (Biblioteca externa de autenticação)
 import { AuthError } from "next-auth";
 
 // 🧠 SERVER ACTION: Autenticação
 // Esta função é chamada pelo formulário de login.
+// ➡️ DESTINO: Usado pelo formulário de login em /app/login/page.tsx
 export async function authenticate(
     prevState: string | undefined,
     formData: FormData,

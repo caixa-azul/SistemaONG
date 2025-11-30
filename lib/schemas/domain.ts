@@ -1,3 +1,4 @@
+// ⬅️ ORIGEM: zod (Biblioteca de validação de schema)
 import { z } from "zod";
 
 // ============================================
@@ -5,6 +6,7 @@ import { z } from "zod";
 // ============================================
 // 🧠 ENUMS NO ZOD: Precisamos replicar os Enums do Prisma aqui.
 // O Zod valida se a string que veio do formulário é um desses valores permitidos.
+// ➡️ DESTINO: Usado por /actions/ e /prisma/schema.prisma (via compatibilidade)
 export const RaceEnum = z.enum(["PRETO", "BRANCO", "AMARELO", "PARDO", "INDIGENA"]);
 export const HousingTypeEnum = z.enum(["ALUGADA", "PROPRIA", "CEDIDA", "OUTRA"]);
 export const HousingConditionEnum = z.enum(["BOA", "REGULAR", "FRAGIL"]);
@@ -24,6 +26,7 @@ export const FamilyRelationshipEnum = z.enum(["FILHO", "FILHA", "CONJUGE", "PAI"
 // ============================================
 
 // Shared Address Schema
+// ➡️ DESTINO: Usado por beneficiarySchema e institutionSchema
 export const addressSchema = z.object({
     street: z.string().min(1, "Rua/Av. é obrigatória"),
     number: z.string().min(1, "Número é obrigatório"),
@@ -36,6 +39,7 @@ export const addressSchema = z.object({
 
 // 🧠 SCHEMA DE BENEFICIÁRIO
 // Define as regras de validação para o formulário.
+// ➡️ DESTINO: Usado por /actions/beneficiaries.ts e formulários
 export const beneficiarySchema = z.object({
     fullName: z.string().min(3, "Nome completo é obrigatório"), // Mínimo 3 caracteres
     dateOfBirth: z.date({
@@ -216,6 +220,7 @@ export const volunteerTerminationSchema = z.object({
 // 🧠 INFERÊNCIA DE TIPO: O Zod gera os tipos TypeScript automaticamente.
 // Não precisamos escrever `interface Beneficiary { ... }` manualmente.
 // Se mudarmos o schema acima, o tipo atualiza sozinho!
+// ➡️ DESTINO: Usado globalmente para tipagem (Frontend e Backend)
 export type Address = z.infer<typeof addressSchema>;
 export type Beneficiary = z.infer<typeof beneficiarySchema>;
 export type FamilyMember = z.infer<typeof familyMemberSchema>;

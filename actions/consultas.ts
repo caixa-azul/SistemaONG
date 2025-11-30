@@ -1,9 +1,12 @@
 'use server';
 
+// ⬅️ ORIGEM: /lib/prisma.ts (Conexão Singleton com o Banco de Dados)
 import { prisma } from '@/lib/prisma';
+// ⬅️ ORIGEM: @prisma/client (Tipos gerados automaticamente pelo Prisma)
 import { FamilyDistribution, Prisma } from '@prisma/client';
 
 // 🧠 TYPES: Definimos os tipos dos filtros para garantir que o frontend envie os dados certos.
+// ➡️ DESTINO: Usado por /app/(dashboard)/distributions/family/page.tsx (Tipagem de props)
 export type DistributionFilters = {
     search?: string;
     startDate?: string;
@@ -13,6 +16,7 @@ export type DistributionFilters = {
     pageSize?: number;
 };
 
+// ➡️ DESTINO: Usado internamente e por componentes de lista
 export type FilteredDistributionResult = {
     data: (FamilyDistribution & {
         beneficiary: {
@@ -28,6 +32,7 @@ export type FilteredDistributionResult = {
 
 // ⚡ SERVER ACTION: Esta função roda exclusivamente no servidor.
 // Ela recebe os filtros do frontend e constrói a query do banco de dados.
+// ➡️ DESTINO: Usado por /app/(dashboard)/distributions/family/page.tsx (Busca com filtros)
 export async function getFilteredDistributions(
     filters: DistributionFilters
 ): Promise<FilteredDistributionResult> {

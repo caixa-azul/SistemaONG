@@ -1,13 +1,18 @@
 "use server";
 
+// ⬅️ ORIGEM: next/cache (Utilidade do Next.js para limpar cache de rota)
 import { revalidatePath } from "next/cache";
+// ⬅️ ORIGEM: /lib/prisma.ts (Conexão Singleton com o Banco de Dados)
 import { prisma } from "@/lib/prisma";
+// ⬅️ ORIGEM: /lib/schemas/domain.ts (Validação Zod)
 import { familyDistributionSchema } from "@/lib/schemas/domain";
+// ⬅️ ORIGEM: /auth.ts (Sessão do usuário)
 import { auth } from "@/auth";
 
 /**
  * Create a new family distribution
  */
+// ➡️ DESTINO: Usado por /components/forms/family-distribution-form.tsx
 export async function createFamilyDistribution(data: unknown) {
     try {
         const session = await auth();
@@ -52,6 +57,7 @@ export async function createFamilyDistribution(data: unknown) {
 /**
  * Get all family distributions with beneficiary details
  */
+// ➡️ DESTINO: Usado por /app/(dashboard)/distributions/family/page.tsx
 export async function getFamilyDistributions() {
     try {
         const session = await auth();
@@ -83,6 +89,7 @@ export async function getFamilyDistributions() {
 /**
  * Get family distribution by ID
  */
+// ➡️ DESTINO: Usado por /app/(dashboard)/distributions/family/[id]/page.tsx
 export async function getFamilyDistributionById(id: string) {
     try {
         const session = await auth();
@@ -118,6 +125,7 @@ export async function getFamilyDistributionById(id: string) {
 /**
  * Get distributions by beneficiary ID
  */
+// ➡️ DESTINO: Usado por /app/(dashboard)/beneficiaries/[id]/page.tsx
 export async function getFamilyDistributionsByBeneficiary(beneficiaryId: string) {
     try {
         const session = await auth();
@@ -140,6 +148,7 @@ export async function getFamilyDistributionsByBeneficiary(beneficiaryId: string)
 /**
  * Get distribution statistics
  */
+// ➡️ DESTINO: Usado por /app/(dashboard)/page.tsx (Dashboard principal)
 export async function getFamilyDistributionStats() {
     try {
         const session = await auth();

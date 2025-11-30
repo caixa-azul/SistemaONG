@@ -1,13 +1,18 @@
 "use server";
 
+// ⬅️ ORIGEM: next/cache (Utilidade do Next.js para limpar cache de rota)
 import { revalidatePath } from "next/cache";
+// ⬅️ ORIGEM: /lib/prisma.ts (Conexão Singleton com o Banco de Dados)
 import { prisma } from "@/lib/prisma";
+// ⬅️ ORIGEM: /lib/schemas/domain.ts (Validação Zod)
 import { volunteerSchema, volunteerTerminationSchema } from "@/lib/schemas/domain";
+// ⬅️ ORIGEM: /auth.ts (Sessão do usuário)
 import { auth } from "@/auth";
 
 /**
  * Create a new volunteer with address
  */
+// ➡️ DESTINO: Usado por /components/forms/volunteer-form.tsx
 export async function createVolunteerWithAddress(
     volunteerData: any,
     addressData: any
@@ -49,6 +54,7 @@ export async function createVolunteerWithAddress(
 /**
  * Get all volunteers
  */
+// ➡️ DESTINO: Usado por /app/(dashboard)/volunteers/page.tsx
 export async function getVolunteers() {
     try {
         const session = await auth();
@@ -73,6 +79,7 @@ export async function getVolunteers() {
 /**
  * Get volunteer by ID
  */
+// ➡️ DESTINO: Usado por /app/(dashboard)/volunteers/[id]/page.tsx
 export async function getVolunteerById(id: string) {
     try {
         const session = await auth();
@@ -99,6 +106,7 @@ export async function getVolunteerById(id: string) {
 /**
  * Terminate a volunteer
  */
+// ➡️ DESTINO: Usado por /components/forms/volunteer-termination-form.tsx
 export async function terminateVolunteer(data: unknown) {
     try {
         const session = await auth();
@@ -170,6 +178,7 @@ export async function terminateVolunteer(data: unknown) {
 /**
  * Get volunteer statistics
  */
+// ➡️ DESTINO: Usado por /app/(dashboard)/page.tsx
 export async function getVolunteerStats() {
     try {
         const session = await auth();
@@ -212,6 +221,7 @@ export async function getVolunteerStats() {
 /**
  * Update a volunteer
  */
+// ➡️ DESTINO: Usado por /components/forms/volunteer-form.tsx
 export async function updateVolunteer(
     id: string,
     volunteerData: any,

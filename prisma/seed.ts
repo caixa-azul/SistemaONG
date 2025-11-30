@@ -1,5 +1,8 @@
+// ⬅️ ORIGEM: @prisma/client (Tipos e Cliente do Banco)
 import { PrismaClient, UserRole, VolunteerStatus, HousingType, HousingCondition, FamilyDistributionType, DistributionProgram, FamilyRelationship } from '@prisma/client';
+// ⬅️ ORIGEM: @faker-js/faker (Gerador de dados falsos para testes)
 import { fakerPT_BR as faker } from '@faker-js/faker';
+// ⬅️ ORIGEM: bcryptjs (Hashing de senhas para segurança)
 import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();

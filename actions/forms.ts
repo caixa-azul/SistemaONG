@@ -1,10 +1,16 @@
 "use server";
 
+// ⬅️ ORIGEM: zod (Biblioteca de validação)
 import { z } from "zod";
+// ⬅️ ORIGEM: /lib/prisma.ts (Conexão Singleton com o Banco de Dados)
 import { prisma } from "@/lib/prisma";
+// ⬅️ ORIGEM: next/cache (Utilidade do Next.js para limpar cache de rota)
 import { revalidatePath } from "next/cache";
+// ⬅️ ORIGEM: /types/index.ts (Tipo para Server Actions com useFormState)
 import { State } from "@/types";
+// ⬅️ ORIGEM: /auth.ts (Sessão do usuário)
 import { auth } from "@/auth";
+// ⬅️ ORIGEM: /lib/schemas/domain.ts (Validação Zod)
 import {
     HousingTypeEnum,
     HousingConditionEnum,
@@ -31,6 +37,7 @@ const ImageAuthorizationFormSchema = z.object({
     signaturePath: z.string().optional(),
 });
 
+// ➡️ DESTINO: Usado por /components/forms/social-assessment-form.tsx
 export async function saveSocialAssessment(prevState: State, formData: FormData): Promise<State> {
     const session = await auth();
     if (!session?.user) {
@@ -98,6 +105,7 @@ export async function saveSocialAssessment(prevState: State, formData: FormData)
     return { message: "Avaliação salva com sucesso!", errors: {} };
 }
 
+// ➡️ DESTINO: Usado por /components/forms/image-authorization-form.tsx
 export async function saveImageAuthorization(prevState: State, formData: FormData): Promise<State> {
     const session = await auth();
     if (!session?.user) {

@@ -1,11 +1,17 @@
 "use server";
 
+// ⬅️ ORIGEM: zod (Biblioteca de validação)
 import { z } from "zod";
+// ⬅️ ORIGEM: /lib/prisma.ts (Conexão Singleton com o Banco de Dados)
 import { prisma } from "@/lib/prisma";
+// ⬅️ ORIGEM: @prisma/client (Tipos gerados automaticamente pelo Prisma)
 import { Prisma } from "@prisma/client";
+// ⬅️ ORIGEM: next/cache (Utilidade do Next.js para limpar cache de rota)
 import { revalidatePath } from "next/cache";
+// ⬅️ ORIGEM: next/navigation (Redirecionamento server-side)
 import { redirect } from "next/navigation";
 
+// ⬅️ ORIGEM: /types/index.ts (Tipo para Server Actions com useFormState)
 import { State } from "@/types";
 
 const TransactionSchema = z.object({
@@ -13,6 +19,7 @@ const TransactionSchema = z.object({
     amount: z.coerce.number(), // Pode ser negativo para despesas
 });
 
+// ➡️ DESTINO: Usado por /components/forms/financial-form.tsx (ou similar)
 export async function recordTransaction(prevState: State, formData: FormData) {
     const validatedFields = TransactionSchema.safeParse({
         description: formData.get("description"),

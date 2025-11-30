@@ -1,12 +1,19 @@
 "use server";
 
+// ⬅️ ORIGEM: zod (Biblioteca de validação)
 import { z } from "zod";
+// ⬅️ ORIGEM: /lib/prisma.ts (Conexão Singleton com o Banco de Dados)
 import { prisma } from "@/lib/prisma";
+// ⬅️ ORIGEM: next/cache (Utilidade do Next.js para limpar cache de rota)
 import { revalidatePath } from "next/cache";
+// ⬅️ ORIGEM: next/navigation (Redirecionamento server-side)
 import { redirect } from "next/navigation";
+// ⬅️ ORIGEM: /types/index.ts (Enums e tipos globais)
 import { UnitOfMeasure } from "@/types";
+// ⬅️ ORIGEM: /auth.ts (Sessão do usuário)
 import { auth } from "@/auth";
 
+// ⬅️ ORIGEM: /types/index.ts (Tipo para Server Actions com useFormState)
 import { State } from "@/types";
 
 const InventorySchema = z.object({
@@ -16,6 +23,7 @@ const InventorySchema = z.object({
     minThreshold: z.coerce.number().min(0).optional(),
 });
 
+// ➡️ DESTINO: Usado por /components/forms/inventory-form.tsx
 export async function createInventoryItem(prevState: State, formData: FormData) {
     // 🛡️ AUTH CHECK: Apenas usuários logados podem criar itens.
     const session = await auth();
@@ -61,6 +69,7 @@ export async function createInventoryItem(prevState: State, formData: FormData) 
     redirect("/inventory");
 }
 
+// ➡️ DESTINO: Usado por /components/forms/inventory-form.tsx
 export async function updateInventoryItem(id: string, prevState: State, formData: FormData) {
     const session = await auth();
     if (!session?.user) {

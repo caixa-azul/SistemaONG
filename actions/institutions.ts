@@ -1,13 +1,18 @@
 "use server";
 
+// ⬅️ ORIGEM: next/cache (Utilidade do Next.js para limpar cache de rota)
 import { revalidatePath } from "next/cache";
+// ⬅️ ORIGEM: /lib/prisma.ts (Conexão Singleton com o Banco de Dados)
 import { prisma } from "@/lib/prisma";
+// ⬅️ ORIGEM: /lib/schemas/domain.ts (Validação Zod)
 import { institutionSchema, institutionalDistributionSchema } from "@/lib/schemas/domain";
+// ⬅️ ORIGEM: /auth.ts (Sessão do usuário)
 import { auth } from "@/auth";
 
 /**
  * Create a new institution
  */
+// ➡️ DESTINO: Usado por /components/forms/institution-form.tsx
 export async function createInstitution(data: unknown) {
     try {
         const session = await auth();
@@ -42,6 +47,7 @@ export async function createInstitution(data: unknown) {
 /**
  * Create institution with address
  */
+// ➡️ DESTINO: Usado por /components/forms/institution-form.tsx
 export async function createInstitutionWithAddress(
     institutionData: any,
     addressData: any
@@ -80,6 +86,7 @@ export async function createInstitutionWithAddress(
 /**
  * Get all institutions
  */
+// ➡️ DESTINO: Usado por /app/(dashboard)/distributions/institutional/page.tsx
 export async function getInstitutions() {
     try {
         const session = await auth();
@@ -110,6 +117,7 @@ export async function getInstitutions() {
 /**
  * Get institution by ID
  */
+// ➡️ DESTINO: Usado por /app/(dashboard)/institutions/[id]/page.tsx
 export async function getInstitutionById(id: string) {
     try {
         const session = await auth();
@@ -144,6 +152,7 @@ export async function getInstitutionById(id: string) {
 /**
  * Create institutional distribution
  */
+// ➡️ DESTINO: Usado por /components/forms/institutional-distribution-form.tsx
 export async function createInstitutionalDistribution(data: unknown) {
     try {
         const session = await auth();
@@ -201,6 +210,7 @@ export async function createInstitutionalDistribution(data: unknown) {
 /**
  * Get all institutional distributions
  */
+// ➡️ DESTINO: Usado por /app/(dashboard)/distributions/institutional/page.tsx
 export async function getInstitutionalDistributions() {
     try {
         const session = await auth();
@@ -233,6 +243,7 @@ export async function getInstitutionalDistributions() {
 /**
  * Get institutional distribution statistics
  */
+// ➡️ DESTINO: Usado por /app/(dashboard)/page.tsx
 export async function getInstitutionalDistributionStats() {
     try {
         const session = await auth();
