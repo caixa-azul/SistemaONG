@@ -25,7 +25,7 @@ Abra o terminal e rode:
 
 ## 📚 Documentação e Aprendizado
 
-Este projeto foi desenhado para ser estudado. Toda a lógica está comentada e documentada.
+Este projeto foi desenhado para ser transparente e educativo. Embora seja um sistema em produção, toda a lógica está comentada para facilitar o aprendizado.
 
 ### 🎓 Comece por aqui:
 1.  [**Guia de Estudos (Walkthrough)**](docs/01_GUIA_DE_ESTUDOS.md) - Entenda como ler este código.
@@ -52,7 +52,13 @@ Para ver diagramas de banco, arquitetura e manuais de deploy, acesse nossa docum
 * **Framework:** Next.js 14 (App Router)
 * **Banco de Dados:** PostgreSQL (via Prisma ORM)
 * **Estilização:** Tailwind CSS + Shadcn/UI
-* **Auth:** NextAuth.js v5
+*   **Auth:** NextAuth.js v5
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
 ---
 
