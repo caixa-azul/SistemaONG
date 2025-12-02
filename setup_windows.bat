@@ -3,7 +3,7 @@ setlocal
 chcp 65001 > nul
 
 echo ==========================================
-echo 🚀 NGO Management System - Setup (Windows)
+echo 🚀 Sistema de Gestão de ONGs - Setup (Windows)
 echo ==========================================
 echo.
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "=========================================="
-echo "🚀 NGO Management System - Setup (Linux/Mac)"
+echo "🚀 Sistema de Gestão de ONGs - Setup (Linux/Mac)"
 echo "=========================================="
 echo ""
 
